@@ -140,6 +140,7 @@ namespace GD.App
 
             InitializeSatiliteModel();
             //IntializeConsoleModel();
+            //IntializeRadarModel();
 
         }
 
@@ -288,6 +289,17 @@ namespace GD.App
             var consoleMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, consoleFbxModel);
             consoleGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(consoleTexture, 1), consoleMesh));
             sceneManager.ActiveScene.Add(consoleGameObject);
+        }
+
+        private void IntializeRadarModel()
+        {
+            var radarGameObject = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            radarGameObject.Transform = new Transform(new Vector3(1, 1, 1), null, new Vector3(1, 1, 1));
+            var radarTexture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
+            var radarFbxModel = Content.Load<Model>("Assets/Models/satalite");
+            var radarMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, radarFbxModel);
+            radarGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(radarTexture, 1), radarMesh));
+            sceneManager.ActiveScene.Add(radarGameObject);
         }
 
         #endregion Zero Day Threat - Models
