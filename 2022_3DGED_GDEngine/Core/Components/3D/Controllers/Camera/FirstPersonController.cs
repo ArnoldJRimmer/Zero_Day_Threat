@@ -1,6 +1,9 @@
 ﻿using GD.Engine.Globals;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.ComponentModel;
+using System.Reflection;
 
 namespace GD.Engine
 {
@@ -47,10 +50,10 @@ namespace GD.Engine
         public override void Update(GameTime gameTime)
         {
             HandleMouseInput(gameTime);
-            HandleKeyboardInput(gameTime);
+            //HandleKeyboardInput(gameTime);
         }
 
-        protected virtual void HandleKeyboardInput(GameTime gameTime)
+       protected virtual void HandleKeyboardInput(GameTime gameTime)
         {
             translation = Vector3.Zero;
 
@@ -79,7 +82,13 @@ namespace GD.Engine
             rotation.Y -= delta.X * rotationSpeed.X * gameTime.ElapsedGameTime.Milliseconds;
             rotation.X -= delta.Y * rotationSpeed.Y * gameTime.ElapsedGameTime.Milliseconds;
 
+            //Need to work on the rotation of the y so that is stops at 180
+            //Also restrict the x so that it doesn't look all the way up
             if (delta.Length() != 0)
+            {
+
+            }
+
                 transform.SetRotation(rotation);
         }
 

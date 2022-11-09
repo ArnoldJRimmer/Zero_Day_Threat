@@ -184,6 +184,7 @@ namespace GD.App
             //camera
             GameObject cameraGameObject = null;
 
+            //To turn movement back on See FirstPersonController.cs and uncomment: HandleKeyboardInput(gametime);
             #region First Person
 
             //camera 1
@@ -206,55 +207,6 @@ namespace GD.App
             cameraManager.Add(cameraGameObject.Name, cameraGameObject);
 
             #endregion First Person
-
-            #region Security
-
-            //camera 2
-            cameraGameObject = new GameObject("security camera 1");
-
-            cameraGameObject.Transform
-                = new Transform(null,
-                null,
-                new Vector3(0, 2, 25));
-
-            //add camera (view, projection)
-            cameraGameObject.AddComponent(new Camera(MathHelper.PiOver2 / 2,
-                (float)_graphics.PreferredBackBufferWidth / _graphics.PreferredBackBufferHeight, 0.1f, 1000));
-
-            //add rotation
-            cameraGameObject.AddComponent(new CycledRotationBehaviour(
-                AppData.SECURITY_CAMERA_ROTATION_AXIS,
-                AppData.SECURITY_CAMERA_MAX_ANGLE,
-                AppData.SECURITY_CAMERA_ANGULAR_SPEED_MUL,
-                TurnDirectionType.Right));
-
-            //adds FOV change on mouse scroll
-            cameraGameObject.AddComponent(new CameraFOVController(AppData.CAMERA_FOV_INCREMENT_LOW));
-
-            cameraManager.Add(cameraGameObject.Name, cameraGameObject);
-
-            #endregion Security
-
-            #region Curve
-
-            Curve3D curve3D = new Curve3D(CurveLoopType.Oscillate);
-            curve3D.Add(new Vector3(0, 2, 5), 0);
-            curve3D.Add(new Vector3(0, 5, 10), 1000);
-            curve3D.Add(new Vector3(0, 8, 25), 2500);
-            curve3D.Add(new Vector3(0, 5, 35), 4000);
-
-            cameraGameObject = new GameObject("curve camera 1");
-            cameraGameObject.Transform =
-                new Transform(null, null, null);
-            cameraGameObject.AddComponent(new Camera(
-                MathHelper.PiOver2 / 2,
-                (float)_graphics.PreferredBackBufferWidth / _graphics.PreferredBackBufferHeight, 0.1f, 1000));
-            cameraGameObject.AddComponent(
-                new CurveBehaviour(curve3D));
-
-            cameraManager.Add(cameraGameObject.Name, cameraGameObject);
-
-            #endregion Curve
 
             cameraManager.SetActiveCamera(AppData.FIRST_PERSON_CAMERA_NAME);
         }
