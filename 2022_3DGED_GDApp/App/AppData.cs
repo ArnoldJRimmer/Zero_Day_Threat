@@ -83,6 +83,7 @@ namespace GD.App
 
         #region GameObect names
         public static readonly string SATILITE_GAMEOBJECT_NAME = "Satilite Model";
+        public static readonly string CONSOLE_GAMEOBJECT_NAME = "Console Model";
         #endregion GameObject names
     }
 }

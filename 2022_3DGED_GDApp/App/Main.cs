@@ -138,8 +138,8 @@ namespace GD.App
         {
             //load and add to dictionary
 
-            //load the satiilte model
             InitializeSatiliteModel();
+            //IntializeConsoleModel();
 
         }
 
@@ -263,29 +263,34 @@ namespace GD.App
             //create sky
             InitializeSkyBoxAndGround(worldScale);
 
-            //quad with crate texture
-            InitializeDemoQuad();
-
-          
-
         }
 
-
+        #region Zero Day Threat - Models
         private void InitializeSatiliteModel()
         {
             var satiliteGameObject = new GameObject(AppData.SATILITE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
-            satiliteGameObject.Transform = new Transform(new Vector3(0.1f,0.1f,0.1f), new Vector3(0,0,1), new Vector3(0.5f,3,1));
+            satiliteGameObject.Transform = new Transform(new Vector3(0.1f, 0.1f, 0.1f), new Vector3(0, 0, 1), new Vector3(0.5f, 3, 1));
             var satiliteTexture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
             var satiliteFbxModel = Content.Load<Model>("Assets/Models/satalite");
             var satiliteMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, satiliteFbxModel);
-
-
             //gameObject.AddComponent(new SimpleRotationBehaviour(new Vector3(1, 0, 0), MathHelper.ToRadians(1 / 16.0f)));
-
             //sceneManager.ActiveScene.Add(gameObject);
             satiliteGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(satiliteTexture, 1), satiliteMesh));
             sceneManager.ActiveScene.Add(satiliteGameObject);
         }
+
+        private void IntializeConsoleModel()
+        {
+            var consoleGameObject = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            consoleGameObject.Transform = new Transform(new Vector3(1, 1, 1), null, new Vector3(1, 1, 1));
+            var consoleTexture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
+            var consoleFbxModel = Content.Load<Model>("Assets/Models/satalite");
+            var consoleMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, consoleFbxModel);
+            consoleGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(consoleTexture, 1), consoleMesh));
+            sceneManager.ActiveScene.Add(consoleGameObject);
+        }
+
+        #endregion Zero Day Threat - Models
 
 
         private void InitializeSkyBoxAndGround(float worldScale)
