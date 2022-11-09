@@ -9,11 +9,12 @@ This repository contains code for the game engine and our game
 - [ ] Add Console model
 - [x] Added a placeholder for the console model
 - [x] Added a placeholder for the radar model
-- [ ] Add textures for the skybox
+- [x] Add textures for the skybox
 - [x] Add Camera
 - [x] Fix turning view of camera
 - [ ] Limit the rotation of the camera
 - [ ] Implement sounds
+
 
 
 
