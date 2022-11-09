@@ -26,6 +26,7 @@ namespace GD.App
         #region World Scale
 
         public static readonly float SKYBOX_WORLD_SCALE = 2000;
+      
 
         #endregion World Scale
 
