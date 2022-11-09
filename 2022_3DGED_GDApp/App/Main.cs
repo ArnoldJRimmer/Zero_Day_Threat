@@ -78,17 +78,13 @@ namespace GD.App
 
         protected override void LoadContent()
         {
-            //moved spritebatch initialization to Main::Initialize() because we need it in InitializeDebug()
-            //_spriteBatch = new SpriteBatch(GraphicsDevice);
+          
         }
 
         private void InitializeLevel(string title, float worldScale)
         {
             //set game title
             SetTitle(title);
-
-            //load sounds, textures, models etc
-            LoadMediaAssets();
 
             //initialize curves used by cameras
             InitializeCurves();
@@ -98,6 +94,9 @@ namespace GD.App
 
             //add scene manager and starting scenes
             InitializeScenes();
+
+            //load sounds, textures, models etc
+            LoadMediaAssets();
 
             //add drawn stuff
             InitializeDrawnContent(worldScale);
@@ -138,6 +137,10 @@ namespace GD.App
         private void LoadModels()
         {
             //load and add to dictionary
+
+            //load the satiilte model
+            InitializeSatiliteModel();
+
         }
 
         private void InitializeCurves()
@@ -263,38 +266,27 @@ namespace GD.App
             //quad with crate texture
             InitializeDemoQuad();
 
-            //load the satiilte model
-            InitializeSatiliteModel();
+          
+
         }
 
 
         private void InitializeSatiliteModel()
         {
             var satiliteGameObject = new GameObject(AppData.SATILITE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
-            satiliteGameObject.Transform = new Transform(2 * Vector3.One, null, new Vector3(-2, 0, 0));
-
+            satiliteGameObject.Transform = new Transform(new Vector3(0.1f,0.1f,0.1f), new Vector3(0,0,1), new Vector3(0.5f,3,1));
             var satiliteTexture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
             var satiliteFbxModel = Content.Load<Model>("Assets/Models/satalite");
             var satiliteMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, satiliteFbxModel);
 
+
+            //gameObject.AddComponent(new SimpleRotationBehaviour(new Vector3(1, 0, 0), MathHelper.ToRadians(1 / 16.0f)));
+
+            //sceneManager.ActiveScene.Add(gameObject);
             satiliteGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(satiliteTexture, 1), satiliteMesh));
             sceneManager.ActiveScene.Add(satiliteGameObject);
         }
 
-        private void InitializeDemoQuad()
-        {
-            //game object
-            var gameObject = new GameObject("my first quad",
-                ObjectType.Static, RenderType.Opaque);
-            gameObject.Transform = new Transform(null, null, new Vector3(0, 2, 1));  //World
-            var texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
-            gameObject.AddComponent(new Renderer(new GDBasicEffect(effect),
-                new Material(texture, 1), new QuadMesh(_graphics.GraphicsDevice)));
-
-            gameObject.AddComponent(new SimpleRotationBehaviour(new Vector3(1, 0, 0), MathHelper.ToRadians(1 / 16.0f)));
-
-            sceneManager.ActiveScene.Add(gameObject);
-        }
 
         private void InitializeSkyBoxAndGround(float worldScale)
         {
