@@ -7,8 +7,13 @@ This repository contains code for the game engine and our game
 - [x] Add satilite model
 - [ ] Texture satilite model
 - [ ] Add Console model
+- [x] Added a placeholder for the console model
+- [x] Added a placeholder for the radar model
+- [ ] Add textures for the skybox
 - [x] Add Camera
-- [ ] Fix turning view of camera
+- [x] Fix turning view of camera
+- [ ] Limit the rotation of the camera
+- [ ] Implement sounds
 
 
 
