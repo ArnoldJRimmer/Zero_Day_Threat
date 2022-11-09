@@ -63,7 +63,7 @@ namespace GD.App
             InitializeEngine(AppData.APP_RESOLUTION, true, true);
 
             //game specific content
-            InitializeLevel("My Amazing Game", AppData.SKYBOX_WORLD_SCALE);
+            InitializeLevel("Zero Day Threat", AppData.SKYBOX_WORLD_SCALE);
 
 #if SHOW_DEBUG_INFO
             //InitializeDebug();
@@ -157,13 +157,13 @@ namespace GD.App
         private void InitializeScenes()
         {
             //initialize a scene
-            var scene = new Scene("labyrinth");
+            var scene = new Scene("Mission Control");
 
             //add scene to the scene manager
             sceneManager.Add(scene.ID, scene);
 
             //don't forget to set active scene
-            sceneManager.SetActiveScene("labyrinth");
+            sceneManager.SetActiveScene("Mission Control");
         }
 
         private void InitializeEffects()
