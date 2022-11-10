@@ -50,7 +50,7 @@ namespace GD.Engine
         public override void Update(GameTime gameTime)
         {
             HandleMouseInput(gameTime);
-            //HandleKeyboardInput(gameTime);
+            HandleKeyboardInput(gameTime);
         }
 
        protected virtual void HandleKeyboardInput(GameTime gameTime)
