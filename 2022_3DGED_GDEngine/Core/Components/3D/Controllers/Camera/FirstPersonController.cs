@@ -110,10 +110,7 @@ namespace GD.Engine
             rotation.Y -= delta.X * rotationSpeed.X * gameTime.ElapsedGameTime.Milliseconds;
             rotation.X -= delta.Y * rotationSpeed.Y * gameTime.ElapsedGameTime.Milliseconds;
 
-            //Need to work on the rotation of the y so that is stops
-         
-
-
+            
             if (delta.Length() != 0)
             {
 
