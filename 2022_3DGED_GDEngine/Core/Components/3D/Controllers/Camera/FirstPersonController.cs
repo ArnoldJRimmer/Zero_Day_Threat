@@ -1,4 +1,5 @@
-﻿using GD.Engine.Globals;
+﻿using GD.App;
+using GD.Engine.Globals;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -78,12 +79,41 @@ namespace GD.Engine
             rotation = Vector3.Zero;
             var delta = Input.Mouse.Delta;
 
+            #region CameraBounds
+            //Stop viewing from left to right 
+            if (delta.X >= AppData.STOP_ROTATION_BOUNDS_X)
+            {
+                //Don't allow the camera to move past this point
+                delta.X = AppData.STOP_ROTATION_BOUNDS_X;
+
+            }
+            else if (delta.X <= -AppData.STOP_ROTATION_BOUNDS_X)
+            {
+                delta.X = -AppData.STOP_ROTATION_BOUNDS_X;
+            }
+
+
+            //Stop viewing up and down
+            if (delta.Y >= AppData.STOP_ROTATION_BOUNDS_Y)
+            {
+                //Don't allow the camera to move past this point
+                delta.Y = AppData.STOP_ROTATION_BOUNDS_Y;
+
+            }
+            else if (delta.Y <= -AppData.STOP_ROTATION_BOUNDS_Y)
+            {
+                delta.Y = -AppData.STOP_ROTATION_BOUNDS_Y;
+            }
+            #endregion CamerBounds
+
             //Q - where are X and Y reversed?
             rotation.Y -= delta.X * rotationSpeed.X * gameTime.ElapsedGameTime.Milliseconds;
             rotation.X -= delta.Y * rotationSpeed.Y * gameTime.ElapsedGameTime.Milliseconds;
 
-            //Need to work on the rotation of the y so that is stops at 180
-            //Also restrict the x so that it doesn't look all the way up
+            //Need to work on the rotation of the y so that is stops
+         
+
+
             if (delta.Length() != 0)
             {
 
@@ -91,6 +121,7 @@ namespace GD.Engine
 
                 transform.SetRotation(rotation);
         }
+
 
         #endregion Actions - Update, Input
 
