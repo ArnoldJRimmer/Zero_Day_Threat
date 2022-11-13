@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SharpDX.Direct3D9;
+using Effect = Microsoft.Xna.Framework.Graphics.Effect;
 
 namespace GD.Engine
 {
@@ -38,7 +40,11 @@ namespace GD.Engine
 
         public void SetMaterial(Material material)
         {
+            //set color
+            effect.DiffuseColor = material.DiffuseColor.ToVector3();
+            //set texture
             effect.Texture = material.Diffuse;
+            //set transparency
             effect.Alpha = material.Alpha;
         }
 

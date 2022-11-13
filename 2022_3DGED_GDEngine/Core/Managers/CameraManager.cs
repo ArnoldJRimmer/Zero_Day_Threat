@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GD.App;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 
@@ -7,7 +8,7 @@ namespace GD.Engine.Managers
     /// <summary>
     /// Stores all cameras and updates the active camera
     /// </summary>
-    public class CameraManager
+    public class CameraManager : GameComponent
     {
         #region Fields
 
@@ -45,7 +46,8 @@ namespace GD.Engine.Managers
 
         #region Constructors
 
-        public CameraManager()
+        public CameraManager(Main game)
+            : base(game)
         {
             cameras = new Dictionary<string, GameObject>();
         }
@@ -87,8 +89,14 @@ namespace GD.Engine.Managers
 
         #region Actions - Update
 
-        public virtual void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
+            if (activeGameObject == null)
+                throw new ArgumentNullException("Active object not set. " +
+                    "Did you add camera in Main::InitializeLevel()? " +
+                    "Did you call SetActiveCamera() in Main::InitializeLevel()? " +
+                    "Is the camera name correct in SetActiveCamera()?");
+
             activeGameObject.Update(gameTime);
         }
 
