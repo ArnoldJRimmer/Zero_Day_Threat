@@ -61,11 +61,6 @@ namespace GD.App
 
         #endregion Camera - Security Camera
 
-        #region Camera Bounds
-        public static readonly int STOP_ROTATION_BOUNDS_X = 30;
-        public static readonly int STOP_ROTATION_BOUNDS_Y = 30;
-        #endregion Camera Bounds
-
         #region Input Key Mappings
 
         public static readonly Keys[] KEYS_ONE = { Keys.W, Keys.S, Keys.A, Keys.D };
