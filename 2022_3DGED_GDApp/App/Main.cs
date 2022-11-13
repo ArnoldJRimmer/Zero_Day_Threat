@@ -205,7 +205,10 @@ namespace GD.App
 
             //all other drawn objects
             effect = new BasicEffect(_graphics.GraphicsDevice);
-          
+            effect.TextureEnabled = true;
+            effect.LightingEnabled = true;
+            effect.EnableDefaultLighting();
+
         }
 
         private void InitializeCameras()
