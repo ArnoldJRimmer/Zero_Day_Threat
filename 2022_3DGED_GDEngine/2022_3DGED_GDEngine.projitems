@@ -21,6 +21,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\3D\Controllers\Camera\CameraFOVController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\3D\Controllers\Camera\FirstPersonCameraController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\3D\Controllers\Camera\FirstPersonController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Components\3D\Renderers\Renderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\3D\Scene\Scene.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Data\Resolutions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Demo\TestUpdateableDrawableComponent.cs" />
@@ -41,11 +42,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Core\Graphics\Meshes\Mesh.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Graphics\Meshes\ModelMesh.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Graphics\Meshes\QuadMesh.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\Graphics\Renderers\Renderer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Graphics\SceneRenderers\ForwardSceneRenderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Level\ILoadLevel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Inputs\GamepadComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Inputs\KeyboardComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Inputs\MouseComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Managers\RenderManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Types\Integer2.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Managers\CameraManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Managers\SceneManager.cs" />

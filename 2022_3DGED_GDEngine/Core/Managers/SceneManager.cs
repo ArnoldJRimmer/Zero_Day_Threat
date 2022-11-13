@@ -7,7 +7,7 @@ namespace GD.Engine.Managers
     /// <summary>
     /// Stores all scenes and updates the active scene
     /// </summary>
-    public class SceneManager
+    public class SceneManager : GameComponent
     {
         #region Fields
 
@@ -33,7 +33,8 @@ namespace GD.Engine.Managers
 
         #region Constructors
 
-        public SceneManager()
+        public SceneManager(Game game)
+            : base(game)
         {
             scenes = new Dictionary<string, Scene>();
         }
@@ -67,7 +68,7 @@ namespace GD.Engine.Managers
 
         #region Actions - Update
 
-        public virtual void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             activeScene.Update(gameTime);
         }

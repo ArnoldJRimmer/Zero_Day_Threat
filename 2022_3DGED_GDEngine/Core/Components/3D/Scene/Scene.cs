@@ -34,6 +34,8 @@ namespace GD.Engine
         #region Properties
 
         public string ID { get => id; set => id = value.Trim(); }
+        public GameObjectList OpaqueList { get => opaqueList; protected set => opaqueList = value; }
+        public GameObjectList TransparentList { get => transparentList; protected set => transparentList = value; }
 
         #endregion Properties
 
@@ -141,7 +143,7 @@ namespace GD.Engine
 
         #endregion Actions - Add, Find, FindAll, Remove, RemoveAll, Size, Clear
 
-        #region Actions - Update, Draw
+        #region Actions - Update
 
         public virtual void Update(GameTime gameTime)
         {
@@ -149,47 +151,13 @@ namespace GD.Engine
             transparentList.Update(gameTime);
         }
 
-        public virtual void Draw(GameTime gameTime, Camera camera)
-        {
-            opaqueList.Draw(gameTime, camera);
-            transparentList.Draw(gameTime, camera);
-        }
+        //public virtual void Draw(GameTime gameTime, Camera camera)
+        //{
+        //    opaqueList.Draw(gameTime, camera);
+        //    transparentList.Draw(gameTime, camera);
+        //}
 
-        public virtual void InitializeRasterizerStates()
-        {
-            ////opaque objects
-            //rasterizerStateOpaque = new RasterizerState();
-            //rasterizerStateOpaque.CullMode = CullMode.CullCounterClockwiseFace;
-
-            ////transparent objects
-            //rasterizerStateTransparent = new RasterizerState();
-            //rasterizerStateTransparent.CullMode = CullMode.None;
-        }
-
-        public virtual void SetGraphicsStates(bool isOpaque, RasterizerState rasterizerState)
-        {
-            if (isOpaque)
-            {
-                //set the appropriate state for opaque objects
-                Application.GraphicsDevice.RasterizerState = rasterizerState;
-
-                //write depth data to ensure objects closer to camera are drawn
-                Application.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
-            }
-            else
-            {
-                //set the appropriate state for transparent objects
-                Application.GraphicsDevice.RasterizerState = rasterizerState;
-
-                //enable alpha blending for transparent objects i.e. trees
-                Application.GraphicsDevice.BlendState = BlendState.AlphaBlend;
-
-                //read but dont write depth info
-                Application.GraphicsDevice.DepthStencilState = DepthStencilState.DepthRead;
-            }
-        }
-
-        #endregion Actions - Update, Draw
+        #endregion Actions - Update
 
         #region DEBUG
 

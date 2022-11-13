@@ -1,12 +1,11 @@
 ﻿#region Pre-compiler directives
 
-//#define DEMO
+#define DEMO
 #define SHOW_DEBUG_INFO
 
 #endregion
 
 using GD.Core;
-using GD.Core.Types;
 using GD.Engine;
 using GD.Engine.Events;
 using GD.Engine.Globals;
@@ -15,6 +14,7 @@ using GD.Engine.Managers;
 using GD.Engine.Parameters;
 using GD.Engine.Utilities;
 using Microsoft.Xna.Framework;
+using System;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -31,13 +31,18 @@ namespace GD.App
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private BasicEffect skyBoxEffect;
+        private BasicEffect unlitEffect;
         private BasicEffect effect;
 
         private CameraManager cameraManager;
         private SceneManager sceneManager;
         private SoundManager soundManager;
         private EventDispatcher eventDispatcher;
+        private RenderManager renderManager;
+
+#if DEMO
+        private event EventHandler OnChanged;
+#endif
 
         #endregion Fields
 
@@ -54,8 +59,32 @@ namespace GD.App
 
         #region Actions - Initialize
 
+        #if DEMO
+
+        private void DemoCode()
+        {
+            //shows how we can create an event, register for it, and raise it in Main::Update() on Keys.E press
+            DemoEvent();
+        }
+
+        private void DemoEvent()
+        {
+            OnChanged += HandleOnChanged;
+        }
+
+        private void HandleOnChanged(object sender, EventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine($"{e} was sent by {sender}");
+        }
+
+        #endif
+
         protected override void Initialize()
         {
+
+            #if DEMO
+                DemoCode();
+            #endif
             //moved spritebatch initialization here because we need it in InitializeDebug() below
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -65,8 +94,10 @@ namespace GD.App
             //game specific content
             InitializeLevel("Zero Day Threat", AppData.SKYBOX_WORLD_SCALE);
 
+        
+
 #if SHOW_DEBUG_INFO
-            //InitializeDebug();
+            InitializeDebug();
 #endif
 
             base.Initialize();
@@ -169,14 +200,12 @@ namespace GD.App
         private void InitializeEffects()
         {
             //only for skybox with lighting disabled
-            skyBoxEffect = new BasicEffect(_graphics.GraphicsDevice);
-            skyBoxEffect.TextureEnabled = true;
+            unlitEffect = new BasicEffect(_graphics.GraphicsDevice);
+            unlitEffect.TextureEnabled = true;
 
             //all other drawn objects
             effect = new BasicEffect(_graphics.GraphicsDevice);
-            effect.TextureEnabled = true;
-            effect.LightingEnabled = true;
-            effect.EnableDefaultLighting();
+          
         }
 
         private void InitializeCameras()
@@ -195,7 +224,8 @@ namespace GD.App
                 AppData.FIRST_PERSON_HALF_FOV, //MathHelper.PiOver2 / 2,
                 (float)_graphics.PreferredBackBufferWidth / _graphics.PreferredBackBufferHeight,
                 AppData.FIRST_PERSON_CAMERA_NCP, //0.1f,
-                AppData.FIRST_PERSON_CAMERA_FCP)); // 3000
+                AppData.FIRST_PERSON_CAMERA_FCP, new Viewport(0, 0, _graphics.PreferredBackBufferWidth,
+                _graphics.PreferredBackBufferHeight)));// 3000
 
             //OLD
             //cameraGameObject.AddComponent(new FirstPersonCameraController(AppData.FIRST_PERSON_MOVE_SPEED, AppData.FIRST_PERSON_STRAFE_SPEED));
@@ -262,7 +292,7 @@ namespace GD.App
             float halfWorldScale = worldScale / 4.0f;
 
             GameObject quad = null;
-            var gdBasicEffect = new GDBasicEffect(skyBoxEffect);
+            var gdBasicEffect = new GDBasicEffect(unlitEffect);
             var quadMesh = new QuadMesh(_graphics.GraphicsDevice);
 
             //skybox - back face
@@ -406,18 +436,28 @@ namespace GD.App
         private void InitializeManagers()
         {
             //add event dispatcher for system events - the most important element!!!!!!
-            //eventDispatcher = new EventDispatcher(this);
+            eventDispatcher = new EventDispatcher(this);
+            //add to Components otherwise no Update() called
+            Components.Add(eventDispatcher);
 
             //add support for multiple cameras and camera switching
-            cameraManager = new CameraManager();
+            cameraManager = new CameraManager(this);
+            //add to Components otherwise no Update() called
+            Components.Add(cameraManager);
 
-            //add support for multiple scenes and scene switching
-            sceneManager = new SceneManager();
+            //big kahuna nr 1! this adds support to store, switch and Update() scene contents
+            sceneManager = new SceneManager(this);
+            //add to Components otherwise no Update()
+            Components.Add(sceneManager);
+
+            //big kahuna nr 2! this renders the ActiveScene from the ActiveCamera perspective
+            renderManager = new RenderManager(this, new ForwardSceneRenderer(_graphics.GraphicsDevice));
+            Components.Add(renderManager);
 
             //add support for playing sounds
             soundManager = new SoundManager();
-
-            //TODO - add other managers
+            //why don't we add SoundManager to Components? Because it has no Update()
+            //wait...SoundManager has no update? Yes, playing sounds is handled by an internal MonoGame thread - so we're off the hook!
         }
 
         private void InitializeDictionaries()
@@ -430,7 +470,7 @@ namespace GD.App
             //intialize the utility component
             var perfUtility = new PerfUtility(this, _spriteBatch,
                 new Vector2(10, 10),
-                new Vector2(0, 20));
+                new Vector2(0, 22));
 
             //set the font to be used
             var spriteFont = Content.Load<SpriteFont>("Assets/Fonts/Perf");
@@ -438,8 +478,6 @@ namespace GD.App
             //add components to the info list to add UI information
             float headingScale = 1f;
             float contentScale = 0.9f;
-            perfUtility.infoList.Add(new TextInfo(_spriteBatch, spriteFont, "Hints -----------------------------------", Color.Yellow, headingScale * Vector2.One));
-            perfUtility.infoList.Add(new TextInfo(_spriteBatch, spriteFont, "Use mouse scroll wheel to change security camera FOV", Color.White, contentScale * Vector2.One));
             perfUtility.infoList.Add(new TextInfo(_spriteBatch, spriteFont, "Performance ------------------------------", Color.Yellow, headingScale * Vector2.One));
             perfUtility.infoList.Add(new FPSInfo(_spriteBatch, spriteFont, "FPS:", Color.White, contentScale * Vector2.One));
             perfUtility.infoList.Add(new TextInfo(_spriteBatch, spriteFont, "Camera -----------------------------------", Color.Yellow, headingScale * Vector2.One));
@@ -448,6 +486,8 @@ namespace GD.App
             perfUtility.infoList.Add(new CameraRotationInfo(_spriteBatch, spriteFont, "Rot:", Color.White, contentScale * Vector2.One));
             perfUtility.infoList.Add(new TextInfo(_spriteBatch, spriteFont, "Object -----------------------------------", Color.Yellow, headingScale * Vector2.One));
             perfUtility.infoList.Add(new ObjectInfo(_spriteBatch, spriteFont, "Objects:", Color.White, contentScale * Vector2.One));
+            perfUtility.infoList.Add(new TextInfo(_spriteBatch, spriteFont, "Hints -----------------------------------", Color.Yellow, headingScale * Vector2.One));
+            perfUtility.infoList.Add(new TextInfo(_spriteBatch, spriteFont, "Use mouse scroll wheel to change security camera FOV, F1-F4 for camera switch", Color.White, contentScale * Vector2.One));
 
             //add to the component list otherwise it wont have its Update or Draw called!
             Components.Add(perfUtility);
@@ -463,10 +503,10 @@ namespace GD.App
                 Exit();
 
             //update all drawn game objects in the active scene
-            sceneManager.Update(gameTime);
+            //sceneManager.Update(gameTime);
 
             //update active camera
-            cameraManager.Update(gameTime);
+            //cameraManager.Update(gameTime);
 
 #if DEMO
 
@@ -506,7 +546,7 @@ namespace GD.App
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             //get active scene, get camera, and call the draw on the active scene
-            sceneManager.ActiveScene.Draw(gameTime, cameraManager.ActiveCamera);
+            //sceneManager.ActiveScene.Draw(gameTime, cameraManager.ActiveCamera);
 
             base.Draw(gameTime);
         }
