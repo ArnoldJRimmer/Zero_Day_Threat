@@ -306,10 +306,10 @@ namespace GD.App
             #endregion ParentCube
 
             //Need to make the faces children of the cube, so that i can begin to clone the "pieces" of the cube
-            //Also need to make the faces smaller
+            //Also need to make the faces smaller(could also go about this differnetly?)
             #region Faces
             var cube2GameObject = new GameObject("Front_Face", ObjectType.Static, RenderType.Opaque);
-            cube2GameObject.Transform = new Transform(new Vector3(0.95f, 0.95f, 0.1f), null, new Vector3(1, 1, 2));
+            cube2GameObject.Transform = new Transform(new Vector3(0.95f, 0.95f, 0.01f), null, new Vector3(1, 1, 2));
             var cube2Texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
             var cube2FbxModel = Content.Load<Model>("Assets/Models/cube");
             var cube2Mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, cubeFbxModel);
@@ -317,7 +317,7 @@ namespace GD.App
             sceneManager.ActiveScene.Add(cube2GameObject);
 
             var cube3GameObject = new GameObject("Back_Face", ObjectType.Static, RenderType.Opaque);
-            cube3GameObject.Transform = new Transform(new Vector3(0.95f, 0.95f, 0.1f), null, new Vector3(1, 1, 0.9f));
+            cube3GameObject.Transform = new Transform(new Vector3(0.95f, 0.95f, 0.01f), null, new Vector3(1, 1, 0.99f));
             var cube3Texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
             var cube3FbxModel = Content.Load<Model>("Assets/Models/cube");
             var cube3Mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, cubeFbxModel);
@@ -325,7 +325,7 @@ namespace GD.App
             sceneManager.ActiveScene.Add(cube3GameObject);
 
             var cube4GameObject = new GameObject("Top_Face", ObjectType.Static, RenderType.Opaque);
-            cube4GameObject.Transform = new Transform(new Vector3(0.95f, 0.95f, 0.1f), new Vector3(1.59f,0,0), new Vector3(1, 1.6f, 1.5f));
+            cube4GameObject.Transform = new Transform(new Vector3(0.95f, 0.95f, 0.01f), new Vector3(1.59f,0,0), new Vector3(1, 1.51f, 1.5f));
             var cube4Texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
             var cube4FbxModel = Content.Load<Model>("Assets/Models/cube");
             var cube4Mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, cubeFbxModel);
@@ -333,7 +333,7 @@ namespace GD.App
             sceneManager.ActiveScene.Add(cube4GameObject);
 
             var cube5GameObject = new GameObject("Left_Face", ObjectType.Static, RenderType.Opaque);
-            cube5GameObject.Transform = new Transform(new Vector3(0.95f, 0.95f, 0.1f), new Vector3(0, 1.59f, 0), new Vector3(0.4f, 1, 1.5f));
+            cube5GameObject.Transform = new Transform(new Vector3(0.95f, 0.95f, 0.01f), new Vector3(0, 1.59f, 0), new Vector3(0.49f, 1, 1.5f));
             var cube5Texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
             var cube5FbxModel = Content.Load<Model>("Assets/Models/cube");
             var cube5Mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, cubeFbxModel);
@@ -342,7 +342,7 @@ namespace GD.App
 
 
             var cube6GameObject = new GameObject("Right_Face", ObjectType.Static, RenderType.Opaque);
-            cube6GameObject.Transform = new Transform(new Vector3(0.95f, 0.95f, 0.1f), new Vector3(0, 1.59f, 0), new Vector3(1.5f, 1, 1.5f));
+            cube6GameObject.Transform = new Transform(new Vector3(0.95f, 0.95f, 0.01f), new Vector3(0, 1.59f, 0), new Vector3(1.5f, 1, 1.5f));
             var cube6Texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
             var cube6FbxModel = Content.Load<Model>("Assets/Models/cube");
             var cube6Mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, cubeFbxModel);
