@@ -1,7 +1,7 @@
 ﻿#region Pre-compiler directives
 
 #define DEMO
-#define SHOW_DEBUG_INFO
+//#define SHOW_DEBUG_INFO
 
 #endregion
 
@@ -169,9 +169,10 @@ namespace GD.App
         {
             //load and add to dictionary
 
-            InitializeSatiliteModel();
+            //InitializeSatiliteModel();
             //IntializeConsoleModel();
             //IntializeRadarModel();
+            InitializeEachCube();
 
         }
 
@@ -286,8 +287,86 @@ namespace GD.App
             radarGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(radarTexture, 1), radarMesh));
             sceneManager.ActiveScene.Add(radarGameObject);
         }
-
         #endregion Zero Day Threat - Models
+
+        #region Zero Day Threat - The Cube
+        private void InitializeEachCube()
+        {
+            
+            #region ParentCube
+
+            var cube1GameObject = new GameObject("Corner cube", ObjectType.Static, RenderType.Opaque);
+            cube1GameObject.Transform = new Transform(new Vector3(1, 1, 1), null, new Vector3(1, 1, 1));
+            var cube1Texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");// remember to change blank
+            var cubeFbxModel = Content.Load<Model>("Assets/Models/cube");
+            var cubeMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, cubeFbxModel);
+            cube1GameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(cube1Texture, 1, Color.Black), cubeMesh));
+            sceneManager.ActiveScene.Add(cube1GameObject);
+
+            #endregion ParentCube
+
+            //Need to make the faces children of the cube, so that i can begin to clone the "pieces" of the cube
+            //Also need to make the faces smaller
+            #region Faces
+            var cube2GameObject = new GameObject("Front_Face", ObjectType.Static, RenderType.Opaque);
+            cube2GameObject.Transform = new Transform(new Vector3(0.95f, 0.95f, 0.1f), null, new Vector3(1, 1, 2));
+            var cube2Texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
+            var cube2FbxModel = Content.Load<Model>("Assets/Models/cube");
+            var cube2Mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, cubeFbxModel);
+            cube2GameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(cube1Texture, 1, Color.Orange), cubeMesh));
+            sceneManager.ActiveScene.Add(cube2GameObject);
+
+            var cube3GameObject = new GameObject("Back_Face", ObjectType.Static, RenderType.Opaque);
+            cube3GameObject.Transform = new Transform(new Vector3(0.95f, 0.95f, 0.1f), null, new Vector3(1, 1, 0.9f));
+            var cube3Texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
+            var cube3FbxModel = Content.Load<Model>("Assets/Models/cube");
+            var cube3Mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, cubeFbxModel);
+            cube3GameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(cube1Texture, 1, Color.Red), cubeMesh));
+            sceneManager.ActiveScene.Add(cube3GameObject);
+
+            var cube4GameObject = new GameObject("Top_Face", ObjectType.Static, RenderType.Opaque);
+            cube4GameObject.Transform = new Transform(new Vector3(0.95f, 0.95f, 0.1f), new Vector3(1.59f,0,0), new Vector3(1, 1.6f, 1.5f));
+            var cube4Texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
+            var cube4FbxModel = Content.Load<Model>("Assets/Models/cube");
+            var cube4Mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, cubeFbxModel);
+            cube4GameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(cube1Texture, 1, Color.Yellow), cubeMesh));
+            sceneManager.ActiveScene.Add(cube4GameObject);
+
+            var cube5GameObject = new GameObject("Left_Face", ObjectType.Static, RenderType.Opaque);
+            cube5GameObject.Transform = new Transform(new Vector3(0.95f, 0.95f, 0.1f), new Vector3(0, 1.59f, 0), new Vector3(0.4f, 1, 1.5f));
+            var cube5Texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
+            var cube5FbxModel = Content.Load<Model>("Assets/Models/cube");
+            var cube5Mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, cubeFbxModel);
+            cube5GameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(cube1Texture, 1, Color.Green), cubeMesh));
+            sceneManager.ActiveScene.Add(cube5GameObject);
+
+
+            var cube6GameObject = new GameObject("Right_Face", ObjectType.Static, RenderType.Opaque);
+            cube6GameObject.Transform = new Transform(new Vector3(0.95f, 0.95f, 0.1f), new Vector3(0, 1.59f, 0), new Vector3(1.5f, 1, 1.5f));
+            var cube6Texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
+            var cube6FbxModel = Content.Load<Model>("Assets/Models/cube");
+            var cube6Mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, cubeFbxModel);
+            cube6GameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(cube1Texture, 1, Color.Blue), cubeMesh));
+            sceneManager.ActiveScene.Add(cube6GameObject);
+
+            var cube7GameObject = new GameObject("Bottom_Face", ObjectType.Static, RenderType.Opaque);
+            cube7GameObject.Transform = new Transform(new Vector3(0.95f, 0.95f, 0.1f), new Vector3(1.59f,0, 0), new Vector3(1, -1.6f, 1.5f));
+            var cube7Texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
+            var cube7FbxModel = Content.Load<Model>("Assets/Models/cube");
+            var cube7Mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, cubeFbxModel);
+            cube7GameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(cube1Texture, 1, Color.White), cubeMesh));
+            sceneManager.ActiveScene.Add(cube7GameObject);
+
+            #endregion Faces
+
+
+
+
+
+
+
+        }
+        #endregion Zero Day Threat - The Cube
 
 
         private void InitializeSkyBoxAndGround(float worldScale)
