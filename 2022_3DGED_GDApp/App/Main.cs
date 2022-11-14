@@ -169,8 +169,8 @@ namespace GD.App
         {
             //load and add to dictionary
 
-            InitializeSatiliteModel();
-            //IntializeConsoleModel();
+            //InitializeSatiliteModel();
+            IntializeConsoleModel();
             //IntializeRadarModel();
 
         }
@@ -268,9 +268,9 @@ namespace GD.App
         private void IntializeConsoleModel()
         {
             var consoleGameObject = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
-            consoleGameObject.Transform = new Transform(new Vector3(1, 1, 1), null, new Vector3(1, 1, 1));
+            consoleGameObject.Transform = new Transform(new Vector3(0.1f, 0.1f, 0.1f), null, new Vector3(1, 1, 1));
             var consoleTexture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
-            var consoleFbxModel = Content.Load<Model>("Assets/Models/console-join");
+            var consoleFbxModel = Content.Load<Model>("Assets/Models/console-fix");
             var consoleMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, consoleFbxModel);
             consoleGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(consoleTexture, 1), consoleMesh));
             sceneManager.ActiveScene.Add(consoleGameObject);
