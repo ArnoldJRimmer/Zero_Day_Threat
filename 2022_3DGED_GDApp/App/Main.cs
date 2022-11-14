@@ -169,7 +169,7 @@ namespace GD.App
         {
             //load and add to dictionary
 
-            //InitializeSatiliteModel();
+            InitializeSatiliteModel();
             IntializeConsoleModel();
             IntializeRadarModel();
 
@@ -255,7 +255,7 @@ namespace GD.App
         private void InitializeSatiliteModel()
         {
             var satiliteGameObject = new GameObject(AppData.SATILITE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
-            satiliteGameObject.Transform = new Transform(new Vector3(0.1f, 0.1f, 0.1f), new Vector3(0, 0, 1), new Vector3(0.5f, 3, 1));
+            satiliteGameObject.Transform = new Transform(new Vector3(0.15f, 0.15f, 0.15f), new Vector3(-10.1f, -30.8f, 9), new Vector3(1, 4, 1));
             var satiliteTexture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
             var satiliteFbxModel = Content.Load<Model>("Assets/Models/satalite");
             var satiliteMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, satiliteFbxModel);
