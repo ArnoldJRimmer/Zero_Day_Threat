@@ -171,7 +171,7 @@ namespace GD.App
 
             //InitializeSatiliteModel();
             IntializeConsoleModel();
-            //IntializeRadarModel();
+            IntializeRadarModel();
 
         }
 
