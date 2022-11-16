@@ -52,6 +52,7 @@ namespace GD.Engine.Managers
             cameras = new Dictionary<string, GameObject>();
         }
 
+
         #endregion Constructors
 
         #region Actions - Add, SetActiveCamera
