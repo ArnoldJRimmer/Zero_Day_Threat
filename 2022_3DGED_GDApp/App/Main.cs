@@ -1,6 +1,7 @@
 ﻿#region Pre-compiler directives
 
 #define DEMO
+#define HI_RES
 #define SHOW_DEBUG_INFO
 
 #endregion
@@ -303,7 +304,7 @@ namespace GD.App
         {
             var radarGameObject = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
             radarGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
-            var radarTexture = Content.Load<Texture2D>("Assets/Textures/console/button_DefaultMaterial_BaseColor");
+            var radarTexture = Content.Load<Texture2D>("Assets/Textures/console/button_DefaultMaterial_Base_color");
             var radarFbxModel = Content.Load<Model>("Assets/Models/button");
             var radarMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, radarFbxModel);
             radarGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(radarTexture, 1), radarMesh));
@@ -380,7 +381,7 @@ namespace GD.App
         {
             var radarGameObject = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
             radarGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
-            var radarTexture = Content.Load<Texture2D>("Assets/Textures/console/console_DefaultMaterial_BaseColor");
+            var radarTexture = Content.Load<Texture2D>("Assets/Textures/console/radio_Base_Color");
             var radarFbxModel = Content.Load<Model>("Assets/Models/radio");
             var radarMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, radarFbxModel);
             radarGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(radarTexture, 1), radarMesh));
