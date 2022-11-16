@@ -18,12 +18,11 @@ using Keys = Microsoft.Xna.Framework.Input.Keys;
 
 namespace GD.Engine
 {
-    public class Cubey : Game
+    public class Cubey 
     {
         //Break down what i need it to do
         //1: Be able to draw 6 faces and make one cube
         //2: What is a cube made of
-        // - GameObject
         private GameObject face;
 
         public GameObject CubeyBoi(string objectname,Vector3 scale,Vector3 rot, Vector3 translation,IEffect effect,Texture2D texture, Mesh mesh,Color color)
@@ -31,11 +30,10 @@ namespace GD.Engine
             face = null;
             face = new GameObject(objectname, ObjectType.Static, RenderType.Opaque);
             face.Transform = new Transform(scale,rot,translation);
-            Content.RootDirectory = "Content";
-            GraphicsDeviceManager _graphics = new GraphicsDeviceManager(this);
-
+            //Content.RootDirectory = "Content";
+            //GraphicsDeviceManager _graphics = new GraphicsDeviceManager(this);
             //System.ArgumentNullException: 'The GraphicsDevice must not be null when creating new resources. (Parameter 'graphicsDevice')'
-            texture = Content.Load<Texture2D>("Assets/Textures/SkyBox/basicwall");
+            //texture = Content.Load<Texture2D>("Assets/Textures/SkyBox/basicwall");
             face.AddComponent(new Renderer(effect, new Material(texture,1,color),mesh));
             return face;
         }

@@ -172,7 +172,11 @@ namespace GD.App
             //InitializeSatiliteModel();
             //IntializeConsoleModel();
             //IntializeRadarModel();
-            InitializeCube();
+            for(int i = 0; i < 10; i++)
+            {
+                InitializeCube();
+            }
+           
 
         }
 
@@ -292,72 +296,7 @@ namespace GD.App
         #region Zero Day Threat - The Cube
         private void InitializeCube()
         {
-
-            //Redudant code _ For the moment, does what i need it to do but gives me less control and i would Fall into the DRY process
-            #region ParentCube
-
-            //var cube1GameObject = new GameObject("Corner cube", ObjectType.Static, RenderType.Opaque);
-            //cube1GameObject.Transform = new Transform(new Vector3(1, 1, 1), null, new Vector3(1, 1, 1));
-            //var cube1Texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");// remember to change blank
-            //var cubeFbxModel = Content.Load<Model>("Assets/Models/cube");
-            //var cubeMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, cubeFbxModel);
-            //cube1GameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(cube1Texture, 1, Color.Black), cubeMesh));
-            //sceneManager.ActiveScene.Add(cube1GameObject);
-
-            #endregion ParentCube
-
-            #region Faces
-            //var cube2GameObject = new GameObject("Front_Face", ObjectType.Static, RenderType.Opaque);
-            //cube2GameObject.Transform = new Transform(new Vector3(0.95f, 0.95f, 0.01f), null, new Vector3(1, 1, 2));
-            //var cube2Texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
-            //var cube2FbxModel = Content.Load<Model>("Assets/Models/cube");
-            //var cube2Mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, cubeFbxModel);
-            //cube2GameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(cube1Texture, 1, Color.Orange), cubeMesh));
-            //sceneManager.ActiveScene.Add(cube2GameObject);
-
-            //var cube3GameObject = new GameObject("Back_Face", ObjectType.Static, RenderType.Opaque);
-            //cube3GameObject.Transform = new Transform(new Vector3(0.95f, 0.95f, 0.01f), null, new Vector3(1, 1, 0.99f));
-            //var cube3Texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
-            //var cube3FbxModel = Content.Load<Model>("Assets/Models/cube");
-            //var cube3Mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, cubeFbxModel);
-            //cube3GameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(cube1Texture, 1, Color.Red), cubeMesh));
-            //sceneManager.ActiveScene.Add(cube3GameObject);
-
-            //var cube4GameObject = new GameObject("Top_Face", ObjectType.Static, RenderType.Opaque);
-            //cube4GameObject.Transform = new Transform(new Vector3(0.95f, 0.95f, 0.01f), new Vector3(1.59f,0,0), new Vector3(1, 1.51f, 1.5f));
-            //var cube4Texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
-            //var cube4FbxModel = Content.Load<Model>("Assets/Models/cube");
-            //var cube4Mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, cubeFbxModel);
-            //cube4GameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(cube1Texture, 1, Color.Yellow), cubeMesh));
-            //sceneManager.ActiveScene.Add(cube4GameObject);
-
-            //var cube5GameObject = new GameObject("Left_Face", ObjectType.Static, RenderType.Opaque);
-            //cube5GameObject.Transform = new Transform(new Vector3(0.95f, 0.95f, 0.01f), new Vector3(0, 1.59f, 0), new Vector3(0.49f, 1, 1.5f));
-            //var cube5Texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
-            //var cube5FbxModel = Content.Load<Model>("Assets/Models/cube");
-            //var cube5Mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, cubeFbxModel);
-            //cube5GameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(cube1Texture, 1, Color.Green), cubeMesh));
-            //sceneManager.ActiveScene.Add(cube5GameObject);
-
-
-            //var cube6GameObject = new GameObject("Right_Face", ObjectType.Static, RenderType.Opaque);
-            //cube6GameObject.Transform = new Transform(new Vector3(0.95f, 0.95f, 0.01f), new Vector3(0, 1.59f, 0), new Vector3(1.5f, 1, 1.5f));
-            //var cube6Texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
-            //var cube6FbxModel = Content.Load<Model>("Assets/Models/cube");
-            //var cube6Mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, cubeFbxModel);
-            //cube6GameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(cube1Texture, 1, Color.Blue), cubeMesh));
-            //sceneManager.ActiveScene.Add(cube6GameObject);
-
-            //var cube7GameObject = new GameObject("Bottom_Face", ObjectType.Static, RenderType.Opaque);
-            //cube7GameObject.Transform = new Transform(new Vector3(0.95f, 0.95f, 0.1f), new Vector3(1.59f,0, 0), new Vector3(1, -1.6f, 1.5f));
-            //var cube7Texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
-            //var cube7FbxModel = Content.Load<Model>("Assets/Models/cube");
-            //var cube7Mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, cubeFbxModel);
-            //cube7GameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(cube1Texture, 1, Color.White), cubeMesh));
-            //sceneManager.ActiveScene.Add(cube7GameObject);
-
-            #endregion Faces
-
+          
             //Make each cube out of 6 different planes. Ideally have a class called Cubey.cs that makes the cube out of these six faces
             //Sample of what i would like to do
 
@@ -367,7 +306,7 @@ namespace GD.App
             Mesh quadMesh = new QuadMesh(_graphics.GraphicsDevice);
             Texture2D faceTexture = Content.Load<Texture2D>("Assets/Textures/SkyBox/basicwall");
             #endregion Variables
-
+            #region Old Code
             //#region Front Faces
             ////Front Face - Need 9
             //face_F1 = new GameObject("Front", ObjectType.Static, RenderType.Opaque);
@@ -405,9 +344,9 @@ namespace GD.App
             //sceneManager.ActiveScene.Add(face_T1);
             //#endregion Top Faces
             //Bottom Face
+            #endregion Old Code
 
             Cubey myCubey = new Cubey();
-
             GameObject face1 = myCubey.CubeyBoi("Front",new Vector3(0.3f, 0.3f, 0.3f),new Vector3(0,0,0), new Vector3(0, 1, 0),
                 gdBasicEffect,faceTexture,quadMesh,Color.Orange);
 
