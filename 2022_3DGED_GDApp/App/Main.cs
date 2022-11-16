@@ -172,7 +172,7 @@ namespace GD.App
             //InitializeSatiliteModel();
             //IntializeConsoleModel();
             //IntializeRadarModel();
-            InitializeEachCube();
+            InitializeCube();
 
         }
 
@@ -290,7 +290,7 @@ namespace GD.App
         #endregion Zero Day Threat - Models
 
         #region Zero Day Threat - The Cube
-        private void InitializeEachCube()
+        private void InitializeCube()
         {
 
             //Redudant code _ For the moment, does what i need it to do but gives me less control and i would Fall into the DRY process
@@ -407,19 +407,29 @@ namespace GD.App
             //Bottom Face
 
             Cubey myCubey = new Cubey();
-            GameObject face1 = myCubey.CubeyBoi("Front",new Vector3(0.3f, 0.3f, 0.3f),new Vector3(0,0,0), new Vector3(0, 1, 0));
-            GameObject face2 = myCubey.CubeyBoi("Left", new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, MathHelper.ToRadians(-90), 0), new Vector3(-0.15f, 1, -0.15f));
-            GameObject face3 = myCubey.CubeyBoi("Right", new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, MathHelper.ToRadians(90), 0), new Vector3(0.15f, 1, -0.15f));
+            GameObject face1 = myCubey.CubeyBoi("Front",new Vector3(0.3f, 0.3f, 0.3f),new Vector3(0,0,0), new Vector3(0, 1, 0),
+                gdBasicEffect,faceTexture,quadMesh,Color.Orange);
 
-            face1.AddComponent(new Renderer(gdBasicEffect, new Material(faceTexture, 1, Color.Red), quadMesh));
-            face2.AddComponent(new Renderer(gdBasicEffect, new Material(faceTexture, 1, Color.Blue), quadMesh));
-            face3.AddComponent(new Renderer(gdBasicEffect, new Material(faceTexture, 1, Color.Green), quadMesh));
-           
+            GameObject face2 = myCubey.CubeyBoi("Left", new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, MathHelper.ToRadians(-90), 0), new Vector3(-0.15f, 1, -0.15f),
+                gdBasicEffect, faceTexture, quadMesh, Color.Orange);
+
+            GameObject face3 = myCubey.CubeyBoi("Right", new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, MathHelper.ToRadians(90), 0), new Vector3(0.15f, 1, -0.15f),
+                gdBasicEffect, faceTexture, quadMesh, Color.Orange);
+
+            GameObject face4 = myCubey.CubeyBoi("Top", new Vector3(0.3f, 0.3f, 0.3f), new Vector3(MathHelper.ToRadians(-90), 0, 0), new Vector3(0, 1.15f, -0.15f)
+                ,gdBasicEffect, faceTexture, quadMesh, Color.Orange);
+
+            GameObject face5 = myCubey.CubeyBoi("Bottom", new Vector3(0.3f, 0.3f, 0.3f), new Vector3(MathHelper.ToRadians(90), 0, 0), new Vector3(0, 1.15f, -0.15f),
+                gdBasicEffect, faceTexture, quadMesh, Color.Orange);
+
+            //Adds it to the scene
             sceneManager.ActiveScene.Add(face1);
             sceneManager.ActiveScene.Add(face2);
             sceneManager.ActiveScene.Add(face3);
+            sceneManager.ActiveScene.Add(face4);
+            sceneManager.ActiveScene.Add(face5);
 
-
+           
 
 
         }
