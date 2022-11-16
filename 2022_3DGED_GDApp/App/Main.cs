@@ -169,8 +169,8 @@ namespace GD.App
         {
             //load and add to dictionary
 
-            InitializeSatiliteModel();
-            // IntializeConsoleModel();
+            // InitializeSatiliteModel();
+            IntializeConsoleModel();
             // IntializeRadarModel();
 
         }
@@ -268,9 +268,9 @@ namespace GD.App
         private void IntializeConsoleModel()
         {
             var consoleGameObject = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
-            consoleGameObject.Transform = new Transform(new Vector3(.1f, .1f, .1f), null, new Vector3(0, 0, 0));
-            var consoleTexture = Content.Load<Texture2D>("Assets/Textures/Props/console-texture");
-            var consoleFbxModel = Content.Load<Model>("Assets/Models/floppy-disk");
+            consoleGameObject.Transform = new Transform(new Vector3(1, 1, 1), null, null);
+            var consoleTexture = Content.Load<Texture2D>("Assets/Textures/console/console_DefaultMaterial_BaseColor");
+            var consoleFbxModel = Content.Load<Model>("Assets/Models/console");
             var consoleMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, consoleFbxModel);
             consoleGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(consoleTexture, 1), consoleMesh));
             sceneManager.ActiveScene.Add(consoleGameObject);
@@ -279,7 +279,7 @@ namespace GD.App
         private void IntializeRadarModel()
         {
             var radarGameObject = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
-            radarGameObject.Transform = new Transform(new Vector3(.05f, .05f, .05f), null, new Vector3(0, 0, 0));
+            radarGameObject.Transform = new Transform(new Vector3(.05f, .05f, .05f), null, new Vector3(1, 1, 1));
             var radarTexture = Content.Load<Texture2D>("Assets/Textures/Radar/radar-display_DefaultMaterial_BaseColor");
             var radarFbxModel = Content.Load<Model>("Assets/Models/radar-display");
             var radarMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, radarFbxModel);
