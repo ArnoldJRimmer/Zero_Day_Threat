@@ -172,7 +172,17 @@ namespace GD.App
             // InitializeSatiliteModel();
             IntializeConsoleModel();
             IntializeKeypadModel();
+            IntializeButtonModel();
+            IntializeKeyboardModel();
+            IntializePanelModel();
+            IntializeVentModel();
+            IntializeScreenLeftModel();
+            IntializeScreenCentreModel();
+            IntializeScreenRightModel();
             // IntializeRadarModel();
+            IntializeFloppyDiskModel();
+            IntializeRadioModel();
+            IntializeLampModel();
 
         }
 
@@ -266,10 +276,12 @@ namespace GD.App
             sceneManager.ActiveScene.Add(satiliteGameObject);
         }
 
+        #region Console - Models
+
         private void IntializeConsoleModel()
         {
             var consoleGameObject = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
-            consoleGameObject.Transform = new Transform(new Vector3(2, 2, 2), null, null);
+            consoleGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
             var consoleTexture = Content.Load<Texture2D>("Assets/Textures/console/console_DefaultMaterial_BaseColor");
             var consoleFbxModel = Content.Load<Model>("Assets/Models/console");
             var consoleMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, consoleFbxModel);
@@ -279,13 +291,125 @@ namespace GD.App
         private void IntializeKeypadModel()
         {
             var consoleGameObject = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
-            consoleGameObject.Transform = new Transform(new Vector3(2, 2, 2), null, null);
+            consoleGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
             var consoleTexture = Content.Load<Texture2D>("Assets/Textures/console/keypad_DefaultMaterial_BaseColor");
             var consoleFbxModel = Content.Load<Model>("Assets/Models/keypad");
             var consoleMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, consoleFbxModel);
             consoleGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(consoleTexture, 1), consoleMesh));
             sceneManager.ActiveScene.Add(consoleGameObject);
         }
+
+        private void IntializeButtonModel()
+        {
+            var radarGameObject = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            radarGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var radarTexture = Content.Load<Texture2D>("Assets/Textures/console/button_DefaultMaterial_BaseColor");
+            var radarFbxModel = Content.Load<Model>("Assets/Models/button");
+            var radarMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, radarFbxModel);
+            radarGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(radarTexture, 1), radarMesh));
+            sceneManager.ActiveScene.Add(radarGameObject);
+        }
+
+        private void IntializeKeyboardModel()
+        {
+            var radarGameObject = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            radarGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var radarTexture = Content.Load<Texture2D>("Assets/Textures/console/console_DefaultMaterial_BaseColor");
+            var radarFbxModel = Content.Load<Model>("Assets/Models/keyboard");
+            var radarMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, radarFbxModel);
+            radarGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(radarTexture, 1), radarMesh));
+            sceneManager.ActiveScene.Add(radarGameObject);
+        }
+
+        private void IntializePanelModel()
+        {
+            var radarGameObject = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            radarGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var radarTexture = Content.Load<Texture2D>("Assets/Textures/console/console_DefaultMaterial_BaseColor");
+            var radarFbxModel = Content.Load<Model>("Assets/Models/panel");
+            var radarMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, radarFbxModel);
+            radarGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(radarTexture, 1), radarMesh));
+            sceneManager.ActiveScene.Add(radarGameObject);
+        }
+
+        private void IntializeVentModel()
+        {
+            var radarGameObject = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            radarGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var radarTexture = Content.Load<Texture2D>("Assets/Textures/console/console_DefaultMaterial_BaseColor");
+            var radarFbxModel = Content.Load<Model>("Assets/Models/vent");
+            var radarMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, radarFbxModel);
+            radarGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(radarTexture, 1), radarMesh));
+            sceneManager.ActiveScene.Add(radarGameObject);
+        }
+
+        private void IntializeScreenRightModel()
+        {
+            var radarGameObject = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            radarGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var radarTexture = Content.Load<Texture2D>("Assets/Textures/console/console_DefaultMaterial_BaseColor");
+            var radarFbxModel = Content.Load<Model>("Assets/Models/screen-right");
+            var radarMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, radarFbxModel);
+            radarGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(radarTexture, 1), radarMesh));
+            sceneManager.ActiveScene.Add(radarGameObject);
+        }
+
+        private void IntializeScreenCentreModel()
+        {
+            var radarGameObject = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            radarGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var radarTexture = Content.Load<Texture2D>("Assets/Textures/console/console_DefaultMaterial_BaseColor");
+            var radarFbxModel = Content.Load<Model>("Assets/Models/screen-centre");
+            var radarMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, radarFbxModel);
+            radarGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(radarTexture, 1), radarMesh));
+            sceneManager.ActiveScene.Add(radarGameObject);
+        }
+
+        private void IntializeScreenLeftModel()
+        {
+            var radarGameObject = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            radarGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var radarTexture = Content.Load<Texture2D>("Assets/Textures/console/console_DefaultMaterial_BaseColor");
+            var radarFbxModel = Content.Load<Model>("Assets/Models/screen-left");
+            var radarMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, radarFbxModel);
+            radarGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(radarTexture, 1), radarMesh));
+            sceneManager.ActiveScene.Add(radarGameObject);
+        }
+
+        private void IntializeRadioModel()
+        {
+            var radarGameObject = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            radarGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var radarTexture = Content.Load<Texture2D>("Assets/Textures/console/console_DefaultMaterial_BaseColor");
+            var radarFbxModel = Content.Load<Model>("Assets/Models/radio");
+            var radarMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, radarFbxModel);
+            radarGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(radarTexture, 1), radarMesh));
+            sceneManager.ActiveScene.Add(radarGameObject);
+        }
+
+        private void IntializeLampModel()
+        {
+            var radarGameObject = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            radarGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var radarTexture = Content.Load<Texture2D>("Assets/Textures/console/console_DefaultMaterial_BaseColor");
+            var radarFbxModel = Content.Load<Model>("Assets/Models/lamp");
+            var radarMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, radarFbxModel);
+            radarGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(radarTexture, 1), radarMesh));
+            sceneManager.ActiveScene.Add(radarGameObject);
+        }
+
+        private void IntializeFloppyDiskModel()
+        {
+            var radarGameObject = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            radarGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var radarTexture = Content.Load<Texture2D>("Assets/Textures/console/console_DefaultMaterial_BaseColor");
+            var radarFbxModel = Content.Load<Model>("Assets/Models/floppy-disk");
+            var radarMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, radarFbxModel);
+            radarGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(radarTexture, 1), radarMesh));
+            sceneManager.ActiveScene.Add(radarGameObject);
+        }
+
+        #endregion
 
         private void IntializeRadarModel()
         {
