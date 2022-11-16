@@ -27,11 +27,9 @@ namespace GD.Engine
 
         public GameObject CubeyBoi(string objectname,Vector3 scale,Vector3 rot, Vector3 translation)
         {
-  
             GameObject face = null;
             face = new GameObject(objectname, ObjectType.Static, RenderType.Opaque);
             face.Transform = new Transform(scale,rot,translation);
-           
             return face;
         }
 

@@ -407,9 +407,17 @@ namespace GD.App
             //Bottom Face
 
             Cubey myCubey = new Cubey();
-            GameObject face1 = myCubey.CubeyBoi("TestFace",new Vector3(0.3f, 0.3f, 0.3f),new Vector3(0,0,0), new Vector3(0, 1, 0));
+            GameObject face1 = myCubey.CubeyBoi("Front",new Vector3(0.3f, 0.3f, 0.3f),new Vector3(0,0,0), new Vector3(0, 1, 0));
+            GameObject face2 = myCubey.CubeyBoi("Left", new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, MathHelper.ToRadians(-90), 0), new Vector3(-0.15f, 1, -0.15f));
+            GameObject face3 = myCubey.CubeyBoi("Right", new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, MathHelper.ToRadians(90), 0), new Vector3(0.15f, 1, -0.15f));
+
             face1.AddComponent(new Renderer(gdBasicEffect, new Material(faceTexture, 1, Color.Red), quadMesh));
+            face2.AddComponent(new Renderer(gdBasicEffect, new Material(faceTexture, 1, Color.Blue), quadMesh));
+            face3.AddComponent(new Renderer(gdBasicEffect, new Material(faceTexture, 1, Color.Green), quadMesh));
+           
             sceneManager.ActiveScene.Add(face1);
+            sceneManager.ActiveScene.Add(face2);
+            sceneManager.ActiveScene.Add(face3);
 
 
 
