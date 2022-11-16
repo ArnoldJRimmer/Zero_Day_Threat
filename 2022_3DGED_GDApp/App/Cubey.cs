@@ -33,6 +33,8 @@ namespace GD.Engine
             face.Transform = new Transform(scale,rot,translation);
             Content.RootDirectory = "Content";
             GraphicsDeviceManager _graphics = new GraphicsDeviceManager(this);
+
+            //System.ArgumentNullException: 'The GraphicsDevice must not be null when creating new resources. (Parameter 'graphicsDevice')'
             texture = Content.Load<Texture2D>("Assets/Textures/SkyBox/basicwall");
             face.AddComponent(new Renderer(effect, new Material(texture,1,color),mesh));
             return face;
