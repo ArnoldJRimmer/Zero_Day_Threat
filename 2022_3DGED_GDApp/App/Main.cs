@@ -269,7 +269,7 @@ namespace GD.App
         private void IntializeConsoleModel()
         {
             var consoleGameObject = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
-            consoleGameObject.Transform = new Transform(new Vector3(1, 1, 1), null, null);
+            consoleGameObject.Transform = new Transform(new Vector3(2, 2, 2), null, null);
             var consoleTexture = Content.Load<Texture2D>("Assets/Textures/console/console_DefaultMaterial_BaseColor");
             var consoleFbxModel = Content.Load<Model>("Assets/Models/console");
             var consoleMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, consoleFbxModel);
@@ -279,8 +279,8 @@ namespace GD.App
         private void IntializeKeypadModel()
         {
             var consoleGameObject = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
-            consoleGameObject.Transform = new Transform(new Vector3(1, 1, 1), null, null);
-            var consoleTexture = Content.Load<Texture2D>("Assets/Textures/console/console_DefaultMaterial_BaseColor");
+            consoleGameObject.Transform = new Transform(new Vector3(2, 2, 2), null, null);
+            var consoleTexture = Content.Load<Texture2D>("Assets/Textures/console/keypad_DefaultMaterial_BaseColor");
             var consoleFbxModel = Content.Load<Model>("Assets/Models/keypad");
             var consoleMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, consoleFbxModel);
             consoleGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(consoleTexture, 1), consoleMesh));
