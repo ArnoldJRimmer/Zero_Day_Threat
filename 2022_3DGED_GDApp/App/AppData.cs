@@ -1,6 +1,6 @@
 ﻿#region Pre-compiler directives
 
-//#define HI_RES
+#define HI_RES
 
 #endregion
 
@@ -17,8 +17,11 @@ namespace GD.App
 
 #if HI_RES
         public static readonly Vector2 APP_RESOLUTION = Resolutions.SixteenNine.HD;
+        public static readonly Vector2 boundingScreen = Resolutions.SixteenNine.HD;
+
 #else
         public static readonly Vector2 APP_RESOLUTION = Resolutions.FourThree.VGA;
+        public static readonly Vector2 boundingScreen = Resolutions.FourThree.VGA;
 #endif
 
         #endregion Graphics

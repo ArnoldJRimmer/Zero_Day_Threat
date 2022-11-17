@@ -1,4 +1,6 @@
-﻿using GD.Engine.Globals;
+﻿using GD.App;
+using GD.Engine.Data;
+using GD.Engine.Globals;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -78,7 +80,10 @@ namespace GD.Engine
             rotation = Vector3.Zero;
            
             var delta = Input.Mouse.Delta;
-            if (delta.X < 320 && delta.X > -320 && delta.Y <240 && delta.Y > -240)
+
+            
+
+            if (delta.X < AppData.boundingScreen.X / 2  && delta.X > -AppData.boundingScreen.X/2 && delta.Y < AppData.boundingScreen.Y/2 && delta.Y > -AppData.boundingScreen.Y/2)
             {
                 //Q - where are X and Y reversed?
                 rotation.Y -= delta.X * rotationSpeed.X * gameTime.ElapsedGameTime.Milliseconds;

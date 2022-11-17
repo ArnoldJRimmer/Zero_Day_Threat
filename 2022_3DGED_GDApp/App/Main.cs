@@ -2,6 +2,7 @@
 
 #define DEMO
 #define SHOW_DEBUG_INFO
+#define HI_RES
 
 #endregion
 
