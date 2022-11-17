@@ -169,7 +169,7 @@ namespace GD.App
         {
             //load and add to dictionary
 
-            // InitializeSatiliteModel();
+            InitializeSatiliteModel();
             IntializeConsoleModel();
             IntializeKeypadModel();
             IntializeButtonModel();
@@ -179,7 +179,7 @@ namespace GD.App
             IntializeScreenLeftModel();
             IntializeScreenCentreModel();
             IntializeScreenRightModel();
-            // IntializeRadarModel();
+            IntializeRadarModel();
             IntializeFloppyDiskModel();
             IntializeRadioModel();
             IntializeLampModel();

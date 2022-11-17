@@ -76,20 +76,23 @@ namespace GD.Engine
         protected virtual void HandleMouseInput(GameTime gameTime)
         {
             rotation = Vector3.Zero;
+           
             var delta = Input.Mouse.Delta;
-
-            //Q - where are X and Y reversed?
-            rotation.Y -= delta.X * rotationSpeed.X * gameTime.ElapsedGameTime.Milliseconds;
-            rotation.X -= delta.Y * rotationSpeed.Y * gameTime.ElapsedGameTime.Milliseconds;
-
-            //Need to work on the rotation of the y so that is stops at 180
-            //Also restrict the x so that it doesn't look all the way up
-            if (delta.Length() != 0)
+            if (delta.X < 320 && delta.X > -320 && delta.Y <240 && delta.Y > -240)
             {
+                //Q - where are X and Y reversed?
+                rotation.Y -= delta.X * rotationSpeed.X * gameTime.ElapsedGameTime.Milliseconds;
+                rotation.X -= delta.Y * rotationSpeed.Y * gameTime.ElapsedGameTime.Milliseconds;
 
-            }
+                //Need to work on the rotation of the y so that is stops at 180
+                //Also restrict the x so that it doesn't look all the way up
+                if (delta.Length() != 0)
+                {
+
+                }
 
                 transform.SetRotation(rotation);
+            }
         }
 
         #endregion Actions - Update, Input
