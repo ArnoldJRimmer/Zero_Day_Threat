@@ -370,6 +370,7 @@ namespace GD.App
 
             Transform pathOne = new Transform(Vector3.Zero, new Vector3(MathHelper.ToRadians(90), 0, 0), Vector3.One);
 
+            //Enters if Statement
             if(pathOne.rotation == face5.Transform.rotation)
             {
                 Console.WriteLine("Face 5 is apart of the Path");
@@ -410,6 +411,25 @@ namespace GD.App
 
         private void InitializePath()
         {
+            Path temp = new Path("Temporary");
+            Transform one = new Transform(Vector3.One, new Vector3(0, MathHelper.ToRadians(90), 0), Vector3.Zero);
+            Transform two = new Transform(Vector3.One, Vector3.Zero, Vector3.Zero);
+            Transform three = new Transform(Vector3.One, new Vector3(0, MathHelper.ToRadians(-90), 0), Vector3.Zero);
+            temp.AddPiece(one);
+            temp.AddPiece(two);
+            temp.AddPiece(three);
+            foreach(Transform piece in temp.Pieces)
+            {
+                if(piece != null)
+                {
+                    Console.WriteLine($"{piece}");
+                }
+                else
+                {
+                    Console.WriteLine("NUll VALUE");
+                }
+            }
+
             //GameObject pathOne = new GameObject("PathOne"); 
             //pathOne.Transform = new Transform(Vector3.Zero, new Vector3(MathHelper.ToRadians(90), 0, 0), Vector3.One);
 
