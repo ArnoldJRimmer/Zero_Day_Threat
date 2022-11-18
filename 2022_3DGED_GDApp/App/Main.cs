@@ -370,15 +370,19 @@ namespace GD.App
 
             Transform pathOne = new Transform(Vector3.Zero, new Vector3(MathHelper.ToRadians(90), 0, 0), Vector3.One);
 
+            #region RotationCheck
             //Enters if Statement
-            if(pathOne.rotation == face5.Transform.rotation)
+            if (pathOne.rotation == face5.Transform.rotation)
             {
                 Console.WriteLine("Face 5 is apart of the Path");
             }
             else
             {
                 Console.WriteLine("Didn't enter if");
-            }
+            } 
+            #endregion RotationCheck
+
+            #region Old Code
             //GameObject pathOne = new GameObject("PathOne"); 
             //pathOne.Transform = new Transform(Vector3.Zero, new Vector3(MathHelper.ToRadians(90), 0, 0), Vector3.One);
 
@@ -395,7 +399,9 @@ namespace GD.App
             //sceneManager.ActiveScene.Add(pathTwo);
             //sceneManager.ActiveScene.Add(pathThree);
             //sceneManager.ActiveScene.Add(pathFour);
-            //Adds it to the scene
+            //Adds it to the scene 
+            #endregion Old Code
+
             sceneManager.ActiveScene.Add(face1);
             sceneManager.ActiveScene.Add(face2);
             sceneManager.ActiveScene.Add(face3);
@@ -403,14 +409,14 @@ namespace GD.App
             sceneManager.ActiveScene.Add(face5);
             sceneManager.ActiveScene.Add(face6);
 
-
-
-
         }
         #endregion Zero Day Threat - The Cube
 
         private void InitializePath()
         {
+            var gdBasicEffect = new GDBasicEffect(unlitEffect);
+            var quadMesh = new QuadMesh(_graphics.GraphicsDevice);
+
             Path temp = new Path("Temporary");
             Transform one = new Transform(Vector3.One, new Vector3(0, MathHelper.ToRadians(90), 0), Vector3.Zero);
             Transform two = new Transform(Vector3.One, Vector3.Zero, Vector3.Zero);
@@ -418,11 +424,21 @@ namespace GD.App
             temp.AddPiece(one);
             temp.AddPiece(two);
             temp.AddPiece(three);
-            foreach(Transform piece in temp.Pieces)
+
+            // Since Path has a list of transforms, I went through the list creating GameObjects of the indiviual transforms. 
+            // Then the GameObjects created in the for loop are added to the ActiveScene
+            // Put in Breakpoint which occurs if the number of times it is hit is 3  ---- hits 3 times
+            for (int i =0; i<=temp.Size-1; i++)
             {
-                if(piece != null)
+                if (temp.Pieces[i] != null)
                 {
-                    Console.WriteLine($"{piece}");
+                    Console.WriteLine($"{temp.Pieces[i]}");
+
+                    GameObject temptile = new GameObject("TempTile" + i, ObjectType.Static, RenderType.Transparent);
+                    temptile.Transform = temp.Pieces[i];
+                    var texture = Content.Load<Texture2D>("Assets/Textures/Skybox/basicwall");
+                    temptile.AddComponent(new Renderer(gdBasicEffect, new Material(texture, 1), quadMesh));
+                    sceneManager.ActiveScene.Add(temptile);
                 }
                 else
                 {
@@ -430,6 +446,31 @@ namespace GD.App
                 }
             }
 
+            //foreach (Transform piece in temp.Pieces)
+            //{
+            //    if(piece != null)
+            //    {
+            //        Console.WriteLine($"{piece}");
+
+            //        GameObject temptile = new GameObject("TempTile" + , ObjectType.Static, RenderType.Transparent);
+            //        temptile.Transform = piece;
+            //        var texture = Content.Load<Texture2D>("Assets/Textures/Skybox/basicwall");
+            //        tempPath.AddComponent(new Renderer(gdBasicEffect, new Material(texture, 1), quadMesh));
+            //        sceneManager.ActiveScene.Add(tempPath);
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine("NUll VALUE");
+            //    }
+            //}
+
+            //GameObject temptile = new GameObject("TempPath", ObjectType.Static, RenderType.Transparent);
+            //tempPath.Transform = one;
+            //var texture = Content.Load<Texture2D>("Assets/Textures/Skybox/basicwall");
+            //tempPath.AddComponent(new Renderer(gdBasicEffect, new Material(texture, 1), quadMesh));
+            //sceneManager.ActiveScene.Add(tempPath);
+            #region Old Code
+            //This code had errors as there was no components
             //GameObject pathOne = new GameObject("PathOne"); 
             //pathOne.Transform = new Transform(Vector3.Zero, new Vector3(MathHelper.ToRadians(90), 0, 0), Vector3.One);
 
@@ -446,7 +487,8 @@ namespace GD.App
             //sceneManager.ActiveScene.Add(pathTwo);
             //sceneManager.ActiveScene.Add(pathThree);
             //sceneManager.ActiveScene.Add(pathFour);
-
+            //Adds it to the scene 
+            #endregion Old Code
 
         }
 
