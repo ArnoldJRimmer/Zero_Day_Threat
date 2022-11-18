@@ -368,7 +368,32 @@ namespace GD.App
             GameObject face6 = myCubey.CubeyBoi("Back", new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, MathHelper.ToRadians(180), 0), new Vector3(0, 1, -0.3f),
                 gdBasicEffect, faceTexture, quadMesh, Color.Pink);
 
+            Transform pathOne = new Transform(Vector3.Zero, new Vector3(MathHelper.ToRadians(90), 0, 0), Vector3.One);
 
+            if(pathOne.rotation == face5.Transform.rotation)
+            {
+                Console.WriteLine("Face 5 is apart of the Path");
+            }
+            else
+            {
+                Console.WriteLine("Didn't enter if");
+            }
+            //GameObject pathOne = new GameObject("PathOne"); 
+            //pathOne.Transform = new Transform(Vector3.Zero, new Vector3(MathHelper.ToRadians(90), 0, 0), Vector3.One);
+
+            //GameObject pathTwo = new GameObject("PathTwo");
+            //pathTwo.Transform = new Transform(Vector3.One, new Vector3(0, MathHelper.ToRadians(90), 0), Vector3.Zero);
+
+            //GameObject pathThree = new GameObject("PathThree");
+            //pathThree.Transform = new Transform(Vector3.UnitY, new Vector3(0, 0, 0), Vector3.Zero);
+
+            //GameObject pathFour = new GameObject("PathFour");
+            //pathFour.Transform = new Transform(new Vector3(2, 4, 3), new Vector3(0, MathHelper.ToRadians(-90), 0), Vector3.One);
+
+            //sceneManager.ActiveScene.Add(pathOne);
+            //sceneManager.ActiveScene.Add(pathTwo);
+            //sceneManager.ActiveScene.Add(pathThree);
+            //sceneManager.ActiveScene.Add(pathFour);
             //Adds it to the scene
             sceneManager.ActiveScene.Add(face1);
             sceneManager.ActiveScene.Add(face2);
@@ -385,18 +410,22 @@ namespace GD.App
 
         private void InitializePath()
         {
-            GameObject pathOne = null; 
-            pathOne.Transform = new Transform(Vector3.Zero, new Vector3(MathHelper.ToRadians(90), 0, 0), Vector3.One);
-            GameObject pathTwo = null;
-            pathTwo.Transform = new Transform(Vector3.One, new Vector3(0, MathHelper.ToRadians(90), 0), Vector3.Zero);
-            GameObject pathThree = null;
-            pathThree.Transform = new Transform(Vector3.UnitY, new Vector3(0, 0, 0), Vector3.Zero);
-            GameObject pathFour = null;
-            pathFour.Transform = new Transform(new Vector3(2,4,3), new Vector3(0, MathHelper.ToRadians(-90), 0), Vector3.One);
-            sceneManager.ActiveScene.Add(pathOne);
-            sceneManager.ActiveScene.Add(pathTwo);
-            sceneManager.ActiveScene.Add(pathThree);
-            sceneManager.ActiveScene.Add(pathFour);
+            //GameObject pathOne = new GameObject("PathOne"); 
+            //pathOne.Transform = new Transform(Vector3.Zero, new Vector3(MathHelper.ToRadians(90), 0, 0), Vector3.One);
+
+            //GameObject pathTwo = new GameObject("PathTwo");
+            //pathTwo.Transform = new Transform(Vector3.One, new Vector3(0, MathHelper.ToRadians(90), 0), Vector3.Zero);
+
+            //GameObject pathThree = new GameObject("PathThree");
+            //pathThree.Transform = new Transform(Vector3.UnitY, new Vector3(0, 0, 0), Vector3.Zero);
+
+            //GameObject pathFour = new GameObject("PathFour");
+            //pathFour.Transform = new Transform(new Vector3(2, 4, 3), new Vector3(0, MathHelper.ToRadians(-90), 0), Vector3.One);
+
+            //sceneManager.ActiveScene.Add(pathOne);
+            //sceneManager.ActiveScene.Add(pathTwo);
+            //sceneManager.ActiveScene.Add(pathThree);
+            //sceneManager.ActiveScene.Add(pathFour);
 
 
         }
