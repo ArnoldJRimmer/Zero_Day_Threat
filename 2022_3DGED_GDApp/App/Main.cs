@@ -22,6 +22,7 @@ using Application = GD.Engine.Globals.Application;
 using ButtonState = Microsoft.Xna.Framework.Input.ButtonState;
 using Cue = GD.Engine.Managers.Cue;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
+using GD.Engine.Collections;
 
 namespace GD.App
 {
@@ -131,6 +132,8 @@ namespace GD.App
 
             //add drawn stuff
             InitializeDrawnContent(worldScale);
+
+            InitializePath();
         }
 
         private void SetTitle(string title)
@@ -380,6 +383,23 @@ namespace GD.App
         }
         #endregion Zero Day Threat - The Cube
 
+        private void InitializePath()
+        {
+            GameObject pathOne = null; 
+            pathOne.Transform = new Transform(Vector3.Zero, new Vector3(MathHelper.ToRadians(90), 0, 0), Vector3.One);
+            GameObject pathTwo = null;
+            pathTwo.Transform = new Transform(Vector3.One, new Vector3(0, MathHelper.ToRadians(90), 0), Vector3.Zero);
+            GameObject pathThree = null;
+            pathThree.Transform = new Transform(Vector3.UnitY, new Vector3(0, 0, 0), Vector3.Zero);
+            GameObject pathFour = null;
+            pathFour.Transform = new Transform(new Vector3(2,4,3), new Vector3(0, MathHelper.ToRadians(-90), 0), Vector3.One);
+            sceneManager.ActiveScene.Add(pathOne);
+            sceneManager.ActiveScene.Add(pathTwo);
+            sceneManager.ActiveScene.Add(pathThree);
+            sceneManager.ActiveScene.Add(pathFour);
+
+
+        }
 
         private void InitializeSkyBoxAndGround(float worldScale)
         {
@@ -630,6 +650,7 @@ namespace GD.App
 
             #endregion Demo - Gamepad
 
+            
 #endif
             //fixed a bug with components not getting Update called
             base.Update(gameTime);
