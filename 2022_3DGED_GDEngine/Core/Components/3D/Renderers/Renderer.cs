@@ -31,15 +31,15 @@ namespace GD.Engine
         public virtual void Draw(GraphicsDevice graphicsDevice, Camera camera)
         {
             //set WVP as always
-            effect.SetWorld(transform.World);
-            effect.SetCamera(camera);
-            effect.SetMaterial(material);
+            //effect.SetWorld(transform.World);
+            //effect.SetCamera(camera);
+            //effect.SetMaterial(material);
 
-            //apply all settings
-            effect.Apply();
+            ////apply all settings
+            //effect.Apply();
 
             //draw the object
-            mesh.Draw(graphicsDevice);
+            mesh.Draw(graphicsDevice, effect, transform, camera, material);
         }
 
         #endregion Actions - Draw

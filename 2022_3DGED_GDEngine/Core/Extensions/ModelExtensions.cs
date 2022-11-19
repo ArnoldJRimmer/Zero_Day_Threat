@@ -36,8 +36,31 @@ public static class ModelExtensions
         indexBuffer.SetData(indices);
     }
 
+    //public static void ExtractData<T>(this Model model, ref GraphicsDevice graphicsDevice,
+    //    out T[] vertices, out ushort[] indices) where T : struct, IVertexType
+    //{
+    //    if (model.Meshes.Count != 1)
+    //        throw new NotSupportedException("Model supplied must contain only one mesh!");
+
+    //    if (model.Meshes[0].MeshParts.Count != 1)
+    //        throw new NotSupportedException("Model supplied must contain a only one mesh with one part!");
+
+    //    ModelMeshPart part = model.Meshes[0].MeshParts[0];
+
+    //    if (part == null)
+    //        throw new NullReferenceException("Model contains no part!");
+
+    //    VertexBuffer vertexBuffer = new VertexBuffer(graphicsDevice, typeof(T), part.VertexBuffer.VertexCount, BufferUsage.WriteOnly);
+    //    vertices = new T[part.VertexBuffer.VertexCount];
+    //    part.VertexBuffer.GetData(vertices);
+
+    //    IndexBuffer indexBuffer = new IndexBuffer(graphicsDevice, typeof(ushort), part.IndexBuffer.IndexCount, BufferUsage.WriteOnly);
+    //    indices = new ushort[part.IndexBuffer.IndexCount];
+    //    part.IndexBuffer.GetData(indices);
+    //}
+
     public static void ExtractData<T>(this Model model, ref GraphicsDevice graphicsDevice,
-        out T[] vertices, out ushort[] indices) where T : struct, IVertexType
+      out T[] vertices, out ushort[] indices) where T : struct, IVertexType
     {
         if (model.Meshes.Count != 1)
             throw new NotSupportedException("Model supplied must contain only one mesh!");
