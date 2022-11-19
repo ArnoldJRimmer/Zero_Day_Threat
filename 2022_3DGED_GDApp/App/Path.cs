@@ -23,11 +23,11 @@ namespace GD.Engine
             PathFormed= false;
         }
 
-        public Path(string pathName, List<Transform> pieces, int size)
+        public Path(string pathName, List<Transform> pieces)
         {
             this.pathName = pathName;
             this.pieces = pieces;
-            this.size = size;
+            this.size = pieces.Count;
             PathFormed = false;
         }
         #endregion ConstructorS
@@ -47,6 +47,7 @@ namespace GD.Engine
             {
                 
                 pieces.Add(piece);
+                size++;
             }
         }
 

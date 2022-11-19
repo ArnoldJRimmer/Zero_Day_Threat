@@ -428,13 +428,14 @@ namespace GD.App
             // Since Path has a list of transforms, I went through the list creating GameObjects of the indiviual transforms. 
             // Then the GameObjects created in the for loop are added to the ActiveScene
             // Put in Breakpoint which occurs if the number of times it is hit is 3  ---- hits 3 times
+            GameObject temptile = null;
             for (int i =0; i<=temp.Size-1; i++)
             {
                 if (temp.Pieces[i] != null)
                 {
                     Console.WriteLine($"{temp.Pieces[i]}");
 
-                    GameObject temptile = new GameObject("TempTile" + i, ObjectType.Static, RenderType.Transparent);
+                    temptile = new GameObject("TempTile" + i, ObjectType.Static, RenderType.Transparent);
                     temptile.Transform = temp.Pieces[i];
                     var texture = Content.Load<Texture2D>("Assets/Textures/Skybox/basicwall");
                     temptile.AddComponent(new Renderer(gdBasicEffect, new Material(texture, 1), quadMesh));
@@ -445,6 +446,10 @@ namespace GD.App
                     Console.WriteLine("NUll VALUE");
                 }
             }
+
+            // https://zetcode.com/csharp/predicate/
+
+            //sceneManager.ActiveScene.Find(ObjectType.Static, RenderType.Transparent, );
 
             //foreach (Transform piece in temp.Pieces)
             //{
