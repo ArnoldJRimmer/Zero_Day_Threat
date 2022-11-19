@@ -539,6 +539,13 @@ namespace GD.App
 
             #endregion Demo - Gamepad
 
+            #region Demo - Raising events using GDEvent
+
+            if (Input.Keys.WasJustPressed(Keys.E))
+                OnChanged.Invoke(this, null); //passing null for EventArgs but we'll make our own class MyEventArgs::EventArgs later
+
+            #endregion
+
 #endif
             //fixed a bug with components not getting Update called
             base.Update(gameTime);
