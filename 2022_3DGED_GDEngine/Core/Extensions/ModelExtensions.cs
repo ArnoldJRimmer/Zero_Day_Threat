@@ -36,8 +36,9 @@ public static class ModelExtensions
         indexBuffer.SetData(indices);
     }
 
+  
     public static void ExtractData<T>(this Model model, ref GraphicsDevice graphicsDevice,
-        out T[] vertices, out ushort[] indices) where T : struct, IVertexType
+      out T[] vertices, out ushort[] indices) where T : struct, IVertexType
     {
         if (model.Meshes.Count != 1)
             throw new NotSupportedException("Model supplied must contain only one mesh!");
