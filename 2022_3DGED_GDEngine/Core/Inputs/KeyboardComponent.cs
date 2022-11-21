@@ -44,6 +44,16 @@ namespace GD.Engine.Inputs
             return currentState.IsKeyDown(key);
         }
 
+        public bool IsPressed(Keys key, bool prs)
+        {
+            if(!prs)
+            {
+                return currentState.IsKeyDown(key);
+            }
+            return currentState.IsKeyDown(key) && !previousState.IsKeyDown(key);
+            
+        }
+
         public bool IsReleased(Keys key)
         {
             return currentState.IsKeyUp(key);

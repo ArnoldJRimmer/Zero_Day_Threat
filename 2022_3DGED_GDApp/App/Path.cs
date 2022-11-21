@@ -6,7 +6,7 @@ namespace GD.Engine
 {
     // Path has an array of transforms each transform being it's own tile
     // Requires an easy constructor and a full constructor and Add piece method
-    public class Path : GameObjectList
+    public class Path
     {
         private string pathName;
         private List<Transform> pieces;

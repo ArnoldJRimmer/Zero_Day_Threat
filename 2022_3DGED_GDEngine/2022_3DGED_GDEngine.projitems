@@ -19,6 +19,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\3D\Behaviours\CycledRotationBehaviour.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\3D\Camera\Camera.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\3D\Controllers\Camera\CameraFOVController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Components\3D\Controllers\Camera\CubeController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\3D\Controllers\Camera\FirstPersonCameraController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\3D\Controllers\Camera\FirstPersonController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\3D\Renderers\Renderer.cs" />
