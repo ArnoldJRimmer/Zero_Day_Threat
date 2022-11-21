@@ -443,14 +443,20 @@ namespace GD.App
                 }
                 else
                 {
-                    Console.WriteLine("NUll VALUE");
+                    Console.WriteLine("NULL VALUE");
                 }
             }
 
             // https://zetcode.com/csharp/predicate/
+            //Predicate<GameObject> t = tile => temptile.Name.StartsWith("TempTile");
 
-            //sceneManager.ActiveScene.Find(ObjectType.Static, RenderType.Transparent, );
+            //GameObject found = sceneManager.ActiveScene.Find(ObjectType.Static, RenderType.Transparent, t);
+            //if(found != null) 
+            //{
+            //    Console.WriteLine($"Found {found.Name}");
+            //}
 
+            #region Commented-out Code
             //foreach (Transform piece in temp.Pieces)
             //{
             //    if(piece != null)
@@ -474,6 +480,7 @@ namespace GD.App
             //var texture = Content.Load<Texture2D>("Assets/Textures/Skybox/basicwall");
             //tempPath.AddComponent(new Renderer(gdBasicEffect, new Material(texture, 1), quadMesh));
             //sceneManager.ActiveScene.Add(tempPath);
+            #endregion Commented-out Code
             #region Old Code
             //This code had errors as there was no components
             //GameObject pathOne = new GameObject("PathOne"); 
@@ -711,7 +718,7 @@ namespace GD.App
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
+         
             //update all drawn game objects in the active scene
             //sceneManager.Update(gameTime);
 

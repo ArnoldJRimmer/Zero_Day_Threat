@@ -1,13 +1,12 @@
-﻿using System;
+﻿using GD.Engine.Collections;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
 
 namespace GD.Engine
 {
     // Path has an array of transforms each transform being it's own tile
     // Requires an easy constructor and a full constructor and Add piece method
-    public class Path
+    public class Path : GameObjectList
     {
         private string pathName;
         private List<Transform> pieces;
@@ -18,7 +17,7 @@ namespace GD.Engine
         public Path(string name)
         {
             PathName = name;
-            size = 3;
+            size = 0;
             pieces = new List<Transform>();
             PathFormed= false;
         }
