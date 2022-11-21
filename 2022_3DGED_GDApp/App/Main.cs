@@ -291,9 +291,6 @@ namespace GD.App
             //added ability for camera to listen to 3D sounds
             cameraGameObject.AddComponent(new AudioListenerBehaviour());
 
-            //OLD
-            //cameraGameObject.AddComponent(new FirstPersonCameraController(AppData.FIRST_PERSON_MOVE_SPEED, AppData.FIRST_PERSON_STRAFE_SPEED));
-
             //NEW
             cameraGameObject.AddComponent(new FirstPersonController(AppData.FIRST_PERSON_MOVE_SPEED, AppData.FIRST_PERSON_STRAFE_SPEED,
                 AppData.PLAYER_ROTATE_SPEED_VECTOR2, true));
