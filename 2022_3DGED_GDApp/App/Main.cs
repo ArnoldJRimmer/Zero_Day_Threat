@@ -404,55 +404,6 @@ namespace GD.App
             sceneManager.ActiveScene.Add(gameObject);
         }
 
-       
-
-        //private void InitializeDemoButton()
-        //{
-        //    //game object
-        //    var gameObject = new GameObject("my first button!",
-        //        ObjectType.Static, RenderType.Transparent);
-
-        //    gameObject.Transform = new Transform(6 * Vector3.One,
-        //        new Vector3(0, 0, 0), new Vector3(-5, -5, 0));
-        //    var texture = Content.Load<Texture2D>("Assets/Textures/Button/button_DefaultMaterial_Base_color");
-
-        //    var model = Content.Load<Model>("Assets/Models/button");
-
-        //    var mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, model);
-        //    gameObject.AddComponent(new Renderer(
-        //        new GDBasicEffect(litEffect),
-        //        new Material(texture, 1f, Color.White),
-        //        mesh));
-
-        //    sceneManager.ActiveScene.Add(gameObject);
-        //}
-
-       
-
-
-        private void InitializePlayer()
-        {
-            playerGameObject = new GameObject("player 1", ObjectType.Static, RenderType.Opaque);
-
-            playerGameObject.Transform = new Transform(new Vector3(0.4f, 0.4f, 1),
-                null, new Vector3(0, 0.2f, -2));
-            var texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
-            var model = Content.Load<Model>("Assets/Models/sphere");
-            var mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, model);
-
-            playerGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect),
-                new Material(texture, 1),
-                mesh));
-
-            playerGameObject.AddComponent(new PlayerController(AppData.FIRST_PERSON_MOVE_SPEED, AppData.FIRST_PERSON_STRAFE_SPEED,
-                AppData.PLAYER_ROTATE_SPEED_VECTOR2, true));
-
-            sceneManager.ActiveScene.Add(playerGameObject);
-
-            //set this as active player
-            Application.Player = playerGameObject;
-        }
-
         private void InitializeSkyBoxAndGround(float worldScale)
         {
             float halfWorldScale = worldScale / 2.0f;
