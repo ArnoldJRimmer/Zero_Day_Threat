@@ -273,23 +273,6 @@ namespace GD.App
             //camera
             GameObject cameraGameObject = null;
 
-            #region Third Person
-
-            cameraGameObject = new GameObject(AppData.THIRD_PERSON_CAMERA_NAME);
-            cameraGameObject.Transform = new Transform(null, null, null);
-            cameraGameObject.AddComponent(new Camera(
-                AppData.FIRST_PERSON_HALF_FOV, //MathHelper.PiOver2 / 2,
-                (float)_graphics.PreferredBackBufferWidth / _graphics.PreferredBackBufferHeight,
-                AppData.FIRST_PERSON_CAMERA_NCP, //0.1f,
-                AppData.FIRST_PERSON_CAMERA_FCP,
-                new Viewport(0, 0, _graphics.PreferredBackBufferWidth,
-                _graphics.PreferredBackBufferHeight))); // 3000
-
-            //cameraGameObject.AddComponent(new ThirdPersonController());
-
-            cameraManager.Add(cameraGameObject.Name, cameraGameObject);
-
-            #endregion
 
             #region First Person
 
