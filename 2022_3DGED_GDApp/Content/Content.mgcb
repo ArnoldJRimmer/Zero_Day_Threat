@@ -68,7 +68,7 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:Assets/Models/cube.FBX;Assets/Models/shittyCube.FBX
+/build:Assets/Models/cube.FBX
 
 #begin Assets/Models/satalite.fbx
 /importer:FbxImporter
