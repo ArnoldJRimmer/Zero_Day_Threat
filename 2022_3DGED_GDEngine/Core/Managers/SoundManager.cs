@@ -187,6 +187,10 @@ namespace GD.Engine.Managers
                 Play2D(eventData.Parameters[0] as string);
             }
 
+            //This is another way to handle how sound is played during an event.
+            //A switch statement can be more effiecent than an if because it jumps directly to the event.
+            //Niall commented this out, and i do not know why
+
             //switch (eventData.EventActionType)
             //{
             //    case EventActionType.OnWin:
