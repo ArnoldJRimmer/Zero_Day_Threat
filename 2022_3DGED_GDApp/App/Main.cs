@@ -192,7 +192,7 @@ namespace GD.App
             LoadMediaAssets();
 
             //add drawn stuff
-            InitializeDrawnContent(worldScale);
+            //InitializeDrawnContent(worldScale);
 
             InitializePath();
             //add the player
@@ -547,22 +547,22 @@ namespace GD.App
             var panelTexture = Content.Load<Texture2D>("Assets/Textures/cube_DefaultMaterial_BaseColor");
             var panelFbxModel = Content.Load<Model>("Assets/Models/cube");
             var panelMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, panelFbxModel);
-            tempCube1.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(panelTexture, 1), panelMesh));
+            tempCube1.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
             tempCube1.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad1));
 
             tempCube2 = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
             tempCube2.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(1, 1, 1.7f));
-            tempCube2.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(panelTexture, 1), panelMesh));
+            tempCube2.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
             tempCube2.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad2));
 
             tempCube3 = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
             tempCube3.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(1, 1, 2.4f));
-            tempCube3.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(panelTexture, 1), panelMesh));
+            tempCube3.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
             tempCube3.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad3));
 
             tempCube4 = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
             tempCube4.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), Vector3.Zero, new Vector3(1, 1, 3.1f));
-            tempCube4.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(panelTexture, 1), panelMesh));
+            tempCube4.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
             tempCube4.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad4));
 
 
@@ -925,8 +925,8 @@ namespace GD.App
         /// <param name="isCursorLocked"></param>
         private void InitializeScreen(Vector2 resolution, bool isMouseVisible, bool isCursorLocked)
         {
-            // GD.Core.Screen screen = new GD.Core.Screen();
-            Screen screen = new Screen();
+            GD.Core.Screen screen = new GD.Core.Screen();
+            // Screen screen = new Screen();
 
             //set resolution
             screen.Set(resolution, isMouseVisible, isCursorLocked);
