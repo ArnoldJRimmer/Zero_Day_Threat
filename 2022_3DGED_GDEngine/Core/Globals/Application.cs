@@ -53,6 +53,16 @@ namespace GD.Engine.Globals
         /// </summary>
         public static Screen Screen { get; set; }
 
+        /// <summary>
+        /// Store a handle to currently active player
+        /// </summary>
+        public static GameObject Player { get; set; }
+
+        /// <summary>
+        /// Store a handle for the physics manager so that collider components can access Space to add BEPU collider primitives (e.g. Box, Sphere, Capsule)
+        /// </summary>
+        public static PhysicsManager PhysicsManager { get; internal set; }
+
         #endregion Properties
     }
 }

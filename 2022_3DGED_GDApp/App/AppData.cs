@@ -7,10 +7,19 @@
 using GD.Engine.Data;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using System.Web;
 
 namespace GD.App
 {
+#if DEMO
+
+    public enum CameraIDType : sbyte
+    {
+        First,
+        Third,
+        Security
+    }
+
+#endif
 
     public class AppData
     {
@@ -54,13 +63,26 @@ namespace GD.App
 
         #endregion Camera - First Person
 
+        #region Camera - Third Person
+
+        public static readonly string THIRD_PERSON_CAMERA_NAME = "third person camera";
+
+        #endregion
+
         #region Camera - Security Camera
 
         public static readonly float SECURITY_CAMERA_MAX_ANGLE = 45;
         public static readonly float SECURITY_CAMERA_ANGULAR_SPEED_MUL = 50;
         public static readonly Vector3 SECURITY_CAMERA_ROTATION_AXIS = new Vector3(0, 1, 0);
+        public static readonly string SECURITY_CAMERA_NAME = "security camera 1";
 
         #endregion Camera - Security Camera
+
+        #region Camera - Curve
+
+        public static readonly string CURVE_CAMERA_NAME = "curve camera 1";
+
+        #endregion
 
         #region Input Key Mappings
 
@@ -99,5 +121,6 @@ namespace GD.App
         public static readonly string LAMP_GAMEOBJECT_NAME = "Lamp Model";
         public static readonly string RADAR_GAMEOBJECT_NAME = "Radar Model";
         #endregion GameObject names
+        public static readonly double MAX_GAME_TIME_IN_MSECS = 2500; //180000
     }
 }
