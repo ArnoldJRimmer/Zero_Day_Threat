@@ -1,6 +1,7 @@
 ﻿#region Pre-compiler directives
 
 #define DEMO
+#define HI_RES
 #define SHOW_DEBUG_INFO
 
 #endregion
@@ -231,6 +232,25 @@ namespace GD.App
         private void LoadModels()
         {
             //load and add to dictionary
+
+            InitializeSatiliteModel();
+
+            IntializeRadarModel();
+
+
+            IntializeConsoleModel();
+            IntializeKeypadModel();
+            IntializeButtonModel();
+            IntializeKeyboardModel();
+            IntializePanelModel();
+            IntializeVentModel();
+            IntializeScreenLeftModel();
+            IntializeScreenCentreModel();
+            IntializeScreenRightModel();
+            IntializeFloppyDiskModel();
+            IntializeRadioModel();
+            IntializeLampModel();
+
         }
 
         private void InitializeCurves()
@@ -273,7 +293,7 @@ namespace GD.App
             //camera
             GameObject cameraGameObject = null;
 
-
+            //To turn movement back on See FirstPersonController.cs and uncomment: HandleKeyboardInput(gametime);
             #region First Person
 
             //camera 1
@@ -299,61 +319,6 @@ namespace GD.App
 
             #endregion First Person
 
-            #region Security
-
-            //camera 2
-            cameraGameObject = new GameObject(AppData.SECURITY_CAMERA_NAME);
-
-            cameraGameObject.Transform
-                = new Transform(null,
-                null,
-                new Vector3(0, 2, 25));
-
-            //add camera (view, projection)
-            cameraGameObject.AddComponent(new Camera(
-                MathHelper.PiOver2 / 2,
-                (float)_graphics.PreferredBackBufferWidth / _graphics.PreferredBackBufferHeight,
-                0.1f, 3500,
-                new Viewport(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight)));
-
-            //add rotation
-            cameraGameObject.AddComponent(new CycledRotationBehaviour(
-                AppData.SECURITY_CAMERA_ROTATION_AXIS,
-                AppData.SECURITY_CAMERA_MAX_ANGLE,
-                AppData.SECURITY_CAMERA_ANGULAR_SPEED_MUL,
-                TurnDirectionType.Right));
-
-            //adds FOV change on mouse scroll
-            cameraGameObject.AddComponent(new CameraFOVController(AppData.CAMERA_FOV_INCREMENT_LOW));
-
-            cameraManager.Add(cameraGameObject.Name, cameraGameObject);
-
-            #endregion Security
-
-            #region Curve
-
-            Curve3D curve3D = new Curve3D(CurveLoopType.Oscillate);
-            curve3D.Add(new Vector3(0, 2, 5), 0);
-            curve3D.Add(new Vector3(0, 5, 10), 1000);
-            curve3D.Add(new Vector3(0, 8, 25), 2500);
-            curve3D.Add(new Vector3(0, 5, 35), 4000);
-
-            cameraGameObject = new GameObject(AppData.CURVE_CAMERA_NAME);
-            cameraGameObject.Transform =
-                new Transform(null, null, null);
-            cameraGameObject.AddComponent(new Camera(
-                MathHelper.PiOver2 / 2,
-                (float)_graphics.PreferredBackBufferWidth / _graphics.PreferredBackBufferHeight,
-                0.1f, 3500,
-                  new Viewport(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight)));
-
-            cameraGameObject.AddComponent(
-                new CurveBehaviour(curve3D));
-
-            cameraManager.Add(cameraGameObject.Name, cameraGameObject);
-
-            #endregion Curve
-
             cameraManager.SetActiveCamera(AppData.FIRST_PERSON_CAMERA_NAME);
         }
 
@@ -369,44 +334,167 @@ namespace GD.App
 
         private void InitializeNonCollidableContent(float worldScale)
         {
-            //create sky
-            InitializeSkyBoxAndGround(worldScale);
-
+            var satiliteGameObject = new GameObject(AppData.SATILITE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            satiliteGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var satiliteTexture = Content.Load<Texture2D>("Assets/Textures/Satellite/satalite2_Material_BaseColor");
+            var satiliteFbxModel = Content.Load<Model>("Assets/Models/satalite2");
+            var satiliteMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, satiliteFbxModel);
+            satiliteGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(satiliteTexture, 1), satiliteMesh));
+            sceneManager.ActiveScene.Add(satiliteGameObject);
         }
 
-        private void InitializeColliableGround(float worldScale)
+        #region Console - Models
+
+        private void IntializeConsoleModel()
         {
-            var collidableGround = new Box(BEPUutilities.Vector3.Zero, worldScale, 1, worldScale);
-            physicsManager.Space.Add(collidableGround);
-            physicsManager.Space.Add(new Box(new BEPUutilities.Vector3(0, 4, 0), 1, 1, 1, 1));
-            physicsManager.Space.Add(new Box(new BEPUutilities.Vector3(0, 8, 0), 1, 1, 1, 1));
-            physicsManager.Space.Add(new Box(new BEPUutilities.Vector3(0, 12, 0), 1, 1, 1, 1));
+            var consoleGameObject = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            consoleGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var consoleTexture = Content.Load<Texture2D>("Assets/Textures/console/console_DefaultMaterial_BaseColor");
+            var consoleFbxModel = Content.Load<Model>("Assets/Models/console");
+            var consoleMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, consoleFbxModel);
+            consoleGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(consoleTexture, 1), consoleMesh));
+            sceneManager.ActiveScene.Add(consoleGameObject);
         }
-
-        private void InitializeCollidableModel()
+        private void IntializeKeypadModel()
         {
-            //game object
-            var gameObject = new GameObject("my first collidable box!", ObjectType.Static, RenderType.Opaque);
-
-            gameObject.Transform = new Transform(null, null, new Vector3(0, 4, 0));
-            var texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
-            var model = Content.Load<Model>("Assets/Models/cube");
-            var mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, model);
-
-            gameObject.AddComponent(new Renderer(
-                new GDBasicEffect(litEffect),
-                new Material(texture, 1f, Color.White),
-                mesh));
-
-            gameObject.AddComponent(new BoxCollider(new Vector3(0, 10, 0),
-                1, 1, 1, 10));
-
-            sceneManager.ActiveScene.Add(gameObject);
+            var keypadGameObject = new GameObject(AppData.KEYPAD_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            keypadGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var keypadTexture = Content.Load<Texture2D>("Assets/Textures/console/keypad_DefaultMaterial_BaseColor");
+            var keypadFbxModel = Content.Load<Model>("Assets/Models/keypad");
+            var keypadMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, keypadFbxModel);
+            keypadGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(keypadTexture, 1), keypadMesh));
+            sceneManager.ActiveScene.Add(keypadGameObject);
         }
+
+        private void IntializeButtonModel()
+        {
+            var buttonGameObject = new GameObject(AppData.BUTTON_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            buttonGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var buttonTexture = Content.Load<Texture2D>("Assets/Textures/console/button_DefaultMaterial_Base_color");
+            var buttonFbxModel = Content.Load<Model>("Assets/Models/button");
+            var buttonMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, buttonFbxModel);
+            buttonGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(buttonTexture, 1), buttonMesh));
+            sceneManager.ActiveScene.Add(buttonGameObject);
+        }
+
+        private void IntializeKeyboardModel()
+        {
+            var keyboardGameObject = new GameObject(AppData.KEYBOARD_GAMEOJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            keyboardGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var keyboardTexture = Content.Load<Texture2D>("Assets/Textures/console/keyboard_Base_color");
+            var keyboardFbxModel = Content.Load<Model>("Assets/Models/keyboard");
+            var keyboardMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, keyboardFbxModel);
+            keyboardGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(keyboardTexture, 1), keyboardMesh));
+            sceneManager.ActiveScene.Add(keyboardGameObject);
+        }
+
+        private void IntializePanelModel()
+        {
+            var panelGameObject = new GameObject(AppData.PANEL_GAMEOBECT_NAME, ObjectType.Static, RenderType.Opaque);
+            panelGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var panelTexture = Content.Load<Texture2D>("Assets/Textures/console/panel_Base_color");
+            var panelFbxModel = Content.Load<Model>("Assets/Models/panel");
+            var panelMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, panelFbxModel);
+            panelGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(panelTexture, 1), panelMesh));
+            sceneManager.ActiveScene.Add(panelGameObject);
+        }
+
+        private void IntializeVentModel()
+        {
+            var ventGameObject = new GameObject(AppData.VENT_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            ventGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var ventTexture = Content.Load<Texture2D>("Assets/Textures/console/vent_Base_color");
+            var ventFbxModel = Content.Load<Model>("Assets/Models/vent");
+            var ventMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, ventFbxModel);
+            ventGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(ventTexture, 1), ventMesh));
+            sceneManager.ActiveScene.Add(ventGameObject);
+        }
+
+        private void IntializeScreenRightModel()
+        {
+            var screenRightGameObject = new GameObject(AppData.SCREEN_RIGHT_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            screenRightGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var screenRightTexture = Content.Load<Texture2D>("Assets/Textures/console/screenright_Base_color");
+            var screenRightFbxModel = Content.Load<Model>("Assets/Models/screen-right");
+            var screenRightMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, screenRightFbxModel);
+            screenRightGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(screenRightTexture, 1), screenRightMesh));
+            sceneManager.ActiveScene.Add(screenRightGameObject);
+        }
+
+        private void IntializeScreenCentreModel()
+        {
+            var screenCentreGameObject = new GameObject(AppData.SCREEN_CENTRE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            screenCentreGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var screenCentreTexture = Content.Load<Texture2D>("Assets/Textures/console/screencentre_Base_color");
+            var screenCentreFbxModel = Content.Load<Model>("Assets/Models/screen-centre");
+            var screenCentreMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, screenCentreFbxModel);
+            screenCentreGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(screenCentreTexture, 1), screenCentreMesh));
+            sceneManager.ActiveScene.Add(screenCentreGameObject);
+        }
+
+        private void IntializeScreenLeftModel()
+        {
+            var screenLeftGameObject = new GameObject(AppData.SCREEN_LEFT_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            screenLeftGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var screenLeftTexture = Content.Load<Texture2D>("Assets/Textures/console/screenleft_Base_color");
+            var screenLeftFbxModel = Content.Load<Model>("Assets/Models/screen-left");
+            var screenLeftMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, screenLeftFbxModel);
+            screenLeftGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(screenLeftTexture, 1), screenLeftMesh));
+            sceneManager.ActiveScene.Add(screenLeftGameObject);
+        }
+
+        private void IntializeRadioModel()
+        {
+            var radioGameObject = new GameObject(AppData.RADIO_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            radioGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var radioTexture = Content.Load<Texture2D>("Assets/Textures/console/radio_Base_Color");
+            var radioFbxModel = Content.Load<Model>("Assets/Models/radio");
+            var radioMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, radioFbxModel);
+            radioGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(radioTexture, 1), radioMesh));
+            sceneManager.ActiveScene.Add(radioGameObject);
+        }
+
+        private void IntializeLampModel()
+        {
+            var lampGameObject = new GameObject(AppData.LAMP_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            lampGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var lampTexture = Content.Load<Texture2D>("Assets/Textures/console/lamp_Base_color");
+            var lampFbxModel = Content.Load<Model>("Assets/Models/lamp");
+            var lampMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, lampFbxModel);
+            lampGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(lampTexture, 1), lampMesh));
+            sceneManager.ActiveScene.Add(lampGameObject);
+        }
+
+        private void IntializeFloppyDiskModel()
+        {
+            var floppyDiskGameObject = new GameObject(AppData.FLOPPY_DISk_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            floppyDiskGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var floppyDiskTexture = Content.Load<Texture2D>("Assets/Textures/console/floppydisk_Base_color");
+            var floppyDiskFbxModel = Content.Load<Model>("Assets/Models/floppy-disk");
+            var floppyDiskMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, floppyDiskFbxModel);
+            floppyDiskGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(floppyDiskTexture, 1), floppyDiskMesh));
+            sceneManager.ActiveScene.Add(floppyDiskGameObject);
+        }
+
+        #endregion
+
+        private void IntializeRadarModel()
+        {
+            var radarGameObject = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            radarGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var radarTexture = Content.Load<Texture2D>("Assets/Textures/Radar/radar-display_DefaultMaterial_BaseColor");
+            var radarFbxModel = Content.Load<Model>("Assets/Models/radar-display");
+            var radarMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, radarFbxModel);
+            radarGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(radarTexture, 1), radarMesh));
+            sceneManager.ActiveScene.Add(radarGameObject);
+        }
+
+        #endregion Zero Day Threat - Models
+
 
         private void InitializeSkyBoxAndGround(float worldScale)
         {
-            float halfWorldScale = worldScale / 2.0f;
+            float halfWorldScale = worldScale / 4.0f;
 
             GameObject quad = null;
             var gdBasicEffect = new GDBasicEffect(unlitEffect);
@@ -415,42 +503,42 @@ namespace GD.App
             //skybox - back face
             quad = new GameObject("skybox back face");
             quad.Transform = new Transform(new Vector3(worldScale, worldScale, 1), null, new Vector3(0, 0, -halfWorldScale));
-            var texture = Content.Load<Texture2D>("Assets/Textures/Skybox/back");
+            var texture = Content.Load<Texture2D>("Assets/Textures/Skybox/basicwall");
             quad.AddComponent(new Renderer(gdBasicEffect, new Material(texture, 1), quadMesh));
             sceneManager.ActiveScene.Add(quad);
 
             //skybox - left face
             quad = new GameObject("skybox left face");
             quad.Transform = new Transform(new Vector3(worldScale, worldScale, 1), new Vector3(0, MathHelper.ToRadians(90), 0), new Vector3(-halfWorldScale, 0, 0));
-            texture = Content.Load<Texture2D>("Assets/Textures/Skybox/left");
+            texture = Content.Load<Texture2D>("Assets/Textures/Skybox/basicwall");
             quad.AddComponent(new Renderer(gdBasicEffect, new Material(texture, 1), quadMesh));
             sceneManager.ActiveScene.Add(quad);
 
             //skybox - right face
             quad = new GameObject("skybox right face");
             quad.Transform = new Transform(new Vector3(worldScale, worldScale, 1), new Vector3(0, MathHelper.ToRadians(-90), 0), new Vector3(halfWorldScale, 0, 0));
-            texture = Content.Load<Texture2D>("Assets/Textures/Skybox/right");
+            texture = Content.Load<Texture2D>("Assets/Textures/Skybox/basicwall");
             quad.AddComponent(new Renderer(gdBasicEffect, new Material(texture, 1), quadMesh));
             sceneManager.ActiveScene.Add(quad);
 
             //skybox - top face
             quad = new GameObject("skybox top face");
             quad.Transform = new Transform(new Vector3(worldScale, worldScale, 1), new Vector3(MathHelper.ToRadians(90), MathHelper.ToRadians(-90), 0), new Vector3(0, halfWorldScale, 0));
-            texture = Content.Load<Texture2D>("Assets/Textures/Skybox/sky");
+            texture = Content.Load<Texture2D>("Assets/Textures/Skybox/basicwall");
             quad.AddComponent(new Renderer(gdBasicEffect, new Material(texture, 1), quadMesh));
             sceneManager.ActiveScene.Add(quad);
 
             //skybox - front face
             quad = new GameObject("skybox front face");
             quad.Transform = new Transform(new Vector3(worldScale, worldScale, 1), new Vector3(0, MathHelper.ToRadians(-180), 0), new Vector3(0, 0, halfWorldScale));
-            texture = Content.Load<Texture2D>("Assets/Textures/Skybox/front");
+            texture = Content.Load<Texture2D>("Assets/Textures/Skybox/basicwall");
             quad.AddComponent(new Renderer(gdBasicEffect, new Material(texture, 1), quadMesh));
             sceneManager.ActiveScene.Add(quad);
 
             //ground
             quad = new GameObject("ground");
             quad.Transform = new Transform(new Vector3(worldScale, worldScale, 1), new Vector3(MathHelper.ToRadians(-90), 0, 0), new Vector3(0, 0, 0));
-            texture = Content.Load<Texture2D>("Assets/Textures/Foliage/Ground/grass1");
+            texture = Content.Load<Texture2D>("Assets/Textures/Skybox/ground");
             quad.AddComponent(new Renderer(gdBasicEffect, new Material(texture, 1), quadMesh));
             sceneManager.ActiveScene.Add(quad);
         }
@@ -535,6 +623,19 @@ namespace GD.App
             //_graphics.ApplyChanges();
         }
 
+        /// <summary>
+        /// Sets the sampler states etc
+        /// </summary>
+        private void InitializeGraphics()
+        {
+            //TODO - move later to something like RenderManager
+            //sets the sampler states which defines how textures are drawn when surface has UV values outside the range [0,1] - fixes the line issue at boundary between skybox textures
+            SamplerState samplerState = new SamplerState();
+            samplerState.AddressU = TextureAddressMode.Mirror;
+            samplerState.AddressV = TextureAddressMode.Mirror;
+            _graphics.GraphicsDevice.SamplerStates[0] = samplerState;
+        }
+
         private void InitializeManagers()
         {
             //add event dispatcher for system events - the most important element!!!!!!
@@ -609,9 +710,6 @@ namespace GD.App
 
         protected override void Update(GameTime gameTime)
         {
-            //dummy key strokes
-            //Raise
-
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -639,11 +737,9 @@ namespace GD.App
             if (Input.Keys.IsPressed(Keys.F1))
                 cameraManager.SetActiveCamera(AppData.FIRST_PERSON_CAMERA_NAME);
             else if (Input.Keys.IsPressed(Keys.F2))
-                cameraManager.SetActiveCamera(AppData.SECURITY_CAMERA_NAME);
+                cameraManager.SetActiveCamera("security camera 1");
             else if (Input.Keys.IsPressed(Keys.F3))
-                cameraManager.SetActiveCamera(AppData.CURVE_CAMERA_NAME);
-            else if (Input.Keys.IsPressed(Keys.F4))
-                cameraManager.SetActiveCamera(AppData.THIRD_PERSON_CAMERA_NAME);
+                cameraManager.SetActiveCamera("curve camera 1");
 
             #endregion Demo - Camera switching
 
