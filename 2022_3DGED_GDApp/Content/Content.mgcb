@@ -13,17 +13,83 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Assets/Audio/Diegetic/Button_click_explosion.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Audio/Diegetic/Button_click_explosion.wav
+
+#begin Assets/Audio/Diegetic/Card pickup or swipe.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Audio/Diegetic/Card pickup or swipe.wav
+
+#begin Assets/Audio/Diegetic/CardDrop.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Audio/Diegetic/CardDrop.wav
+
+#begin Assets/Audio/Diegetic/device close.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Audio/Diegetic/device close.wav
+
+#begin Assets/Audio/Diegetic/Dial Twisting.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Audio/Diegetic/Dial Twisting.wav
+
 #begin Assets/Audio/Diegetic/explode1.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Assets/Audio/Diegetic/explode1.mp3
 
+#begin Assets/Audio/Diegetic/ExternalButtonPress.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Audio/Diegetic/ExternalButtonPress.wav
+
+#begin Assets/Audio/Diegetic/IncorrectNumber.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Audio/Diegetic/IncorrectNumber.wav
+
+#begin Assets/Audio/Diegetic/KeyboardPressing.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Audio/Diegetic/KeyboardPressing.wav
+
+#begin Assets/Audio/Diegetic/NumPad.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Audio/Diegetic/NumPad.wav
+
+#begin Assets/Audio/Diegetic/Open-phone.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Audio/Diegetic/Open-phone.wav
+
 #begin Assets/Audio/Diegetic/smokealarm1.ogg
 /importer:OggImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Assets/Audio/Diegetic/smokealarm1.ogg
+
+#begin Assets/Audio/Diegetic/StartUpBeep.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Audio/Diegetic/StartUpBeep.wav
 
 #begin Assets/Fonts/Perf.spritefont
 /importer:FontDescriptionImporter

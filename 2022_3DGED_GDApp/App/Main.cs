@@ -232,13 +232,112 @@ namespace GD.App
                 new Vector3(1, 1, 0),
                 false));
 
-            var alarmEffect =
-               Content.Load<SoundEffect>("Assets/Audio/Diegetic/smokealarm1");
+            var incorrectNumberEffect =
+                Content.Load<SoundEffect>("Assets/Audio/Diegetic/IncorrectNumber");
 
             //add the new sound effect
             soundManager.Add(new Cue(
-                "alarm",
-                alarmEffect,
+                "incorrectNumber",
+                incorrectNumberEffect,
+                SoundCategoryType.Alarm,
+                new Vector3(1, 1, 0),
+                false));
+
+            var cardDropEffect =
+                Content.Load<SoundEffect>("Assets/Audio/Diegetic/CardDrop");
+
+            //add the new sound effect
+            soundManager.Add(new Cue(
+                "CardDrop",
+                cardDropEffect,
+                SoundCategoryType.Alarm,
+                new Vector3(1, 1, 0),
+                false));
+
+            var buttonClickExplosionEffect =
+                Content.Load<SoundEffect>("Assets/Audio/Diegetic/Button_click_explosion");
+
+            //add the new sound effect
+            soundManager.Add(new Cue(
+                "buttonClickExplosion",
+                buttonClickExplosionEffect,
+                SoundCategoryType.Alarm,
+                new Vector3(1, 1, 0),
+                false));
+
+            var cardPickupOrSwipeEffect =
+                Content.Load<SoundEffect>("Assets/Audio/Diegetic/Card pickup or swipe");
+
+            //add the new sound effect
+            soundManager.Add(new Cue(
+                "cardPickupOrSwipe",
+                cardPickupOrSwipeEffect,
+                SoundCategoryType.Alarm,
+                new Vector3(1, 1, 0),
+                false));
+
+            var dialTwistingEffect =
+                Content.Load<SoundEffect>("Assets/Audio/Diegetic/Dial Twisting");
+
+            //add the new sound effect
+            soundManager.Add(new Cue(
+                "dialTwisting",
+                dialTwistingEffect,
+                SoundCategoryType.Alarm,
+                new Vector3(1, 1, 0),
+                false));
+
+            var externalButtonPressEffect =
+                Content.Load<SoundEffect>("Assets/Audio/Diegetic/ExternalButtonPress");
+
+            //add the new sound effect
+            soundManager.Add(new Cue(
+                "externalButtonPress",
+                externalButtonPressEffect,
+                SoundCategoryType.Alarm,
+                new Vector3(1, 1, 0),
+                false));
+
+            //var errorEffect =
+            //    Content.Load<SoundEffect>("Assets/Audio/Diegetic/Error");
+
+            ////add the new sound effect
+            //soundManager.Add(new Cue(
+            //    "Error",
+            //    errorEffect,
+            //    SoundCategoryType.Alarm,
+            //    new Vector3(1, 1, 0),
+            //    false));
+
+            var keyboardPressingEffect =
+                Content.Load<SoundEffect>("Assets/Audio/Diegetic/KeyboardPressing");
+
+            //add the new sound effect
+            soundManager.Add(new Cue(
+                "keyboardPressing",
+                keyboardPressingEffect,
+                SoundCategoryType.Alarm,
+                new Vector3(1, 1, 0),
+                false));
+
+            var numPadEffect =
+                Content.Load<SoundEffect>("Assets/Audio/Diegetic/NumPad");
+
+            //add the new sound effect
+            soundManager.Add(new Cue(
+                "numPad",
+                numPadEffect,
+                SoundCategoryType.Alarm,
+                new Vector3(1, 1, 0),
+                false));
+
+            var startUpBeepEffect =
+                Content.Load<SoundEffect>("Assets/Audio/Diegetic/StartUpBeep");
+
+            //add the new sound effect
+            soundManager.Add(new Cue(
+                "startUpBeep",
+                startUpBeepEffect,
                 SoundCategoryType.Alarm,
                 new Vector3(1, 1, 0),
                 false));
