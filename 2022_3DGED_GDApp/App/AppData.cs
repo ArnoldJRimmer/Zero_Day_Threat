@@ -121,6 +121,8 @@ namespace GD.App
         public static readonly string RADIO_GAMEOBJECT_NAME = "Radio Model";
         public static readonly string LAMP_GAMEOBJECT_NAME = "Lamp Model";
         public static readonly string RADAR_GAMEOBJECT_NAME = "Radar Model";
+        public static readonly string CUBE_NAME = "Cube Model";
+
         #endregion GameObject names
         public static readonly double MAX_GAME_TIME_IN_MSECS = 2500; //180000
     }

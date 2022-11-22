@@ -231,6 +231,17 @@ namespace GD.App
                 SoundCategoryType.Alarm,
                 new Vector3(1, 1, 0),
                 false));
+
+            var alarmEffect =
+               Content.Load<SoundEffect>("Assets/Audio/Diegetic/smokealarm1");
+
+            //add the new sound effect
+            soundManager.Add(new Cue(
+                "alarm",
+                alarmEffect,
+                SoundCategoryType.Alarm,
+                new Vector3(1, 1, 0),
+                false));
         }
 
         private void LoadTextures()
@@ -542,7 +553,7 @@ namespace GD.App
         {
             //Make each cube out of 6 different planes. Ideally have a class called Cubey.cs that makes the cube out of these six faces
             //Sample of what i would like to do
-            tempCube1 = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            tempCube1 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
             tempCube1.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), Vector3.Zero, Vector3.One);
             var panelTexture = Content.Load<Texture2D>("Assets/Textures/cube_DefaultMaterial_BaseColor");
             var panelFbxModel = Content.Load<Model>("Assets/Models/cube");
@@ -550,17 +561,17 @@ namespace GD.App
             tempCube1.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
             tempCube1.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad1));
 
-            tempCube2 = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            tempCube2 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
             tempCube2.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(1, 1, 1.7f));
             tempCube2.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
             tempCube2.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad2));
 
-            tempCube3 = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            tempCube3 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
             tempCube3.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(1, 1, 2.4f));
             tempCube3.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
             tempCube3.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad3));
 
-            tempCube4 = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            tempCube4 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
             tempCube4.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), Vector3.Zero, new Vector3(1, 1, 3.1f));
             tempCube4.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
             tempCube4.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad4));
@@ -1020,7 +1031,7 @@ namespace GD.App
             perfUtility.infoList.Add(new ObjectInfo(_spriteBatch, spriteFont, "Objects:", Color.White, contentScale * Vector2.One));
             perfUtility.infoList.Add(new TextInfo(_spriteBatch, spriteFont, "Hints -----------------------------------", Color.Yellow, headingScale * Vector2.One));
             perfUtility.infoList.Add(new TextInfo(_spriteBatch, spriteFont, "Use mouse scroll wheel to change security camera FOV, F1-F4 for camera switch", Color.White, contentScale * Vector2.One));
-
+            perfUtility.infoList.Add(new TextInfo(_spriteBatch, spriteFont, "Use the delete key to reset the level", Color.White, contentScale * Vector2.One));
             //add to the component list otherwise it wont have its Update or Draw called!
             Components.Add(perfUtility);
         }
@@ -1034,6 +1045,16 @@ namespace GD.App
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Delete))
+            {
+                sceneManager.ActiveScene.Remove(tempCube1.ObjectType,tempCube1.RenderType,o => tempCube1.Name.Equals(AppData.CUBE_NAME) );
+                sceneManager.ActiveScene.Remove(tempCube2.ObjectType,tempCube2.RenderType,o => tempCube2.Name.Equals(AppData.CUBE_NAME) );
+                sceneManager.ActiveScene.Remove(tempCube3.ObjectType,tempCube3.RenderType,o => tempCube3.Name.Equals(AppData.CUBE_NAME) );
+                sceneManager.ActiveScene.Remove(tempCube4.ObjectType,tempCube4.RenderType,o => tempCube4.Name.Equals(AppData.CUBE_NAME) );
+                
+                InitializeCube();
+            }
 
             //update all drawn game objects in the active scene
             //sceneManager.Update(gameTime);
@@ -1099,6 +1120,14 @@ namespace GD.App
 
         private void PathChecker()
         {
+            if (!temp.States.Contains(false))
+            {
+                Application.SoundManager.Play2D("alarm");
+            }
+            else
+            {
+                Application.SoundManager.Stop("alarm");
+            }
             //for (int i = 0; i <= temp.Size-1; i++)
             //{
             //    if (cubes[i].Transform.rotation == temp.Pieces[i].rotation && temp.States[i] == false)
@@ -1116,7 +1145,7 @@ namespace GD.App
                 Application.SoundManager.Play2D("boom1");
                 temp.setState(true, 0);
             }
-            else if (tempCube1.Transform.rotation != temp.Pieces[0].rotation)
+            else if (tempCube1.Transform.rotation != temp.Pieces[0].rotation && temp.States[0] == true)
             {
                 temp.setState(false, 0);
             }
@@ -1126,32 +1155,41 @@ namespace GD.App
                 Application.SoundManager.Play2D("boom1");
                 temp.setState(true, 1);
             }
-            else if (tempCube2.Transform.rotation != temp.Pieces[1].rotation)
+
+            else if (tempCube2.Transform.rotation != temp.Pieces[1].rotation && temp.States[0] == true)
             {
                 temp.setState(false, 1);
             }
-            else if(tempCube3.Transform.rotation == temp.Pieces[2].rotation && temp.States[2] == false)
+
+            else if (tempCube3.Transform.rotation == temp.Pieces[2].rotation && temp.States[2] == false)
             {
                 Application.SoundManager.Play2D("boom1");
                 temp.setState(true, 2);
             }
-            else if (tempCube3.Transform.rotation != temp.Pieces[2].rotation)
+
+            else if (tempCube3.Transform.rotation != temp.Pieces[2].rotation && temp.States[0] == true)
             {
                 temp.setState(false, 2);
             }
-            else if(tempCube4.Transform.rotation == temp.Pieces[3].rotation && temp.States[3] == false)
+
+            else if (tempCube4.Transform.rotation == temp.Pieces[3].rotation && temp.States[3] == false)
             {
                 Application.SoundManager.Play2D("boom1");
                 temp.setState(true, 3);
             }
-            else if (tempCube4.Transform.rotation != temp.Pieces[3].rotation)
+
+            else if (tempCube4.Transform.rotation != temp.Pieces[3].rotation && temp.States[0] == true)
             {
                 temp.setState(false, 3);
             }
 
+
+            
+
+
         }
 
-       
+
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
