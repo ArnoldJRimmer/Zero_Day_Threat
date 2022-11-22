@@ -1,10 +1,12 @@
 ﻿#region Pre-compiler directives
 
 #define DEMO
-//#define SHOW_DEBUG_INFO
+#define SHOW_DEBUG_INFO
 
 #endregion
 
+using BEPUphysics;
+using BEPUphysics.Entities.Prefabs;
 using GD.Core;
 using GD.Engine;
 using GD.Engine.Events;
@@ -18,10 +20,13 @@ using System;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using Application = GD.Engine.Globals.Application;
+using Box = BEPUphysics.Entities.Prefabs.Box;
 using ButtonState = Microsoft.Xna.Framework.Input.ButtonState;
 using Cue = GD.Engine.Managers.Cue;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
+using Material = GD.Engine.Material;
 using GD.Engine.Collections;
 using System.Windows.Forms;
 
@@ -34,13 +39,16 @@ namespace GD.App
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private BasicEffect unlitEffect;
-        private BasicEffect effect;
+        private BasicEffect litEffect;
 
         private CameraManager cameraManager;
         private SceneManager sceneManager;
         private SoundManager soundManager;
-        private EventDispatcher eventDispatcher;
+        private PhysicsManager physicsManager;
         private RenderManager renderManager;
+        private EventDispatcher eventDispatcher;
+        private GameObject playerGameObject;
+        private StateManager stateManager;
 
         private Path temp;
         private GameObject tempCube1;
@@ -67,12 +75,52 @@ namespace GD.App
 
         #region Actions - Initialize
 
-        #if DEMO
+#if DEMO
 
         private void DemoCode()
         {
             //shows how we can create an event, register for it, and raise it in Main::Update() on Keys.E press
             DemoEvent();
+
+            //shows us how to listen to a specific event
+            DemoStateManagerEvent();
+
+            Demo3DSoundTree();
+        }
+
+        private void Demo3DSoundTree()
+        {
+            //var camera = Application.CameraManager.ActiveCamera.AudioListener;
+            //var audioEmitter = //get tree, get emitterbehaviour, get audio emitter
+
+            //object[] parameters = {"sound name", audioListener, audioEmitter};
+
+            //EventDispatcher.Raise(new EventData(EventCategoryType.Sound,
+            //    EventActionType.OnPlay3D, parameters));
+
+            //throw new NotImplementedException();
+        }
+
+        private void DemoStateManagerEvent()
+        {
+            EventDispatcher.Subscribe(EventCategoryType.Player, HandleEvent);
+        }
+
+        private void HandleEvent(EventData eventData)
+        {
+            switch (eventData.EventActionType)
+            {
+                case EventActionType.OnWin:
+                    System.Diagnostics.Debug.WriteLine(eventData.Parameters[0] as string);
+                    break;
+
+                case EventActionType.OnLose:
+                    System.Diagnostics.Debug.WriteLine(eventData.Parameters[2] as string);
+                    break;
+
+                default:
+                    break;
+            }
         }
 
         private void DemoEvent()
@@ -85,14 +133,10 @@ namespace GD.App
             System.Diagnostics.Debug.WriteLine($"{e} was sent by {sender}");
         }
 
-        #endif
+#endif
 
         protected override void Initialize()
         {
-
-            #if DEMO
-                DemoCode();
-            #endif
             //moved spritebatch initialization here because we need it in InitializeDebug() below
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -106,6 +150,10 @@ namespace GD.App
 
 #if SHOW_DEBUG_INFO
             InitializeDebug();
+#endif
+
+#if DEMO
+            DemoCode();
 #endif
 
             base.Initialize();
@@ -134,6 +182,12 @@ namespace GD.App
             //add scene manager and starting scenes
             InitializeScenes();
 
+            //add collidable drawn stuff
+            InitializeCollidableContent(worldScale);
+
+            //add non-collidable drawn stuff
+            InitializeNonCollidableContent(worldScale);
+
             //load sounds, textures, models etc
             LoadMediaAssets();
 
@@ -141,6 +195,15 @@ namespace GD.App
             InitializeDrawnContent(worldScale);
 
             InitializePath();
+            //add the player
+            //InitializePlayer();
+
+            //Raise all the events that I want to happen at the start
+            //object[] parameters = { "epic_soundcue" };
+            //EventDispatcher.Raise(
+            //    new EventData(EventCategoryType.Player,
+            //    EventActionType.OnSpawnObject,
+            //    parameters));
         }
 
         private void SetTitle(string title)
@@ -179,14 +242,22 @@ namespace GD.App
         {
             //load and add to dictionary
 
-            //InitializeSatiliteModel();
-            //IntializeConsoleModel();
-            //IntializeRadarModel();
-            for(int i = 0; i < 10; i++)
-            {
-                InitializeCube();
-            }
-           
+            InitializeSatiliteModel();
+            IntializeRadarModel();
+            IntializeConsoleModel();
+            IntializeKeypadModel();
+            IntializeButtonModel();
+            IntializeKeyboardModel();
+            IntializePanelModel();
+            IntializeVentModel();
+            IntializeScreenLeftModel();
+            IntializeScreenCentreModel();
+            IntializeScreenRightModel();
+            IntializeFloppyDiskModel();
+            IntializeRadioModel();
+            IntializeLampModel();
+            
+            InitializeCube();
 
         }
 
@@ -203,13 +274,13 @@ namespace GD.App
         private void InitializeScenes()
         {
             //initialize a scene
-            var scene = new Scene("Mission Control");
+            var scene = new Scene("MissionControl");
 
             //add scene to the scene manager
             sceneManager.Add(scene.ID, scene);
 
             //don't forget to set active scene
-            sceneManager.SetActiveScene("Mission Control");
+            sceneManager.SetActiveScene("MissionControl");
         }
 
         private void InitializeEffects()
@@ -219,11 +290,10 @@ namespace GD.App
             unlitEffect.TextureEnabled = true;
 
             //all other drawn objects
-            effect = new BasicEffect(_graphics.GraphicsDevice);
-            effect.TextureEnabled = true;
-            effect.LightingEnabled = true;
-            effect.EnableDefaultLighting();
-
+            litEffect = new BasicEffect(_graphics.GraphicsDevice);
+            litEffect.TextureEnabled = true;
+            litEffect.LightingEnabled = true;
+            litEffect.EnableDefaultLighting();
         }
 
         private void InitializeCameras()
@@ -231,7 +301,7 @@ namespace GD.App
             //camera
             GameObject cameraGameObject = null;
 
-            //To turn movement back on See FirstPersonController.cs and uncomment: HandleKeyboardInput(gametime);
+
             #region First Person
 
             //camera 1
@@ -242,11 +312,12 @@ namespace GD.App
                 AppData.FIRST_PERSON_HALF_FOV, //MathHelper.PiOver2 / 2,
                 (float)_graphics.PreferredBackBufferWidth / _graphics.PreferredBackBufferHeight,
                 AppData.FIRST_PERSON_CAMERA_NCP, //0.1f,
-                AppData.FIRST_PERSON_CAMERA_FCP, new Viewport(0, 0, _graphics.PreferredBackBufferWidth,
-                _graphics.PreferredBackBufferHeight)));// 3000
+                AppData.FIRST_PERSON_CAMERA_FCP,
+                new Viewport(0, 0, _graphics.PreferredBackBufferWidth,
+                _graphics.PreferredBackBufferHeight))); // 3000
 
-            //OLD
-            //cameraGameObject.AddComponent(new FirstPersonCameraController(AppData.FIRST_PERSON_MOVE_SPEED, AppData.FIRST_PERSON_STRAFE_SPEED));
+            //added ability for camera to listen to 3D sounds
+            cameraGameObject.AddComponent(new AudioListenerBehaviour());
 
             //NEW
             cameraGameObject.AddComponent(new FirstPersonController(AppData.FIRST_PERSON_MOVE_SPEED, AppData.FIRST_PERSON_STRAFE_SPEED,
@@ -259,48 +330,211 @@ namespace GD.App
             cameraManager.SetActiveCamera(AppData.FIRST_PERSON_CAMERA_NAME);
         }
 
-        private void InitializeDrawnContent(float worldScale)
+        private void InitializeCollidableContent(float worldScale)
+        {
+            #region Collidable
+
+            InitializeColliableGround(worldScale);
+            InitializeCollidableModel();
+
+            #endregion
+        }
+
+        private void InitializeNonCollidableContent(float worldScale)
         {
             //create sky
             InitializeSkyBoxAndGround(worldScale);
 
         }
 
+        private void InitializeColliableGround(float worldScale)
+        {
+            var collidableGround = new Box(BEPUutilities.Vector3.Zero, worldScale, 1, worldScale);
+            physicsManager.Space.Add(collidableGround);
+            physicsManager.Space.Add(new Box(new BEPUutilities.Vector3(0, 4, 0), 1, 1, 1, 1));
+            physicsManager.Space.Add(new Box(new BEPUutilities.Vector3(0, 8, 0), 1, 1, 1, 1));
+            physicsManager.Space.Add(new Box(new BEPUutilities.Vector3(0, 12, 0), 1, 1, 1, 1));
+        }
+        
+        private void InitializeCollidableModel()
+        {
+            //game object
+            var gameObject = new GameObject("my first collidable box!", ObjectType.Static, RenderType.Opaque);
+
+            gameObject.Transform = new Transform(null, null, new Vector3(0, 4, 0));
+            var texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
+            var model = Content.Load<Model>("Assets/Models/cube");
+            var mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, model);
+
+            gameObject.AddComponent(new Renderer(
+                new GDBasicEffect(litEffect),
+                new Material(texture, 1f, Color.White),
+                mesh));
+
+            gameObject.AddComponent(new BoxCollider(new Vector3(0, 10, 0),
+                1, 1, 1, 10));
+
+            sceneManager.ActiveScene.Add(gameObject);
+        }
+        
         #region Zero Day Threat - Models
         private void InitializeSatiliteModel()
         {
             var satiliteGameObject = new GameObject(AppData.SATILITE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
-            satiliteGameObject.Transform = new Transform(new Vector3(0.1f, 0.1f, 0.1f), new Vector3(0, 0, 1), new Vector3(0.5f, 3, 1));
-            var satiliteTexture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
-            var satiliteFbxModel = Content.Load<Model>("Assets/Models/satalite");
+            satiliteGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var satiliteTexture = Content.Load<Texture2D>("Assets/Textures/Satellite/satalite2_Material_BaseColor");
+            var satiliteFbxModel = Content.Load<Model>("Assets/Models/satalite2");
             var satiliteMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, satiliteFbxModel);
-            //gameObject.AddComponent(new SimpleRotationBehaviour(new Vector3(1, 0, 0), MathHelper.ToRadians(1 / 16.0f)));
-            //sceneManager.ActiveScene.Add(gameObject);
-            satiliteGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(satiliteTexture, 1), satiliteMesh));
+            satiliteGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(satiliteTexture, 1), satiliteMesh));
             sceneManager.ActiveScene.Add(satiliteGameObject);
         }
+
+        #region Console - Models
 
         private void IntializeConsoleModel()
         {
             var consoleGameObject = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
-            consoleGameObject.Transform = new Transform(new Vector3(1, 1, 1), null, new Vector3(1, 1, 1));
-            var consoleTexture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
-            var consoleFbxModel = Content.Load<Model>("Assets/Models/satalite");
+            consoleGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var consoleTexture = Content.Load<Texture2D>("Assets/Textures/console/console_DefaultMaterial_BaseColor");
+            var consoleFbxModel = Content.Load<Model>("Assets/Models/console");
             var consoleMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, consoleFbxModel);
-            consoleGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(consoleTexture, 1), consoleMesh));
+            consoleGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(consoleTexture, 1), consoleMesh));
             sceneManager.ActiveScene.Add(consoleGameObject);
         }
+        private void IntializeKeypadModel()
+        {
+            var keypadGameObject = new GameObject(AppData.KEYPAD_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            keypadGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var keypadTexture = Content.Load<Texture2D>("Assets/Textures/console/keypad_DefaultMaterial_BaseColor");
+            var keypadFbxModel = Content.Load<Model>("Assets/Models/keypad");
+            var keypadMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, keypadFbxModel);
+            keypadGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(keypadTexture, 1), keypadMesh));
+            sceneManager.ActiveScene.Add(keypadGameObject);
+        }
+
+        private void IntializeButtonModel()
+        {
+            var buttonGameObject = new GameObject(AppData.BUTTON_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            buttonGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var buttonTexture = Content.Load<Texture2D>("Assets/Textures/console/button_DefaultMaterial_Base_color");
+            var buttonFbxModel = Content.Load<Model>("Assets/Models/button");
+            var buttonMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, buttonFbxModel);
+            buttonGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(buttonTexture, 1), buttonMesh));
+            sceneManager.ActiveScene.Add(buttonGameObject);
+        }
+
+        private void IntializeKeyboardModel()
+        {
+            var keyboardGameObject = new GameObject(AppData.KEYBOARD_GAMEOJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            keyboardGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var keyboardTexture = Content.Load<Texture2D>("Assets/Textures/console/keyboard_Base_color");
+            var keyboardFbxModel = Content.Load<Model>("Assets/Models/keyboard");
+            var keyboardMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, keyboardFbxModel);
+            keyboardGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(keyboardTexture, 1), keyboardMesh));
+            sceneManager.ActiveScene.Add(keyboardGameObject);
+        }
+
+        private void IntializePanelModel()
+        {
+            var panelGameObject = new GameObject(AppData.PANEL_GAMEOBECT_NAME, ObjectType.Static, RenderType.Opaque);
+            panelGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var panelTexture = Content.Load<Texture2D>("Assets/Textures/console/panel_Base_color");
+            var panelFbxModel = Content.Load<Model>("Assets/Models/panel");
+            var panelMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, panelFbxModel);
+            panelGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            sceneManager.ActiveScene.Add(panelGameObject);
+        }
+
+        private void IntializeVentModel()
+        {
+            var ventGameObject = new GameObject(AppData.VENT_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            ventGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var ventTexture = Content.Load<Texture2D>("Assets/Textures/console/vent_Base_color");
+            var ventFbxModel = Content.Load<Model>("Assets/Models/vent");
+            var ventMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, ventFbxModel);
+            ventGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(ventTexture, 1), ventMesh));
+            sceneManager.ActiveScene.Add(ventGameObject);
+        }
+
+        private void IntializeScreenRightModel()
+        {
+            var screenRightGameObject = new GameObject(AppData.SCREEN_RIGHT_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            screenRightGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var screenRightTexture = Content.Load<Texture2D>("Assets/Textures/console/screenright_Base_color");
+            var screenRightFbxModel = Content.Load<Model>("Assets/Models/screen-right");
+            var screenRightMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, screenRightFbxModel);
+            screenRightGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(screenRightTexture, 1), screenRightMesh));
+            sceneManager.ActiveScene.Add(screenRightGameObject);
+        }
+
+        private void IntializeScreenCentreModel()
+        {
+            var screenCentreGameObject = new GameObject(AppData.SCREEN_CENTRE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            screenCentreGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var screenCentreTexture = Content.Load<Texture2D>("Assets/Textures/console/screencentre_Base_color");
+            var screenCentreFbxModel = Content.Load<Model>("Assets/Models/screen-centre");
+            var screenCentreMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, screenCentreFbxModel);
+            screenCentreGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(screenCentreTexture, 1), screenCentreMesh));
+            sceneManager.ActiveScene.Add(screenCentreGameObject);
+        }
+
+        private void IntializeScreenLeftModel()
+        {
+            var screenLeftGameObject = new GameObject(AppData.SCREEN_LEFT_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            screenLeftGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var screenLeftTexture = Content.Load<Texture2D>("Assets/Textures/console/screenleft_Base_color");
+            var screenLeftFbxModel = Content.Load<Model>("Assets/Models/screen-left");
+            var screenLeftMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, screenLeftFbxModel);
+            screenLeftGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(screenLeftTexture, 1), screenLeftMesh));
+            sceneManager.ActiveScene.Add(screenLeftGameObject);
+        }
+
+        private void IntializeRadioModel()
+        {
+            var radioGameObject = new GameObject(AppData.RADIO_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            radioGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var radioTexture = Content.Load<Texture2D>("Assets/Textures/console/radio_Base_Color");
+            var radioFbxModel = Content.Load<Model>("Assets/Models/radio");
+            var radioMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, radioFbxModel);
+            radioGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(radioTexture, 1), radioMesh));
+            sceneManager.ActiveScene.Add(radioGameObject);
+        }
+
+        private void IntializeLampModel()
+        {
+            var lampGameObject = new GameObject(AppData.LAMP_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            lampGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var lampTexture = Content.Load<Texture2D>("Assets/Textures/console/lamp_Base_color");
+            var lampFbxModel = Content.Load<Model>("Assets/Models/lamp");
+            var lampMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, lampFbxModel);
+            lampGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(lampTexture, 1), lampMesh));
+            sceneManager.ActiveScene.Add(lampGameObject);
+        }
+
+        private void IntializeFloppyDiskModel()
+        {
+            var floppyDiskGameObject = new GameObject(AppData.FLOPPY_DISk_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            floppyDiskGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var floppyDiskTexture = Content.Load<Texture2D>("Assets/Textures/console/floppydisk_Base_color");
+            var floppyDiskFbxModel = Content.Load<Model>("Assets/Models/floppy-disk");
+            var floppyDiskMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, floppyDiskFbxModel);
+            floppyDiskGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(floppyDiskTexture, 1), floppyDiskMesh));
+            sceneManager.ActiveScene.Add(floppyDiskGameObject);
+        }
+
+        #endregion
 
         private void IntializeRadarModel()
         {
             var radarGameObject = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
-            radarGameObject.Transform = new Transform(new Vector3(1, 1, 1), null, new Vector3(1, 1, 1));
-            var radarTexture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
-            var radarFbxModel = Content.Load<Model>("Assets/Models/satalite");
+            radarGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            var radarTexture = Content.Load<Texture2D>("Assets/Textures/Radar/radar-display_DefaultMaterial_BaseColor");
+            var radarFbxModel = Content.Load<Model>("Assets/Models/radar-display");
             var radarMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, radarFbxModel);
-            radarGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(radarTexture, 1), radarMesh));
+            radarGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(radarTexture, 1), radarMesh));
             sceneManager.ActiveScene.Add(radarGameObject);
         }
+
         #endregion Zero Day Threat - Models
 
         #region Zero Day Threat - The Cube
@@ -577,7 +811,7 @@ namespace GD.App
 
         private void InitializeSkyBoxAndGround(float worldScale)
         {
-            float halfWorldScale = worldScale / 4.0f;
+            float halfWorldScale = worldScale / 2.0f;
 
             GameObject quad = null;
             var gdBasicEffect = new GDBasicEffect(unlitEffect);
@@ -641,20 +875,20 @@ namespace GD.App
             //add game effects
             InitializeEffects();
 
-            //add camera, scene manager
-            InitializeManagers();
-
             //add dictionaries to store and access content
             InitializeDictionaries();
 
-            //add game cameras
-            InitializeCameras();
+            //add camera, scene manager
+            InitializeManagers();
 
             //share some core references
             InitializeGlobals();
 
             //set screen properties (incl mouse)
             InitializeScreen(resolution, isMouseVisible, isCursorLocked);
+
+            //add game cameras
+            InitializeCameras();
         }
 
         private void InitializeGlobals()
@@ -669,6 +903,7 @@ namespace GD.App
             Application.CameraManager = cameraManager;
             Application.SceneManager = sceneManager;
             Application.SoundManager = soundManager;
+            Application.PhysicsManager = physicsManager;
         }
 
         private void InitializeInput()
@@ -690,7 +925,8 @@ namespace GD.App
         /// <param name="isCursorLocked"></param>
         private void InitializeScreen(Vector2 resolution, bool isMouseVisible, bool isCursorLocked)
         {
-            GD.Core.Screen screen = new GD.Core.Screen();
+            // GD.Core.Screen screen = new GD.Core.Screen();
+            Screen screen = new Screen();
 
             //set resolution
             screen.Set(resolution, isMouseVisible, isCursorLocked);
@@ -746,6 +982,14 @@ namespace GD.App
             soundManager = new SoundManager();
             //why don't we add SoundManager to Components? Because it has no Update()
             //wait...SoundManager has no update? Yes, playing sounds is handled by an internal MonoGame thread - so we're off the hook!
+
+            //add the physics manager update thread
+            physicsManager = new PhysicsManager(this);
+            Components.Add(physicsManager);
+
+            //add state manager for inventory and countdown
+            stateManager = new StateManager(this, AppData.MAX_GAME_TIME_IN_MSECS);
+            Components.Add(stateManager);
         }
 
         private void InitializeDictionaries()
@@ -801,16 +1045,26 @@ namespace GD.App
 #if DEMO
 
             if (Input.Keys.WasJustPressed(Keys.B))
-                Application.SoundManager.Play2D("boom1");
+            {
+                object[] parameters = { "boom1" };
+                EventDispatcher.Raise(
+                    new EventData(EventCategoryType.Player,
+                    EventActionType.OnWin,
+                    parameters));
+
+                //    Application.SoundManager.Play2D("boom1");
+            }
 
             #region Demo - Camera switching
 
             if (Input.Keys.IsPressed(Keys.F1))
                 cameraManager.SetActiveCamera(AppData.FIRST_PERSON_CAMERA_NAME);
             else if (Input.Keys.IsPressed(Keys.F2))
-                cameraManager.SetActiveCamera("security camera 1");
+                cameraManager.SetActiveCamera(AppData.SECURITY_CAMERA_NAME);
             else if (Input.Keys.IsPressed(Keys.F3))
-                cameraManager.SetActiveCamera("curve camera 1");
+                cameraManager.SetActiveCamera(AppData.CURVE_CAMERA_NAME);
+            else if (Input.Keys.IsPressed(Keys.F4))
+                cameraManager.SetActiveCamera(AppData.THIRD_PERSON_CAMERA_NAME);
 
             #endregion Demo - Camera switching
 
@@ -828,10 +1082,16 @@ namespace GD.App
 
             //this works for comparing path one and cube 1
             //Console.WriteLine($"tempCube1 =  {tempCube1.Transform.rotation}");
-
-            #region PathChecker
+            
             PathChecker();
-            #endregion PathChecker
+
+            #region Demo - Raising events using GDEvent
+
+            if (Input.Keys.WasJustPressed(Keys.E))
+                OnChanged.Invoke(this, null); //passing null for EventArgs but we'll make our own class MyEventArgs::EventArgs later
+
+            #endregion
+
 #endif
             //fixed a bug with components not getting Update called
             base.Update(gameTime);

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GD.Engine.Events;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
@@ -155,6 +156,54 @@ namespace GD.Engine.Managers
         {
             dictionary = new Dictionary<string, Cue>();
             listInstances2D = new List<KeyValuePair<string, SoundEffectInstance>>();
+
+            //Register for certain events - see Main demo
+            EventDispatcher.Subscribe(EventCategoryType.Player, HandlePlayerEvent);
+            EventDispatcher.Subscribe(EventCategoryType.Menu, HandleMenuEvent);
+            EventDispatcher.Subscribe(EventCategoryType.Sound, HandleSoundEvent);
+        }
+
+        private void HandleSoundEvent(EventData eventData)
+        {
+            if (eventData.EventActionType == EventActionType.OnPlay3D)
+                Play3D(eventData.Parameters[0] as string,
+                    eventData.Parameters[1] as AudioListener,
+                    eventData.Parameters[2] as AudioEmitter);
+        }
+
+        private void HandleMenuEvent(EventData eventData)
+        {
+            if (eventData.EventActionType == EventActionType.OnMouseClick)
+            {
+                Play2D(eventData.Parameters[0] as string);
+            }
+        }
+
+        private void HandlePlayerEvent(EventData eventData)
+        {
+            if (eventData.EventActionType == EventActionType.OnLose
+                || eventData.EventActionType == EventActionType.OnWin)
+            {
+                Play2D(eventData.Parameters[0] as string);
+            }
+
+            //This is another way to handle how sound is played during an event.
+            //A switch statement can be more effiecent than an if because it jumps directly to the event.
+            //Niall commented this out, and i do not know why
+
+            //switch (eventData.EventActionType)
+            //{
+            //    case EventActionType.OnWin:
+            //        Play2D(eventData.Parameters[2] as string);
+            //        break;
+
+            //    case EventActionType.OnLose:
+            //        Play2D(eventData.Parameters[2] as string);
+            //        break;
+
+            //    default:
+            //        break;
+            //}
         }
 
         #endregion Constructors
