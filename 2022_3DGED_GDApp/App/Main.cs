@@ -5,6 +5,8 @@
 
 #endregion
 
+using BEPUphysics;
+using BEPUphysics.Entities.Prefabs;
 using GD.Core;
 using GD.Engine;
 using GD.Engine.Events;
@@ -14,14 +16,17 @@ using GD.Engine.Managers;
 using GD.Engine.Parameters;
 using GD.Engine.Utilities;
 using Microsoft.Xna.Framework;
-using System;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SharpDX.Direct3D9;
+using System;
 using Application = GD.Engine.Globals.Application;
+using Box = BEPUphysics.Entities.Prefabs.Box;
 using ButtonState = Microsoft.Xna.Framework.Input.ButtonState;
 using Cue = GD.Engine.Managers.Cue;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
+using Material = GD.Engine.Material;
 
 namespace GD.App
 {
@@ -32,16 +37,21 @@ namespace GD.App
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private BasicEffect unlitEffect;
-        private BasicEffect effect;
+        private BasicEffect litEffect;
 
         private CameraManager cameraManager;
         private SceneManager sceneManager;
         private SoundManager soundManager;
-        private EventDispatcher eventDispatcher;
+        private PhysicsManager physicsManager;
         private RenderManager renderManager;
+        private EventDispatcher eventDispatcher;
+        private GameObject playerGameObject;
+        private StateManager stateManager;
 
 #if DEMO
+
         private event EventHandler OnChanged;
+
 #endif
 
         #endregion Fields
@@ -59,12 +69,52 @@ namespace GD.App
 
         #region Actions - Initialize
 
-        #if DEMO
+#if DEMO
 
         private void DemoCode()
         {
             //shows how we can create an event, register for it, and raise it in Main::Update() on Keys.E press
             DemoEvent();
+
+            //shows us how to listen to a specific event
+            DemoStateManagerEvent();
+
+            Demo3DSoundTree();
+        }
+
+        private void Demo3DSoundTree()
+        {
+            //var camera = Application.CameraManager.ActiveCamera.AudioListener;
+            //var audioEmitter = //get tree, get emitterbehaviour, get audio emitter
+
+            //object[] parameters = {"sound name", audioListener, audioEmitter};
+
+            //EventDispatcher.Raise(new EventData(EventCategoryType.Sound,
+            //    EventActionType.OnPlay3D, parameters));
+
+            //throw new NotImplementedException();
+        }
+
+        private void DemoStateManagerEvent()
+        {
+            EventDispatcher.Subscribe(EventCategoryType.Player, HandleEvent);
+        }
+
+        private void HandleEvent(EventData eventData)
+        {
+            switch (eventData.EventActionType)
+            {
+                case EventActionType.OnWin:
+                    System.Diagnostics.Debug.WriteLine(eventData.Parameters[0] as string);
+                    break;
+
+                case EventActionType.OnLose:
+                    System.Diagnostics.Debug.WriteLine(eventData.Parameters[2] as string);
+                    break;
+
+                default:
+                    break;
+            }
         }
 
         private void DemoEvent()
@@ -77,14 +127,10 @@ namespace GD.App
             System.Diagnostics.Debug.WriteLine($"{e} was sent by {sender}");
         }
 
-        #endif
+#endif
 
         protected override void Initialize()
         {
-
-            #if DEMO
-                DemoCode();
-            #endif
             //moved spritebatch initialization here because we need it in InitializeDebug() below
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -92,12 +138,14 @@ namespace GD.App
             InitializeEngine(AppData.APP_RESOLUTION, true, true);
 
             //game specific content
-            InitializeLevel("Zero Day Threat", AppData.SKYBOX_WORLD_SCALE);
-
-        
+            InitializeLevel("My Amazing Game", AppData.SKYBOX_WORLD_SCALE);
 
 #if SHOW_DEBUG_INFO
             InitializeDebug();
+#endif
+
+#if DEMO
+            DemoCode();
 #endif
 
             base.Initialize();
@@ -109,13 +157,17 @@ namespace GD.App
 
         protected override void LoadContent()
         {
-          
+            //moved spritebatch initialization to Main::Initialize() because we need it in InitializeDebug()
+            //_spriteBatch = new SpriteBatch(GraphicsDevice);
         }
 
         private void InitializeLevel(string title, float worldScale)
         {
             //set game title
             SetTitle(title);
+
+            //load sounds, textures, models etc
+            LoadMediaAssets();
 
             //initialize curves used by cameras
             InitializeCurves();
@@ -126,11 +178,21 @@ namespace GD.App
             //add scene manager and starting scenes
             InitializeScenes();
 
-            //load sounds, textures, models etc
-            LoadMediaAssets();
+            //add collidable drawn stuff
+            InitializeCollidableContent(worldScale);
 
-            //add drawn stuff
-            InitializeDrawnContent(worldScale);
+            //add non-collidable drawn stuff
+            InitializeNonCollidableContent(worldScale);
+
+            //add the player
+            //InitializePlayer();
+
+            //Raise all the events that I want to happen at the start
+            //object[] parameters = { "epic_soundcue" };
+            //EventDispatcher.Raise(
+            //    new EventData(EventCategoryType.Player,
+            //    EventActionType.OnSpawnObject,
+            //    parameters));
         }
 
         private void SetTitle(string title)
@@ -163,6 +225,7 @@ namespace GD.App
         private void LoadTextures()
         {
             //load and add to dictionary
+            //Content.Load<Texture>
         }
 
         private void LoadModels()
@@ -199,13 +262,13 @@ namespace GD.App
         private void InitializeScenes()
         {
             //initialize a scene
-            var scene = new Scene("Mission Control");
+            var scene = new Scene("labyrinth");
 
             //add scene to the scene manager
             sceneManager.Add(scene.ID, scene);
 
             //don't forget to set active scene
-            sceneManager.SetActiveScene("Mission Control");
+            sceneManager.SetActiveScene("labyrinth");
         }
 
         private void InitializeEffects()
@@ -215,11 +278,10 @@ namespace GD.App
             unlitEffect.TextureEnabled = true;
 
             //all other drawn objects
-            effect = new BasicEffect(_graphics.GraphicsDevice);
-            effect.TextureEnabled = true;
-            effect.LightingEnabled = true;
-            effect.EnableDefaultLighting();
-
+            litEffect = new BasicEffect(_graphics.GraphicsDevice);
+            litEffect.TextureEnabled = true;
+            litEffect.LightingEnabled = true;
+            litEffect.EnableDefaultLighting();
         }
 
         private void InitializeCameras()
@@ -238,11 +300,12 @@ namespace GD.App
                 AppData.FIRST_PERSON_HALF_FOV, //MathHelper.PiOver2 / 2,
                 (float)_graphics.PreferredBackBufferWidth / _graphics.PreferredBackBufferHeight,
                 AppData.FIRST_PERSON_CAMERA_NCP, //0.1f,
-                AppData.FIRST_PERSON_CAMERA_FCP, new Viewport(0, 0, _graphics.PreferredBackBufferWidth,
-                _graphics.PreferredBackBufferHeight)));// 3000
+                AppData.FIRST_PERSON_CAMERA_FCP,
+                new Viewport(0, 0, _graphics.PreferredBackBufferWidth,
+                _graphics.PreferredBackBufferHeight))); // 3000
 
-            //OLD
-            //cameraGameObject.AddComponent(new FirstPersonCameraController(AppData.FIRST_PERSON_MOVE_SPEED, AppData.FIRST_PERSON_STRAFE_SPEED));
+            //added ability for camera to listen to 3D sounds
+            cameraGameObject.AddComponent(new AudioListenerBehaviour());
 
             //NEW
             cameraGameObject.AddComponent(new FirstPersonController(AppData.FIRST_PERSON_MOVE_SPEED, AppData.FIRST_PERSON_STRAFE_SPEED,
@@ -255,15 +318,17 @@ namespace GD.App
             cameraManager.SetActiveCamera(AppData.FIRST_PERSON_CAMERA_NAME);
         }
 
-        private void InitializeDrawnContent(float worldScale)
+        private void InitializeCollidableContent(float worldScale)
         {
-            //create sky
-            InitializeSkyBoxAndGround(worldScale);
+            #region Collidable
 
+            InitializeColliableGround(worldScale);
+            InitializeCollidableModel();
+
+            #endregion
         }
 
-        #region Zero Day Threat - Models
-        private void InitializeSatiliteModel()
+        private void InitializeNonCollidableContent(float worldScale)
         {
             var satiliteGameObject = new GameObject(AppData.SATILITE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
             satiliteGameObject.Transform = new Transform(new Vector3(1, 1, 1), null, new Vector3(1, 20, 1));
@@ -485,26 +550,23 @@ namespace GD.App
             //add support for mouse etc
             InitializeInput();
 
-            //set screen resolution and show/hide mouse
-            InitializeGraphics();
-
             //add game effects
             InitializeEffects();
-
-            //add camera, scene manager
-            InitializeManagers();
 
             //add dictionaries to store and access content
             InitializeDictionaries();
 
-            //add game cameras
-            InitializeCameras();
+            //add camera, scene manager
+            InitializeManagers();
 
             //share some core references
             InitializeGlobals();
 
             //set screen properties (incl mouse)
             InitializeScreen(resolution, isMouseVisible, isCursorLocked);
+
+            //add game cameras
+            InitializeCameras();
         }
 
         private void InitializeGlobals()
@@ -519,6 +581,7 @@ namespace GD.App
             Application.CameraManager = cameraManager;
             Application.SceneManager = sceneManager;
             Application.SoundManager = soundManager;
+            Application.PhysicsManager = physicsManager;
         }
 
         private void InitializeInput()
@@ -596,6 +659,14 @@ namespace GD.App
             soundManager = new SoundManager();
             //why don't we add SoundManager to Components? Because it has no Update()
             //wait...SoundManager has no update? Yes, playing sounds is handled by an internal MonoGame thread - so we're off the hook!
+
+            //add the physics manager update thread
+            physicsManager = new PhysicsManager(this);
+            Components.Add(physicsManager);
+
+            //add state manager for inventory and countdown
+            stateManager = new StateManager(this, AppData.MAX_GAME_TIME_IN_MSECS);
+            Components.Add(stateManager);
         }
 
         private void InitializeDictionaries()
@@ -649,7 +720,15 @@ namespace GD.App
 #if DEMO
 
             if (Input.Keys.WasJustPressed(Keys.B))
-                Application.SoundManager.Play2D("boom1");
+            {
+                object[] parameters = { "boom1" };
+                EventDispatcher.Raise(
+                    new EventData(EventCategoryType.Player,
+                    EventActionType.OnWin,
+                    parameters));
+
+                //    Application.SoundManager.Play2D("boom1");
+            }
 
             #region Demo - Camera switching
 
@@ -673,6 +752,13 @@ namespace GD.App
             //    System.Diagnostics.Debug.WriteLine($"A: {Input.Gamepad.IsPressed(Buttons.A)}");
 
             #endregion Demo - Gamepad
+
+            #region Demo - Raising events using GDEvent
+
+            if (Input.Keys.WasJustPressed(Keys.E))
+                OnChanged.Invoke(this, null); //passing null for EventArgs but we'll make our own class MyEventArgs::EventArgs later
+
+            #endregion
 
 #endif
             //fixed a bug with components not getting Update called

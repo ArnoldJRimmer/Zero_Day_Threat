@@ -1,5 +1,4 @@
-﻿using GD.Engine.Globals;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 
@@ -130,7 +129,7 @@ namespace GD.Engine.Collections
 
         #endregion Actions - Add, Find, FindAll, Remove, RemoveAll, Size, Clear
 
-        #region Actions - Update, Draw
+        #region Actions - Update
 
         public virtual void Update(GameTime gameTime)
         {
@@ -141,15 +140,15 @@ namespace GD.Engine.Collections
                 gameObject.Update(gameTime);
         }
 
-        public virtual void Draw(GameTime gameTime, Camera camera)
-        {
-            //TODO - add inefficiency with GetComponent
-            foreach (GameObject gameObject in staticList)
-                gameObject.GetComponent<Renderer>().Draw(Application.GraphicsDevice, camera);
+        //public virtual void Draw(GameTime gameTime, Camera camera)
+        //{
+        //    //TODO - add inefficiency with GetComponent
+        //    foreach (GameObject gameObject in staticList)
+        //        gameObject.GetComponent<Renderer>().Draw(Application.GraphicsDevice, camera);
 
-            foreach (GameObject gameObject in dynamicList)
-                gameObject.GetComponent<Renderer>().Draw(Application.GraphicsDevice, camera);
-        }
+        //    foreach (GameObject gameObject in dynamicList)
+        //        gameObject.GetComponent<Renderer>().Draw(Application.GraphicsDevice, camera);
+        //}
 
         #region DEBUG
 
@@ -164,6 +163,6 @@ namespace GD.Engine.Collections
 
         #endregion DEBUG
 
-        #endregion Actions - Update, Draw
+        #endregion Actions - Update
     }
 }
