@@ -341,6 +341,17 @@ namespace GD.App
                 SoundCategoryType.Alarm,
                 new Vector3(1, 1, 0),
                 false));
+
+            var openPhoneEffect =
+                Content.Load<SoundEffect>("Assets/Audio/Diegetic/Open-phone");
+
+            //add the new sound effect
+            soundManager.Add(new Cue(
+                "openPhone",
+                openPhoneEffect,
+                SoundCategoryType.Alarm,
+                new Vector3(1, 1, 0),
+                false));
         }
 
         private void LoadTextures()
@@ -1219,13 +1230,15 @@ namespace GD.App
 
         private void PathChecker()
         {
-            if (!temp.States.Contains(false))
+            if (!temp.States.Contains(false) && temp.PathFormed == false)
             {
-                Application.SoundManager.Play2D("alarm");
+                Application.SoundManager.Play2D("buttonClickExplosion");
+                temp.PathFormed= true;
             }
-            else
+            else if(temp.States.Contains(false) && temp.PathFormed == true)
             {
-                Application.SoundManager.Stop("alarm");
+                Application.SoundManager.Pause("buttonClickExplosion");
+                temp.PathFormed = false;
             }
             //for (int i = 0; i <= temp.Size-1; i++)
             //{
@@ -1241,7 +1254,7 @@ namespace GD.App
             //}
             if (tempCube1.Transform.rotation == temp.Pieces[0].rotation && temp.States[0] == false)
             {
-                Application.SoundManager.Play2D("boom1");
+                Application.SoundManager.Play2D("openPhone");
                 temp.setState(true, 0);
             }
             else if (tempCube1.Transform.rotation != temp.Pieces[0].rotation && temp.States[0] == true)
@@ -1251,7 +1264,7 @@ namespace GD.App
 
             else if (tempCube2.Transform.rotation == temp.Pieces[1].rotation && temp.States[1] == false)
             {
-                Application.SoundManager.Play2D("boom1");
+                Application.SoundManager.Play2D("openPhone");
                 temp.setState(true, 1);
             }
 
@@ -1262,7 +1275,7 @@ namespace GD.App
 
             else if (tempCube3.Transform.rotation == temp.Pieces[2].rotation && temp.States[2] == false)
             {
-                Application.SoundManager.Play2D("boom1");
+                Application.SoundManager.Play2D("openPhone");
                 temp.setState(true, 2);
             }
 
@@ -1273,7 +1286,7 @@ namespace GD.App
 
             else if (tempCube4.Transform.rotation == temp.Pieces[3].rotation && temp.States[3] == false)
             {
-                Application.SoundManager.Play2D("boom1");
+                Application.SoundManager.Play2D("openPhone");
                 temp.setState(true, 3);
             }
 
@@ -1281,9 +1294,6 @@ namespace GD.App
             {
                 temp.setState(false, 3);
             }
-
-
-            
 
 
         }
