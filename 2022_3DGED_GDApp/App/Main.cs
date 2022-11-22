@@ -469,22 +469,22 @@ namespace GD.App
         private void InitializeCollidableModel()
         {
             //game object
-            var gameObject = new GameObject("my first collidable box!", ObjectType.Static, RenderType.Opaque);
-
-            gameObject.Transform = new Transform(null, null, new Vector3(0, 4, 0));
-            var texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
-            var model = Content.Load<Model>("Assets/Models/cube");
-            var mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, model);
-
-            gameObject.AddComponent(new Renderer(
-                new GDBasicEffect(litEffect),
-                new Material(texture, 1f, Color.White),
-                mesh));
-
-            gameObject.AddComponent(new BoxCollider(new Vector3(0, 10, 0),
-                1, 1, 1, 10));
-
-            sceneManager.ActiveScene.Add(gameObject);
+            // var gameObject = new GameObject("my first collidable box!", ObjectType.Static, RenderType.Opaque);
+            //
+            // gameObject.Transform = new Transform(null, null, new Vector3(0, 4, 0));
+            // var texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate2");
+            // var model = Content.Load<Model>("Assets/Models/cube");
+            // var mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, model);
+            //
+            // gameObject.AddComponent(new Renderer(
+            //     new GDBasicEffect(litEffect),
+            //     new Material(texture, 1f, Color.White),
+            //     mesh));
+            //
+            // gameObject.AddComponent(new BoxCollider(new Vector3(0, 10, 0),
+            //     1, 1, 1, 10));
+            //
+            // sceneManager.ActiveScene.Add(gameObject);
         }
         
         #region Zero Day Threat - Models
