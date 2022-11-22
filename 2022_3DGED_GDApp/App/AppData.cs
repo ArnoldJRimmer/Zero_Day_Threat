@@ -8,6 +8,7 @@
 using GD.Engine.Data;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System.Web;
 
 namespace GD.App
 {
@@ -105,6 +106,22 @@ namespace GD.App
 
         #endregion Movement Constants
 
+        #region GameObect names
+        public static readonly string SATILITE_GAMEOBJECT_NAME = "Satilite Model";
+        public static readonly string CONSOLE_GAMEOBJECT_NAME = "Console Model";
+        public static readonly string FLOPPY_DISk_GAMEOBJECT_NAME = "Floppy Disk";
+        public static readonly string KEYPAD_GAMEOBJECT_NAME = "Keypad Model";
+        public static readonly string BUTTON_GAMEOBJECT_NAME = "Button Model";
+        public static readonly string KEYBOARD_GAMEOJECT_NAME = "Keyboard Model";
+        public static readonly string PANEL_GAMEOBECT_NAME = "Panel Model";
+        public static readonly string VENT_GAMEOBJECT_NAME = "Vent Model";
+        public static readonly string SCREEN_RIGHT_GAMEOBJECT_NAME = "Screen Right Model";
+        public static readonly string SCREEN_CENTRE_GAMEOBJECT_NAME = "Screen Center Model";
+        public static readonly string SCREEN_LEFT_GAMEOBJECT_NAME = "Screen Left Model";
+        public static readonly string RADIO_GAMEOBJECT_NAME = "Radio Model";
+        public static readonly string LAMP_GAMEOBJECT_NAME = "Lamp Model";
+        public static readonly string RADAR_GAMEOBJECT_NAME = "Radar Model";
+        #endregion GameObject names
         public static readonly double MAX_GAME_TIME_IN_MSECS = 2500; //180000
     }
 }

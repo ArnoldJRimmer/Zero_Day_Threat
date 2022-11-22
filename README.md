@@ -1,5 +1,6 @@
 # Zero Day Threat
 
+<<<<<<<<< Temporary merge branch 1
 ## OverView Updates to engine ##
 
 ### Updates 2022_3DGED_GDApp
@@ -7,6 +8,17 @@
 - [x] Depenencies,Assemblies - BEPUphysics
 - [x] Depenencies,Assemblies - BEPUutilities
 
+### To Do - For Alpha Prototype
+- [x] Add satilite model
+- [x] Texture satilite model
+- [x] Add Console model
+~~ - [x] Added a placeholder for the console model~~
+~~ - [x] Added a placeholder for the radar model~~
+- [x] Add textures for the skybox
+- [x] Add Camera
+- [x] Fix turning view of camera
+- [ ] Limit the rotation of the camera
+- [ ] Implement sounds
 ### Updates in App Folder
 - [x] Updated main.cs
 - [x] Updated AppData.cs
@@ -51,6 +63,17 @@
 
 
 
+### To Do - For Alpha Prototype
+- [x] Add satilite model
+- [x] Texture satilite model
+- [x] Add Console model
+~~ - [x] Added a placeholder for the console model~~
+~~ - [x] Added a placeholder for the radar model~~
+- [x] Add textures for the skybox
+- [x] Add Camera
+- [x] Fix turning view of camera
+- [ ] Limit the rotation of the camera
+- [ ] Implement sounds
 
 
 
