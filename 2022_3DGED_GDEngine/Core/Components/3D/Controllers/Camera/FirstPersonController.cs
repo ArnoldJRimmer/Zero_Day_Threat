@@ -1,4 +1,6 @@
-﻿using GD.Engine.Globals;
+﻿using GD.App;
+using GD.Engine.Data;
+using GD.Engine.Globals;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -76,20 +78,26 @@ namespace GD.Engine
         protected virtual void HandleMouseInput(GameTime gameTime)
         {
             rotation = Vector3.Zero;
+           
             var delta = Input.Mouse.Delta;
 
-            //Q - where are X and Y reversed?
-            rotation.Y -= delta.X * rotationSpeed.X * gameTime.ElapsedGameTime.Milliseconds;
-            rotation.X -= delta.Y * rotationSpeed.Y * gameTime.ElapsedGameTime.Milliseconds;
+            
 
-            //Need to work on the rotation of the y so that is stops at 180
-            //Also restrict the x so that it doesn't look all the way up
-            if (delta.Length() != 0)
+            if (delta.X < AppData.boundingScreen.X / 2  && delta.X > -AppData.boundingScreen.X/2 && delta.Y < AppData.boundingScreen.Y/2 && delta.Y > -AppData.boundingScreen.Y/2)
             {
+                //Q - where are X and Y reversed?
+                rotation.Y -= delta.X * rotationSpeed.X * gameTime.ElapsedGameTime.Milliseconds;
+                rotation.X -= delta.Y * rotationSpeed.Y * gameTime.ElapsedGameTime.Milliseconds;
 
-            }
+                //Need to work on the rotation of the y so that is stops at 180
+                //Also restrict the x so that it doesn't look all the way up
+                if (delta.Length() != 0)
+                {
+
+                }
 
                 transform.SetRotation(rotation);
+            }
         }
 
         #endregion Actions - Update, Input

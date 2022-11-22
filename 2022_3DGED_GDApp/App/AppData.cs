@@ -29,8 +29,11 @@ namespace GD.App
 
 #if HI_RES
         public static readonly Vector2 APP_RESOLUTION = Resolutions.SixteenNine.HD;
+        public static readonly Vector2 boundingScreen = Resolutions.SixteenNine.HD;
+
 #else
         public static readonly Vector2 APP_RESOLUTION = Resolutions.FourThree.VGA;
+        public static readonly Vector2 boundingScreen = Resolutions.FourThree.VGA;
 #endif
 
         #endregion Graphics
@@ -38,6 +41,7 @@ namespace GD.App
         #region World Scale
 
         public static readonly float SKYBOX_WORLD_SCALE = 2000;
+      
 
         #endregion World Scale
 
