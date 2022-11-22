@@ -51,7 +51,7 @@ namespace GD.Engine
             {
                 //transform.rotation = transform.rotation + gameTime.ElapsedGameTime.Milliseconds * rotationSpeedInRadians * rotationAxis;
                 //Rotates 90 degrees on key press, no holding
-                transform.rotation = transform.rotation + new Vector3(MathHelper.PiOver2,0,0);
+                transform.rotation += new Vector3(MathHelper.PiOver2,0,0);
 
             }
 

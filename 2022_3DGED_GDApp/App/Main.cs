@@ -314,7 +314,7 @@ namespace GD.App
             //Make each cube out of 6 different planes. Ideally have a class called Cubey.cs that makes the cube out of these six faces
             //Sample of what i would like to do
             panelGameObject = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
-            panelGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), Vector3.Zero, Vector3.Zero);
+            panelGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), Vector3.Zero, Vector3.UnitY);
             var panelTexture = Content.Load<Texture2D>("Assets/Textures/cube_DefaultMaterial_BaseColor");
             var panelFbxModel = Content.Load<Model>("Assets/Models/cube");
             var panelMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, panelFbxModel);
