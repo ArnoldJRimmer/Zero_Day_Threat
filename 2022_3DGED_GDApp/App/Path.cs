@@ -1,6 +1,7 @@
 ﻿using GD.Engine.Collections;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace GD.Engine
 {
@@ -10,6 +11,7 @@ namespace GD.Engine
     {
         private string pathName;
         private List<Transform> pieces;
+        private List<Boolean> states;
         private int size;
         private bool pathFormed;
 
@@ -19,7 +21,8 @@ namespace GD.Engine
             PathName = name;
             size = 0;
             pieces = new List<Transform>();
-            PathFormed= false;
+            States = new List<Boolean>();
+            PathFormed = false;
         }
 
         public Path(string pathName, List<Transform> pieces)
@@ -27,6 +30,7 @@ namespace GD.Engine
             this.pathName = pathName;
             this.pieces = pieces;
             this.size = pieces.Count;
+            States = new List<Boolean>(size);
             PathFormed = false;
         }
         #endregion ConstructorS
@@ -37,6 +41,7 @@ namespace GD.Engine
         public List<Transform> Pieces { get => pieces; set => pieces = value; }
         public int Size { get => size; set => size = value; }
         public bool PathFormed { get => pathFormed; set => pathFormed = value; }
+        public List<bool> States { get => states; set => states = value; }
 
         #endregion Properties
 
@@ -44,9 +49,17 @@ namespace GD.Engine
         {
             if(piece!=null) 
             {
-                
                 pieces.Add(piece);
                 size++;
+                states.Add(false);
+            }
+        }
+
+        public void setState(Boolean state, int pos)
+        {
+            if (pos <= size)
+            {
+                States[pos] = state;
             }
         }
 

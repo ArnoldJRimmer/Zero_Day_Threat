@@ -331,18 +331,19 @@ namespace GD.App
             tempCube4.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(panelTexture, 1), panelMesh));
             tempCube4.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad4));
 
+
             sceneManager.ActiveScene.Add(tempCube1);
             sceneManager.ActiveScene.Add(tempCube2);
             sceneManager.ActiveScene.Add(tempCube3);
             sceneManager.ActiveScene.Add(tempCube4);
 
 
-            ////#region Variables
+            //#region Variables
             //GameObject face_F1 = null;
             //GDBasicEffect gdBasicEffect = new GDBasicEffect(unlitEffect);
             //Mesh quadMesh = new QuadMesh(_graphics.GraphicsDevice);
             //var cubeFbx = Content.Load<Model>("Assets/Models/cube");
-            //Mesh cubeMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, cubeFbx);
+            //Engine.ModelMesh cubeMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, cubeFbx);
             //var cubeTxt = Content.Load<Texture2D>("Assets/Textures/cube_DefaultMaterial_BaseColor");
             //Texture2D faceTexture = Content.Load<Texture2D>("Assets/Textures/SkyBox/basicwall");
             //#endregion Variables
@@ -485,9 +486,11 @@ namespace GD.App
             Transform one = new Transform(Vector3.One, new Vector3(MathHelper.PiOver2 * 2, 0, 0), Vector3.Zero);
             Transform two = new Transform(Vector3.One, Vector3.Zero, Vector3.Zero);
             Transform three = new Transform(Vector3.One, new Vector3(0, MathHelper.ToRadians(-90), 0), Vector3.Zero);
+            Transform four = new Transform(Vector3.One, new Vector3(MathHelper.PiOver2*2,0, 0), Vector3.Zero);
             temp.AddPiece(one);
             temp.AddPiece(two);
             temp.AddPiece(three);
+            temp.AddPiece(four);
 
             // Since Path has a list of transforms, I went through the list creating GameObjects of the indiviual transforms. 
             // Then the GameObjects created in the for loop are added to the ActiveScene
@@ -826,8 +829,7 @@ namespace GD.App
             //Console.WriteLine($"tempCube1 =  {tempCube1.Transform.rotation}");
 
             #region PathChecker
-           ?
-//PathChecker();
+            PathChecker();
             #endregion PathChecker
 #endif
             //fixed a bug with components not getting Update called
@@ -836,23 +838,39 @@ namespace GD.App
 
         private void PathChecker()
         {
-           
-            if (tempCube1.Transform.rotation == temp.Pieces[0].rotation)
+            //for (int i = 0; i <= temp.Size-1; i++)
+            //{
+            //    if (cubes[i].Transform.rotation == temp.Pieces[i].rotation && temp.States[i] == false)
+            //    {
+            //        Application.SoundManager.Play2D("boom1");
+            //        temp.setState(true, i);
+            //    }
+            //    else if(cubes[i].Transform.rotation != temp.Pieces[i].rotation)
+            //    {
+            //        temp.setState(false, i);
+            //    }
+        //}
+            if (tempCube1.Transform.rotation == temp.Pieces[0].rotation && temp.States[0] == false)
             {
                 Application.SoundManager.Play2D("boom1");
+                temp.setState(true, 0);
             }
-            if (tempCube2.Transform.rotation == temp.Pieces[0].rotation)
+            if (tempCube2.Transform.rotation == temp.Pieces[0].rotation && temp.States[1] == false)
             {
                 Application.SoundManager.Play2D("boom1");
+                temp.setState(true, 1);
             }
-            if (tempCube3.Transform.rotation == temp.Pieces[0].rotation)
+            if (tempCube3.Transform.rotation == temp.Pieces[0].rotation && temp.States[2] == false)
             {
                 Application.SoundManager.Play2D("boom1");
+                temp.setState(true, 2);
             }
-            if (tempCube4.Transform.rotation == temp.Pieces[0].rotation)
+            if (tempCube4.Transform.rotation == temp.Pieces[3].rotation && temp.States[3] == false)
             {
                 Application.SoundManager.Play2D("boom1");
+                temp.setState(true, 3);
             }
+        
         }
 
         protected override void Draw(GameTime gameTime)
