@@ -542,7 +542,7 @@ namespace GD.App
         {
             //Make each cube out of 6 different planes. Ideally have a class called Cubey.cs that makes the cube out of these six faces
             //Sample of what i would like to do
-            tempCube1 = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            tempCube1 = new GameObject("tempCube1", ObjectType.Dynamic, RenderType.Opaque);
             tempCube1.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), Vector3.Zero, Vector3.One);
             var panelTexture = Content.Load<Texture2D>("Assets/Textures/cube_DefaultMaterial_BaseColor");
             var panelFbxModel = Content.Load<Model>("Assets/Models/cube");
@@ -550,17 +550,17 @@ namespace GD.App
             tempCube1.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
             tempCube1.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad1));
 
-            tempCube2 = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            tempCube2 = new GameObject("tempCube2", ObjectType.Dynamic, RenderType.Opaque);
             tempCube2.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(1, 1, 1.7f));
             tempCube2.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
             tempCube2.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad2));
 
-            tempCube3 = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            tempCube3 = new GameObject("tempCube3", ObjectType.Dynamic, RenderType.Opaque);
             tempCube3.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(1, 1, 2.4f));
             tempCube3.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
             tempCube3.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad3));
 
-            tempCube4 = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            tempCube4 = new GameObject("tempCube4", ObjectType.Dynamic, RenderType.Opaque);
             tempCube4.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), Vector3.Zero, new Vector3(1, 1, 3.1f));
             tempCube4.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
             tempCube4.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad4));
@@ -1034,6 +1034,16 @@ namespace GD.App
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Delete))
+            {
+                sceneManager.ActiveScene.Remove(tempCube1.ObjectType,tempCube1.RenderType,o => tempCube1.Name.Equals("tempCube1") );
+                sceneManager.ActiveScene.Remove(tempCube2.ObjectType,tempCube2.RenderType,o => tempCube2.Name.Equals("tempCube2") );
+                sceneManager.ActiveScene.Remove(tempCube3.ObjectType,tempCube3.RenderType,o => tempCube3.Name.Equals("tempCube3") );
+                sceneManager.ActiveScene.Remove(tempCube4.ObjectType,tempCube4.RenderType,o => tempCube4.Name.Equals("tempCube4") );
+                
+                InitializeCube();
+            }
 
             //update all drawn game objects in the active scene
             //sceneManager.Update(gameTime);
