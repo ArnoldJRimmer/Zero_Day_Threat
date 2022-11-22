@@ -42,15 +42,11 @@ namespace GD.App
         private EventDispatcher eventDispatcher;
         private RenderManager renderManager;
 
-        private GameObject cube1;
-        private GameObject cube2;
-        private GameObject cube3;
-        private GameObject cube4;
-        private GameObject cube5;
         private Path temp;
-        private Path levelTwo;
-        private Path levelThree;
-        private GameObject panelGameObject;
+        private GameObject tempCube1;
+        private GameObject tempCube2;
+        private GameObject tempCube3;
+        private GameObject tempCube4;
 
 #if DEMO
         private event EventHandler OnChanged;
@@ -310,35 +306,54 @@ namespace GD.App
         #region Zero Day Threat - The Cube
         private void InitializeCube()
         {
-
             //Make each cube out of 6 different planes. Ideally have a class called Cubey.cs that makes the cube out of these six faces
             //Sample of what i would like to do
-            panelGameObject = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
-            panelGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), Vector3.Zero, Vector3.UnitY);
+            tempCube1 = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            tempCube1.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), Vector3.Zero, Vector3.One);
             var panelTexture = Content.Load<Texture2D>("Assets/Textures/cube_DefaultMaterial_BaseColor");
             var panelFbxModel = Content.Load<Model>("Assets/Models/cube");
             var panelMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, panelFbxModel);
-            panelGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(panelTexture, 1), panelMesh));
-            panelGameObject.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad1));
-            sceneManager.ActiveScene.Add(panelGameObject);
+            tempCube1.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(panelTexture, 1), panelMesh));
+            tempCube1.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad1));
 
-            //#region Variables
+            tempCube2 = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            tempCube2.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), Vector3.Zero, new Vector3(1.7f, 1, 1));
+            tempCube2.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(panelTexture, 1), panelMesh));
+            tempCube2.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad2));
+
+            tempCube3 = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            tempCube3.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), Vector3.Zero, new Vector3(2.4f, 1, 1));
+            tempCube3.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(panelTexture, 1), panelMesh));
+            tempCube3.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad3));
+
+            tempCube4 = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            tempCube4.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), Vector3.Zero, new Vector3(3.1f, 1, 1));
+            tempCube4.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(panelTexture, 1), panelMesh));
+            tempCube4.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad4));
+
+            sceneManager.ActiveScene.Add(tempCube1);
+            sceneManager.ActiveScene.Add(tempCube2);
+            sceneManager.ActiveScene.Add(tempCube3);
+            sceneManager.ActiveScene.Add(tempCube4);
+
+
+            ////#region Variables
             //GameObject face_F1 = null;
             //GDBasicEffect gdBasicEffect = new GDBasicEffect(unlitEffect);
             //Mesh quadMesh = new QuadMesh(_graphics.GraphicsDevice);
             //var cubeFbx = Content.Load<Model>("Assets/Models/cube");
-            //var cubeMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, cubeFbx);
+            //Mesh cubeMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, cubeFbx);
             //var cubeTxt = Content.Load<Texture2D>("Assets/Textures/cube_DefaultMaterial_BaseColor");
             //Texture2D faceTexture = Content.Load<Texture2D>("Assets/Textures/SkyBox/basicwall");
             //#endregion Variables
             //#region Old Code
-            ////#region Front Faces
-            //////Front Face - Need 9
-            ////face_F1 = new GameObject("Front", ObjectType.Static, RenderType.Opaque);
-            ////face_F1.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), null, new Vector3(0, 1, 0));
-            ////face_F1.AddComponent(new Renderer(gdBasicEffect, new Material(faceTexture, 1, Color.Orange), quadMesh));
-            ////sceneManager.ActiveScene.Add(face_F1);
-            ////#endregion Front Faces
+            //#region Front Faces
+            ////Front Face - Need 9
+            //face_F1 = new GameObject("Front", ObjectType.Static, RenderType.Opaque);
+            //face_F1.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), null, new Vector3(0, 1, 0));
+            //face_F1.AddComponent(new Renderer(gdBasicEffect, new Material(faceTexture, 1, Color.Orange), quadMesh));
+            //sceneManager.ActiveScene.Add(face_F1);
+            //#endregion Front Faces
 
             //////Back Face - Need 9
 
@@ -372,8 +387,8 @@ namespace GD.App
             //#endregion Old Code
 
             //Cubey myCubey = new Cubey();
-            //GameObject face1 = myCubey.CubeyBoi("Front",new Vector3(0.3f, 0.3f, 0.3f),new Vector3(0,0,0), new Vector3(0, 1, 0),
-            //    gdBasicEffect,faceTexture,quadMesh,Color.Orange);
+            //GameObject face1 = myCubey.CubeyBoi("Front", new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, 0), new Vector3(0, 1, 0),
+            //    gdBasicEffect, faceTexture, quadMesh, Color.Orange);
 
             //GameObject face2 = myCubey.CubeyBoi("Left", new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, MathHelper.ToRadians(-90), 0), new Vector3(-0.15f, 1, -0.15f),
             //    gdBasicEffect, faceTexture, quadMesh, Color.Blue);
@@ -382,7 +397,7 @@ namespace GD.App
             //    gdBasicEffect, faceTexture, quadMesh, Color.Green);
 
             //GameObject face4 = myCubey.CubeyBoi("Top", new Vector3(0.3f, 0.3f, 0.3f), new Vector3(MathHelper.ToRadians(-90), 0, 0), new Vector3(0, 1.15f, -0.15f)
-            //    ,gdBasicEffect, faceTexture, quadMesh, Color.Red);
+            //    , gdBasicEffect, faceTexture, quadMesh, Color.Red);
 
             //GameObject face5 = myCubey.CubeyBoi("Bottom", new Vector3(0.3f, 0.3f, 0.3f), new Vector3(MathHelper.ToRadians(90), 0, 0), new Vector3(0, 1.15f, -0.15f),
             //    gdBasicEffect, faceTexture, quadMesh, Color.Orange);
@@ -433,10 +448,9 @@ namespace GD.App
 
 
             //#region Basic Proto for cube Rot
-            //cube1 
-            ////cube1 = myCubey.CubeyBoi("Cube 1", new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, 0), new Vector3(0, 1, 0),
-            //// gdBasicEffect, faceTexture, cubeMesh, Color.Red, Keys.NumPad1);
-            //cube1.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(cubeTxt,1),cubeMesh));
+            //cube1 = myCubey.CubeyBoi("Cube 1", new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, 0), new Vector3(0, 1, 0),
+            // gdBasicEffect, faceTexture, cubeMesh, Color.Red, Keys.NumPad1);
+            //cube1.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(cubeTxt, 1), cubeMesh));
 
             //GameObject cube2 = myCubey.CubeyBoi("Cube 2", new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, 0), new Vector3(0.3f, 1, 0),
             // gdBasicEffect, faceTexture, cubeMesh, Color.Blue, Keys.NumPad2);
@@ -468,7 +482,7 @@ namespace GD.App
             var quadMesh = new QuadMesh(_graphics.GraphicsDevice);
 
             temp = new Path("Temporary");
-            Transform one = new Transform(Vector3.One, new Vector3(MathHelper.PiOver2, 0, 0), Vector3.Zero);
+            Transform one = new Transform(Vector3.One, new Vector3(MathHelper.PiOver2 * 2, 0, 0), Vector3.Zero);
             Transform two = new Transform(Vector3.One, Vector3.Zero, Vector3.Zero);
             Transform three = new Transform(Vector3.One, new Vector3(0, MathHelper.ToRadians(-90), 0), Vector3.Zero);
             temp.AddPiece(one);
@@ -479,7 +493,7 @@ namespace GD.App
             // Then the GameObjects created in the for loop are added to the ActiveScene
             // Put in Breakpoint which occurs if the number of times it is hit is 3  ---- hits 3 times
             GameObject temptile = null;
-            for (int i =0; i<=temp.Size-1; i++)
+            for (int i = 0; i <= temp.Size - 1; i++)
             {
                 if (temp.Pieces[i] != null)
                 {
@@ -490,7 +504,7 @@ namespace GD.App
                     var texture = Content.Load<Texture2D>("Assets/Textures/Skybox/basicwall");
                     temptile.AddComponent(new Renderer(gdBasicEffect, new Material(texture, 1), quadMesh));
                     sceneManager.ActiveScene.Add(temptile);
-                    
+
                 }
                 else
                 {
@@ -498,15 +512,15 @@ namespace GD.App
                 }
             }
 
-            
-            // https://zetcode.com/csharp/predicate/
-            Predicate<GameObject> t = tile => temptile.Name.StartsWith("TempTile");
 
-            GameObject found = sceneManager.ActiveScene.Find(ObjectType.Static, RenderType.Transparent, t);
-            if (found != null)
-            {
-                Console.WriteLine($"Found {found.Name}");
-            }
+            // https://zetcode.com/csharp/predicate/
+            //Predicate<GameObject> t = tile => temptile.Name.StartsWith("TempTile");
+
+            //GameObject found = sceneManager.ActiveScene.Find(ObjectType.Static, RenderType.Transparent, t);
+            //if (found != null)
+            //{
+            //    Console.WriteLine($"Found {found.Name}");
+            //}
 
             #region Commented-out Code
             //foreach (Transform piece in temp.Pieces)
@@ -554,6 +568,7 @@ namespace GD.App
             //Adds it to the scene 
             #endregion Old Code
 
+        
         }
 
         private void InitializeSkyBoxAndGround(float worldScale)
@@ -807,14 +822,37 @@ namespace GD.App
 
             #endregion Demo - Gamepad
 
-            
-            if (panelGameObject.Transform.rotation == temp.Pieces[1].rotation)
-            {
-                Console.WriteLine("Bitches");
-            }
+            //this works for comparing path one and cube 1
+            //Console.WriteLine($"tempCube1 =  {tempCube1.Transform.rotation}");
+
+            #region PathChecker
+           ?
+//PathChecker();
+            #endregion PathChecker
 #endif
             //fixed a bug with components not getting Update called
             base.Update(gameTime);
+        }
+
+        private void PathChecker()
+        {
+           
+            if (tempCube1.Transform.rotation == temp.Pieces[0].rotation)
+            {
+                Application.SoundManager.Play2D("boom1");
+            }
+            if (tempCube2.Transform.rotation == temp.Pieces[0].rotation)
+            {
+                Application.SoundManager.Play2D("boom1");
+            }
+            if (tempCube3.Transform.rotation == temp.Pieces[0].rotation)
+            {
+                Application.SoundManager.Play2D("boom1");
+            }
+            if (tempCube4.Transform.rotation == temp.Pieces[0].rotation)
+            {
+                Application.SoundManager.Play2D("boom1");
+            }
         }
 
         protected override void Draw(GameTime gameTime)
