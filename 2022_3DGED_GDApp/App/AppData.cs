@@ -1,12 +1,14 @@
 ﻿#region Pre-compiler directives
 
-//#define HI_RES
+//#define DEMO
+#define HI_RES
 
 #endregion
 
 using GD.Engine.Data;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System.Web;
 
 namespace GD.App
 {
@@ -36,7 +38,6 @@ namespace GD.App
         #region World Scale
 
         public static readonly float SKYBOX_WORLD_SCALE = 2000;
-      
 
         #endregion World Scale
 
@@ -101,7 +102,7 @@ namespace GD.App
         public static readonly float PLAYER_ROTATE_SPEED_SINGLE = 0.001f;
 
         //why bother? can you tilt your head at the same speed as you rotate it?
-        public static readonly Vector2 PLAYER_ROTATE_SPEED_VECTOR2 = new Vector2(0.0004f, 0.0004f);
+        public static readonly Vector2 PLAYER_ROTATE_SPEED_VECTOR2 = new Vector2(0.0004f, 0.0003f);
 
         #endregion Movement Constants
 
