@@ -317,17 +317,17 @@ namespace GD.App
             tempCube1.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad1));
 
             tempCube2 = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
-            tempCube2.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), Vector3.Zero, new Vector3(1.7f, 1, 1));
+            tempCube2.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(1, 1, 1.7f));
             tempCube2.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(panelTexture, 1), panelMesh));
             tempCube2.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad2));
 
             tempCube3 = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
-            tempCube3.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), Vector3.Zero, new Vector3(2.4f, 1, 1));
+            tempCube3.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(1, 1, 2.4f));
             tempCube3.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(panelTexture, 1), panelMesh));
             tempCube3.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad3));
 
             tempCube4 = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
-            tempCube4.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), Vector3.Zero, new Vector3(3.1f, 1, 1));
+            tempCube4.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), Vector3.Zero, new Vector3(1, 1, 3.1f));
             tempCube4.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(panelTexture, 1), panelMesh));
             tempCube4.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad4));
 
@@ -482,11 +482,12 @@ namespace GD.App
             var gdBasicEffect = new GDBasicEffect(unlitEffect);
             var quadMesh = new QuadMesh(_graphics.GraphicsDevice);
 
+            //Rotation Values shouldn't be changed
             temp = new Path("Temporary");
-            Transform one = new Transform(Vector3.One, new Vector3(MathHelper.PiOver2 * 2, 0, 0), Vector3.Zero);
-            Transform two = new Transform(Vector3.One, Vector3.Zero, Vector3.Zero);
-            Transform three = new Transform(Vector3.One, new Vector3(0, MathHelper.ToRadians(-90), 0), Vector3.Zero);
-            Transform four = new Transform(Vector3.One, new Vector3(MathHelper.PiOver2*2,0, 0), Vector3.Zero);
+            Transform one = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.PiOver2 * 2), Vector3.One);
+            Transform two = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new  Vector3(0, 0, MathHelper.PiOver2 * 2), new Vector3(1, 1, 1.7f));
+            Transform three = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.PiOver2 * 2), new Vector3(1, 1, 2.4f));
+            Transform four = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.PiOver2 * 2), new Vector3(1, 1, 3.1f));
             temp.AddPiece(one);
             temp.AddPiece(two);
             temp.AddPiece(three);
@@ -849,30 +850,48 @@ namespace GD.App
             //    {
             //        temp.setState(false, i);
             //    }
-        //}
+            //}
             if (tempCube1.Transform.rotation == temp.Pieces[0].rotation && temp.States[0] == false)
             {
                 Application.SoundManager.Play2D("boom1");
                 temp.setState(true, 0);
             }
-            if (tempCube2.Transform.rotation == temp.Pieces[0].rotation && temp.States[1] == false)
+            else if (tempCube1.Transform.rotation != temp.Pieces[0].rotation)
+            {
+                temp.setState(false, 0);
+            }
+
+            else if (tempCube2.Transform.rotation == temp.Pieces[1].rotation && temp.States[1] == false)
             {
                 Application.SoundManager.Play2D("boom1");
                 temp.setState(true, 1);
             }
-            if (tempCube3.Transform.rotation == temp.Pieces[0].rotation && temp.States[2] == false)
+            else if (tempCube2.Transform.rotation != temp.Pieces[1].rotation)
+            {
+                temp.setState(false, 1);
+            }
+            else if(tempCube3.Transform.rotation == temp.Pieces[2].rotation && temp.States[2] == false)
             {
                 Application.SoundManager.Play2D("boom1");
                 temp.setState(true, 2);
             }
-            if (tempCube4.Transform.rotation == temp.Pieces[3].rotation && temp.States[3] == false)
+            else if (tempCube3.Transform.rotation != temp.Pieces[2].rotation)
+            {
+                temp.setState(false, 2);
+            }
+            else if(tempCube4.Transform.rotation == temp.Pieces[3].rotation && temp.States[3] == false)
             {
                 Application.SoundManager.Play2D("boom1");
                 temp.setState(true, 3);
             }
-        
+            else if (tempCube4.Transform.rotation != temp.Pieces[3].rotation)
+            {
+                temp.setState(false, 3);
+            }
+
         }
 
+       
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);

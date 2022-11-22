@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.ComponentModel;
 using System.Reflection;
+using System.Transactions;
 
 namespace GD.Engine
 {
@@ -51,7 +52,13 @@ namespace GD.Engine
             {
                 //transform.rotation = transform.rotation + gameTime.ElapsedGameTime.Milliseconds * rotationSpeedInRadians * rotationAxis;
                 //Rotates 90 degrees on key press, no holding
-                transform.rotation += new Vector3(MathHelper.PiOver2,0,0);
+                transform.rotation += new Vector3(0, 0, MathHelper.PiOver2);
+
+                // If the cube rotation is 360 degrees it resets back to 0 degrees 
+                if (transform.rotation == new Vector3(0, 0, MathHelper.TwoPi))
+                {
+                    transform.rotation = new Vector3(0, 0, 0);
+                }
 
             }
 
