@@ -165,8 +165,7 @@ namespace GD.App
             //set game title
             SetTitle(title);
 
-            //load sounds, textures, models etc
-            LoadMediaAssets();
+          
 
             //initialize curves used by cameras
             InitializeCurves();
@@ -182,6 +181,9 @@ namespace GD.App
 
             //add non-collidable drawn stuff
             InitializeNonCollidableContent(worldScale);
+
+            //load sounds, textures, models etc
+            LoadMediaAssets();
 
             //add the player
             //InitializePlayer();
@@ -231,10 +233,7 @@ namespace GD.App
             //load and add to dictionary
 
             InitializeSatiliteModel();
-
             IntializeRadarModel();
-
-
             IntializeConsoleModel();
             IntializeKeypadModel();
             IntializeButtonModel();
@@ -374,7 +373,7 @@ namespace GD.App
             var satiliteTexture = Content.Load<Texture2D>("Assets/Textures/Satellite/satalite2_Material_BaseColor");
             var satiliteFbxModel = Content.Load<Model>("Assets/Models/satalite2");
             var satiliteMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, satiliteFbxModel);
-            satiliteGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(satiliteTexture, 1), satiliteMesh));
+            satiliteGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(satiliteTexture, 1), satiliteMesh));
             sceneManager.ActiveScene.Add(satiliteGameObject);
         }
 
@@ -387,7 +386,7 @@ namespace GD.App
             var consoleTexture = Content.Load<Texture2D>("Assets/Textures/console/console_DefaultMaterial_BaseColor");
             var consoleFbxModel = Content.Load<Model>("Assets/Models/console");
             var consoleMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, consoleFbxModel);
-            consoleGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(consoleTexture, 1), consoleMesh));
+            consoleGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(consoleTexture, 1), consoleMesh));
             sceneManager.ActiveScene.Add(consoleGameObject);
         }
         private void IntializeKeypadModel()
@@ -397,7 +396,7 @@ namespace GD.App
             var keypadTexture = Content.Load<Texture2D>("Assets/Textures/console/keypad_DefaultMaterial_BaseColor");
             var keypadFbxModel = Content.Load<Model>("Assets/Models/keypad");
             var keypadMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, keypadFbxModel);
-            keypadGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(keypadTexture, 1), keypadMesh));
+            keypadGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(keypadTexture, 1), keypadMesh));
             sceneManager.ActiveScene.Add(keypadGameObject);
         }
 
@@ -408,7 +407,7 @@ namespace GD.App
             var buttonTexture = Content.Load<Texture2D>("Assets/Textures/console/button_DefaultMaterial_Base_color");
             var buttonFbxModel = Content.Load<Model>("Assets/Models/button");
             var buttonMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, buttonFbxModel);
-            buttonGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(buttonTexture, 1), buttonMesh));
+            buttonGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(buttonTexture, 1), buttonMesh));
             sceneManager.ActiveScene.Add(buttonGameObject);
         }
 
@@ -419,7 +418,7 @@ namespace GD.App
             var keyboardTexture = Content.Load<Texture2D>("Assets/Textures/console/keyboard_Base_color");
             var keyboardFbxModel = Content.Load<Model>("Assets/Models/keyboard");
             var keyboardMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, keyboardFbxModel);
-            keyboardGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(keyboardTexture, 1), keyboardMesh));
+            keyboardGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(keyboardTexture, 1), keyboardMesh));
             sceneManager.ActiveScene.Add(keyboardGameObject);
         }
 
@@ -430,7 +429,7 @@ namespace GD.App
             var panelTexture = Content.Load<Texture2D>("Assets/Textures/console/panel_Base_color");
             var panelFbxModel = Content.Load<Model>("Assets/Models/panel");
             var panelMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, panelFbxModel);
-            panelGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(panelTexture, 1), panelMesh));
+            panelGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
             sceneManager.ActiveScene.Add(panelGameObject);
         }
 
@@ -441,7 +440,7 @@ namespace GD.App
             var ventTexture = Content.Load<Texture2D>("Assets/Textures/console/vent_Base_color");
             var ventFbxModel = Content.Load<Model>("Assets/Models/vent");
             var ventMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, ventFbxModel);
-            ventGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(ventTexture, 1), ventMesh));
+            ventGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(ventTexture, 1), ventMesh));
             sceneManager.ActiveScene.Add(ventGameObject);
         }
 
@@ -452,7 +451,7 @@ namespace GD.App
             var screenRightTexture = Content.Load<Texture2D>("Assets/Textures/console/screenright_Base_color");
             var screenRightFbxModel = Content.Load<Model>("Assets/Models/screen-right");
             var screenRightMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, screenRightFbxModel);
-            screenRightGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(screenRightTexture, 1), screenRightMesh));
+            screenRightGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(screenRightTexture, 1), screenRightMesh));
             sceneManager.ActiveScene.Add(screenRightGameObject);
         }
 
@@ -463,7 +462,7 @@ namespace GD.App
             var screenCentreTexture = Content.Load<Texture2D>("Assets/Textures/console/screencentre_Base_color");
             var screenCentreFbxModel = Content.Load<Model>("Assets/Models/screen-centre");
             var screenCentreMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, screenCentreFbxModel);
-            screenCentreGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(screenCentreTexture, 1), screenCentreMesh));
+            screenCentreGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(screenCentreTexture, 1), screenCentreMesh));
             sceneManager.ActiveScene.Add(screenCentreGameObject);
         }
 
@@ -474,7 +473,7 @@ namespace GD.App
             var screenLeftTexture = Content.Load<Texture2D>("Assets/Textures/console/screenleft_Base_color");
             var screenLeftFbxModel = Content.Load<Model>("Assets/Models/screen-left");
             var screenLeftMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, screenLeftFbxModel);
-            screenLeftGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(screenLeftTexture, 1), screenLeftMesh));
+            screenLeftGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(screenLeftTexture, 1), screenLeftMesh));
             sceneManager.ActiveScene.Add(screenLeftGameObject);
         }
 
@@ -485,7 +484,7 @@ namespace GD.App
             var radioTexture = Content.Load<Texture2D>("Assets/Textures/console/radio_Base_Color");
             var radioFbxModel = Content.Load<Model>("Assets/Models/radio");
             var radioMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, radioFbxModel);
-            radioGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(radioTexture, 1), radioMesh));
+            radioGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(radioTexture, 1), radioMesh));
             sceneManager.ActiveScene.Add(radioGameObject);
         }
 
@@ -496,7 +495,7 @@ namespace GD.App
             var lampTexture = Content.Load<Texture2D>("Assets/Textures/console/lamp_Base_color");
             var lampFbxModel = Content.Load<Model>("Assets/Models/lamp");
             var lampMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, lampFbxModel);
-            lampGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(lampTexture, 1), lampMesh));
+            lampGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(lampTexture, 1), lampMesh));
             sceneManager.ActiveScene.Add(lampGameObject);
         }
 
@@ -507,7 +506,7 @@ namespace GD.App
             var floppyDiskTexture = Content.Load<Texture2D>("Assets/Textures/console/floppydisk_Base_color");
             var floppyDiskFbxModel = Content.Load<Model>("Assets/Models/floppy-disk");
             var floppyDiskMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, floppyDiskFbxModel);
-            floppyDiskGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(floppyDiskTexture, 1), floppyDiskMesh));
+            floppyDiskGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(floppyDiskTexture, 1), floppyDiskMesh));
             sceneManager.ActiveScene.Add(floppyDiskGameObject);
         }
 
@@ -520,7 +519,7 @@ namespace GD.App
             var radarTexture = Content.Load<Texture2D>("Assets/Textures/Radar/radar-display_DefaultMaterial_BaseColor");
             var radarFbxModel = Content.Load<Model>("Assets/Models/radar-display");
             var radarMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, radarFbxModel);
-            radarGameObject.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(radarTexture, 1), radarMesh));
+            radarGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(radarTexture, 1), radarMesh));
             sceneManager.ActiveScene.Add(radarGameObject);
         }
 
@@ -592,9 +591,6 @@ namespace GD.App
 
             //add game effects
             InitializeEffects();
-
-            //add camera, scene manager
-            InitializeManagers();
 
             //add dictionaries to store and access content
             InitializeDictionaries();
