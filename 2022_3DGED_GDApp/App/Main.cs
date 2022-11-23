@@ -262,7 +262,7 @@ namespace GD.App
                 "buttonClickExplosion",
                 buttonClickExplosionEffect,
                 SoundCategoryType.Alarm,
-                new Vector3(1, 1, 0),
+                new Vector3(0.6f, 1, 0),
                 false));
 
             var cardPickupOrSwipeEffect =
@@ -350,7 +350,7 @@ namespace GD.App
                 "openPhone",
                 openPhoneEffect,
                 SoundCategoryType.Alarm,
-                new Vector3(1, 1, 0),
+                new Vector3(0.8f, 1, 0.8f),
                 false));
         }
 
