@@ -653,7 +653,7 @@ namespace GD.App
             //Make each cube out of 6 different planes. Ideally have a class called Cubey.cs that makes the cube out of these six faces
             //Sample of what i would like to do
             tempCube1 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
-            tempCube1.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), Vector3.Zero, Vector3.One);
+            tempCube1.Transform = new Transform(new Vector3(0.02f, 0.02f, 0.02f), new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, 2, 0.16f));
             var panelTexture = Content.Load<Texture2D>("Assets/Textures/cube_DefaultMaterial_BaseColor");
             var panelFbxModel = Content.Load<Model>("Assets/Models/cube");
             var panelMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, panelFbxModel);
@@ -661,17 +661,17 @@ namespace GD.App
             tempCube1.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad1));
 
             tempCube2 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
-            tempCube2.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(1, 1, 1.7f));
+            tempCube2.Transform = new Transform(new Vector3(0.02f, 0.02f, 0.02f), new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(1, 2, 0.08f));
             tempCube2.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
             tempCube2.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad2));
 
             tempCube3 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
-            tempCube3.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(1, 1, 2.4f));
+            tempCube3.Transform = new Transform(new Vector3(0.02f, 0.02f, 0.02f), new Vector3(0, 0, MathHelper.PiOver2), new Vector3(1, 2, 0));
             tempCube3.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
             tempCube3.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad3));
 
             tempCube4 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
-            tempCube4.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), Vector3.Zero, new Vector3(1, 1, 3.1f));
+            tempCube4.Transform = new Transform(new Vector3(0.02f, 0.02f, 0.02f), new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, 2, -0.08f));
             tempCube4.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
             tempCube4.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad4));
 
@@ -828,10 +828,10 @@ namespace GD.App
 
             //Rotation Values shouldn't be changed
             temp = new Path("Temporary");
-            Transform one = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.PiOver2 * 2), Vector3.One);
-            Transform two = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new  Vector3(0, 0, MathHelper.PiOver2 * 2), new Vector3(1, 1, 1.7f));
-            Transform three = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.PiOver2 * 2), new Vector3(1, 1, 2.4f));
-            Transform four = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.PiOver2 * 2), new Vector3(1, 1, 3.1f));
+            Transform one = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), Vector3.One);
+            Transform two = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new  Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 1, 1.7f));
+            Transform three = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 1, 2.4f));
+            Transform four = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 1, 3.1f));
             temp.AddPiece(one);
             temp.AddPiece(two);
             temp.AddPiece(three);
