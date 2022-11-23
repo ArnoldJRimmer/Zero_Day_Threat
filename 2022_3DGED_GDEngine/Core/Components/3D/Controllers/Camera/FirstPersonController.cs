@@ -57,27 +57,27 @@ namespace GD.Engine
 
        protected virtual void HandleKeyboardInput(GameTime gameTime)
         {
-            translation = Vector3.Zero;
-
-            if (Input.Keys.IsPressed(Keys.W))
-                translation += transform.World.Forward * moveSpeed * gameTime.ElapsedGameTime.Milliseconds;
-            else if (Input.Keys.IsPressed(Keys.S))
-                translation -= transform.World.Forward * moveSpeed * gameTime.ElapsedGameTime.Milliseconds;
-
-            if (Input.Keys.IsPressed(Keys.A))
-                translation += transform.World.Left * strafeSpeed * gameTime.ElapsedGameTime.Milliseconds;
-            else if (Input.Keys.IsPressed(Keys.D))
-                translation += transform.World.Right * strafeSpeed * gameTime.ElapsedGameTime.Milliseconds;
-
-            if (isGrounded)
-                translation.Y = 0;
-
-            transform.Translate(translation);
+            // translation = Vector3.Zero;
+            //
+            // if (Input.Keys.IsPressed(Keys.W))
+            //     translation += transform.World.Forward * moveSpeed * gameTime.ElapsedGameTime.Milliseconds;
+            // else if (Input.Keys.IsPressed(Keys.S))
+            //     translation -= transform.World.Forward * moveSpeed * gameTime.ElapsedGameTime.Milliseconds;
+            //
+            // if (Input.Keys.IsPressed(Keys.A))
+            //     translation += transform.World.Left * strafeSpeed * gameTime.ElapsedGameTime.Milliseconds;
+            // else if (Input.Keys.IsPressed(Keys.D))
+            //     translation += transform.World.Right * strafeSpeed * gameTime.ElapsedGameTime.Milliseconds;
+            //
+            // if (isGrounded)
+            //     translation.Y = 0;
+            //
+            // transform.Translate(translation);
         }
 
         protected virtual void HandleMouseInput(GameTime gameTime)
         {
-            rotation = Vector3.Zero;
+            rotation = new Vector3(0,MathHelper.PiOver2,0);
            
             var delta = Input.Mouse.Delta;
 
