@@ -3,6 +3,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GD.Engine
 {
+    /// <summary>
+    /// Stores the surface properties for a 3D drawn object
+    /// </summary>
+    /// <see cref="Renderer"/>
     public class Material
     {
         #region Fields

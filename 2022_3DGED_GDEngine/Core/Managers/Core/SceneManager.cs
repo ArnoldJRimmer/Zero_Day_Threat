@@ -7,18 +7,18 @@ namespace GD.Engine.Managers
     /// <summary>
     /// Stores all scenes and updates the active scene
     /// </summary>
-    public class SceneManager : GameComponent
+    public class SceneManager<T> : PausableGameComponent where T : IUpdateable
     {
         #region Fields
 
-        private Scene activeScene = null;
-        private Dictionary<string, Scene> scenes;
+        private T activeScene;
+        private Dictionary<string, T> scenes;
 
         #endregion Fields
 
         #region Properties
 
-        public Scene ActiveScene
+        public T ActiveScene
         {
             get
             {
@@ -36,14 +36,14 @@ namespace GD.Engine.Managers
         public SceneManager(Game game)
             : base(game)
         {
-            scenes = new Dictionary<string, Scene>();
+            scenes = new Dictionary<string, T>();
         }
 
         #endregion Constructors
 
         #region Actions - Add, SetActiveScene
 
-        public bool Add(string id, Scene scene)
+        public bool Add(string id, T scene)
         {
             id = id.Trim().ToLower();
 
@@ -54,7 +54,7 @@ namespace GD.Engine.Managers
             return true;
         }
 
-        public Scene SetActiveScene(string id)
+        public T SetActiveScene(string id)
         {
             id = id.Trim().ToLower();
 

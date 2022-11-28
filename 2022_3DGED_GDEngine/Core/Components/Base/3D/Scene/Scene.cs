@@ -1,7 +1,5 @@
 ﻿using GD.Engine.Collections;
-using GD.Engine.Globals;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
@@ -10,7 +8,7 @@ namespace GD.Engine
     /// <summary>
     /// Store all the drawn and updateable GameOjects and call Update and Draw
     /// </summary>
-    public class Scene
+    public class Scene :IProvideStats, IUpdateable
     {
         #region Fields
 
