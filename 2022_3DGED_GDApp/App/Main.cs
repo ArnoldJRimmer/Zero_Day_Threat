@@ -29,6 +29,7 @@ using Keys = Microsoft.Xna.Framework.Input.Keys;
 using Material = GD.Engine.Material;
 using GD.Engine.Collections;
 using System.Windows.Forms;
+using JigLibX.Collision;
 
 namespace GD.App
 {
@@ -42,13 +43,18 @@ namespace GD.App
         private BasicEffect litEffect;
 
         private CameraManager cameraManager;
-        private SceneManager sceneManager;
+        private SceneManager<Scene> sceneManager;
         private SoundManager soundManager;
         private PhysicsManager physicsManager;
         private RenderManager renderManager;
         private EventDispatcher eventDispatcher;
         private GameObject playerGameObject;
         private StateManager stateManager;
+        private GameObject uiTextureGameObject;
+        private SpriteMaterial textSpriteMaterial;
+        private UITextureElement uiTextureElement;
+        private SceneManager<Scene2D> uiManager;
+        private Render2DManager uiRenderManager;
 
         private Path temp;
         private GameObject tempCube1;
@@ -459,11 +465,27 @@ namespace GD.App
 
         private void InitializeColliableGround(float worldScale)
         {
-            var collidableGround = new Box(BEPUutilities.Vector3.Zero, worldScale, 1, worldScale);
-            physicsManager.Space.Add(collidableGround);
-            physicsManager.Space.Add(new Box(new BEPUutilities.Vector3(0, 4, 0), 1, 1, 1, 1));
-            physicsManager.Space.Add(new Box(new BEPUutilities.Vector3(0, 8, 0), 1, 1, 1, 1));
-            physicsManager.Space.Add(new Box(new BEPUutilities.Vector3(0, 12, 0), 1, 1, 1, 1));
+            var gdBasicEffect = new GDBasicEffect(unlitEffect);
+            var quadMesh = new QuadMesh(_graphics.GraphicsDevice);
+
+            //ground
+            var ground = new GameObject("ground");
+            ground.Transform = new Transform(new Vector3(worldScale, worldScale, 1),
+                new Vector3(-90, 0, 0), new Vector3(0, 0, 0));
+            var texture = Content.Load<Texture2D>("Assets/Textures/Foliage/Ground/grass1");
+            ground.AddComponent(new Renderer(gdBasicEffect, new Material(texture, 1), quadMesh));
+
+            //add Collision Surface(s)
+            var collider = new Collider(ground);
+            collider.AddPrimitive(new Box(
+                    ground.Transform.Translation,
+                    ground.Transform.Rotation,
+                    ground.Transform.Scale),
+                new MaterialProperties(0.8f, 0.8f, 0.7f));
+            collider.Enable(ground, true, 1);
+            ground.AddComponent(collider);
+
+            sceneManager.ActiveScene.Add(ground);
         }
         
         private void InitializeCollidableModel()

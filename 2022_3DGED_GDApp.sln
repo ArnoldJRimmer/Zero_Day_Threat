@@ -5,7 +5,9 @@ VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2022_3DGED_GDApp", "2022_3DGED_GDApp\2022_3DGED_GDApp.csproj", "{B9ABA4E4-4EEF-4D21-938F-5B4616909F7D}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "2022_3DGED_GDEngine", "2022_3DGED_GDEngine\2022_3DGED_GDEngine.shproj", "{C20CF0A4-39C7-45EB-AD9C-D76981BD61F9}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "2022_3DGED_GDEngine", "..\..\..\..\..\College\3D Game Engine\2022_3DGED_GDEngine\2022_3DGED_GDEngine.shproj", "{C20CF0A4-39C7-45EB-AD9C-D76981BD61F9}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "JigLibX", "..\..\..\..\..\College\3D Game Engine\JigLibX\JigLibX.shproj", "{52796A7B-90E4-4E28-81B1-288BA46C5599}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,7 +27,9 @@ Global
 		SolutionGuid = {082A9046-B83C-4C6E-BD91-509D3EFF7850}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		2022_3DGED_GDEngine\2022_3DGED_GDEngine.projitems*{b9aba4e4-4eef-4d21-938f-5b4616909f7d}*SharedItemsImports = 5
-		2022_3DGED_GDEngine\2022_3DGED_GDEngine.projitems*{c20cf0a4-39c7-45eb-ad9c-d76981bd61f9}*SharedItemsImports = 13
+		..\..\..\..\..\College\3D Game Engine\JigLibX\JigLibX.projitems*{52796a7b-90e4-4e28-81b1-288ba46c5599}*SharedItemsImports = 13
+		..\..\..\..\..\College\3D Game Engine\2022_3DGED_GDEngine\2022_3DGED_GDEngine.projitems*{b9aba4e4-4eef-4d21-938f-5b4616909f7d}*SharedItemsImports = 5
+		..\..\..\..\..\College\3D Game Engine\JigLibX\JigLibX.projitems*{b9aba4e4-4eef-4d21-938f-5b4616909f7d}*SharedItemsImports = 5
+		..\..\..\..\..\College\3D Game Engine\2022_3DGED_GDEngine\2022_3DGED_GDEngine.projitems*{c20cf0a4-39c7-45eb-ad9c-d76981bd61f9}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

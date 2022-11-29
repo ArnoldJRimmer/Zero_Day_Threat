@@ -138,7 +138,7 @@ namespace GD.Engine.Utilities
 
         public override void Draw(Vector2 position)
         {
-            spriteBatch.DrawString(spriteFont, $"{label}{Application.SceneManager.ActiveScene.GetPerfStats()}", position, color, rotation, origin, scale, effects, layerDepth);
+            spriteBatch.DrawString(spriteFont, $"{label}{Application.SceneManager.ActiveScene.GetStatistics()}", position, color, rotation, origin, scale, effects, layerDepth);
         }
     }
 }

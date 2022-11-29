@@ -20,11 +20,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Base\3D\Behaviours\SimpleRotationBehaviour.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Base\3D\Behaviours\CycledRotationBehaviour.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Base\3D\Camera\Camera.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Base\3D\Controllers\Camera\CameraFOVController.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Base\3D\Controllers\Camera\CubeController.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Base\3D\Controllers\Camera\FirstPersonCameraController.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Base\3D\Controllers\Camera\FirstPersonController.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Base\3D\Controllers\Camera\PlayerController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Base\3D\Physics\BoxCollider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Base\3D\Renderers\Renderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Base\2D\Scene2D\Scene2D.cs" />
@@ -55,10 +50,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Core\Inputs\GamepadComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Inputs\KeyboardComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Inputs\MouseComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Managers\Core\Interfaces\IProvideStats.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Managers\Core\Render2DManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Managers\PhysicsManager.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\Managers\RenderManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Managers\Core\RenderManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Managers\StateManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Other\Level\ILoadLevel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Types\Integer2.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Managers\CameraManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Managers\Core\SceneManager.cs" />
@@ -67,12 +64,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)Core\Parameters\Curve\Curve.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Parameters\Rail\Rail.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Singletons\Screen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Utilities\Math\MathUtility.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Utilities\SpriteBatchInfo\SpriteBatchInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Utilities\Performance\PerfUtility.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Utilities\Serialization\SerializationUtility.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Utilities\String\StringUtility.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Core\Components\Base\3D\Controllers\Camera\" />
     <Folder Include="$(MSBuildThisFileDirectory)Core\Components\Base\3D\Scene\" />
     <Folder Include="$(MSBuildThisFileDirectory)Core\Enums\" />
     <Folder Include="$(MSBuildThisFileDirectory)Core\Graphics\3D\" />
