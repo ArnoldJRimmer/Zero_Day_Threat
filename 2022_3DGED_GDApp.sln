@@ -27,9 +27,9 @@ Global
 		SolutionGuid = {082A9046-B83C-4C6E-BD91-509D3EFF7850}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		..\..\..\..\..\College\3D Game Engine\JigLibX\JigLibX.projitems*{52796a7b-90e4-4e28-81b1-288ba46c5599}*SharedItemsImports = 13
-		..\..\..\..\..\College\3D Game Engine\2022_3DGED_GDEngine\2022_3DGED_GDEngine.projitems*{b9aba4e4-4eef-4d21-938f-5b4616909f7d}*SharedItemsImports = 5
-		..\..\..\..\..\College\3D Game Engine\JigLibX\JigLibX.projitems*{b9aba4e4-4eef-4d21-938f-5b4616909f7d}*SharedItemsImports = 5
-		..\..\..\..\..\College\3D Game Engine\2022_3DGED_GDEngine\2022_3DGED_GDEngine.projitems*{c20cf0a4-39c7-45eb-ad9c-d76981bd61f9}*SharedItemsImports = 13
+		JigLibX\JigLibX.projitems*{52796a7b-90e4-4e28-81b1-288ba46c5599}*SharedItemsImports = 13
+		2022_3DGED_GDEngine\2022_3DGED_GDEngine.projitems*{b9aba4e4-4eef-4d21-938f-5b4616909f7d}*SharedItemsImports = 5
+		JigLibX\JigLibX.projitems*{b9aba4e4-4eef-4d21-938f-5b4616909f7d}*SharedItemsImports = 5
+		2022_3DGED_GDEngine\2022_3DGED_GDEngine.projitems*{c20cf0a4-39c7-45eb-ad9c-d76981bd61f9}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal
