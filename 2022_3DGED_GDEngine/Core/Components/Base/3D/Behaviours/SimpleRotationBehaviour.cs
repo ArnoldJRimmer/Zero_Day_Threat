@@ -7,16 +7,16 @@ namespace GD.Engine
         #region Fields
 
         private Vector3 rotationAxis = Vector3.UnitY;
-        private float rotationSpeedInRadians;
+        private float rotationSpeedInDegrees;
 
         #endregion Fields
 
         #region Constructors
 
-        public SimpleRotationBehaviour(Vector3 rotationAxis, float rotationSpeedInRadians)
+        public SimpleRotationBehaviour(Vector3 rotationAxis, float rotationSpeedInDegrees)
         {
             this.rotationAxis = rotationAxis;
-            this.rotationSpeedInRadians = rotationSpeedInRadians;
+            this.rotationSpeedInDegrees = rotationSpeedInDegrees;
         }
 
         #endregion Constructors
@@ -25,10 +25,7 @@ namespace GD.Engine
 
         public override void Update(GameTime gameTime)
         {
-            //stuff
-            //transform.rotation = transform.rotation + new Vector3(0, MathHelper.ToRadians(1), 0);
-
-            transform.rotation = transform.rotation + gameTime.ElapsedGameTime.Milliseconds * rotationSpeedInRadians * rotationAxis;
+            transform.Rotate(gameTime.ElapsedGameTime.Milliseconds * rotationSpeedInDegrees * rotationAxis);
 
             //dont call parent since its Update does nothing
             //base.Update(gameTime);

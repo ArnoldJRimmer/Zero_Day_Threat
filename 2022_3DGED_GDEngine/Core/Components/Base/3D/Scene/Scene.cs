@@ -6,9 +6,9 @@ using System.Collections.Generic;
 namespace GD.Engine
 {
     /// <summary>
-    /// Store all the drawn and updateable GameOjects and call Update and Draw
+    /// Store all the drawn and updateable GameOjects
     /// </summary>
-    public class Scene :IProvideStats, IUpdateable
+    public class Scene : IProvideStats, IUpdateable
     {
         #region Fields
 
@@ -27,6 +27,10 @@ namespace GD.Engine
         /// </summary>
         private GameObjectList transparentList;
 
+        public event EventHandler<EventArgs> EnabledChanged;
+
+        public event EventHandler<EventArgs> UpdateOrderChanged;
+
         #endregion Fields
 
         #region Properties
@@ -34,6 +38,10 @@ namespace GD.Engine
         public string ID { get => id; set => id = value.Trim(); }
         public GameObjectList OpaqueList { get => opaqueList; protected set => opaqueList = value; }
         public GameObjectList TransparentList { get => transparentList; protected set => transparentList = value; }
+
+        public bool Enabled => throw new NotImplementedException();
+
+        public int UpdateOrder => throw new NotImplementedException();
 
         #endregion Properties
 
@@ -161,7 +169,7 @@ namespace GD.Engine
 
 #if DEBUG
 
-        public string GetPerfStats()
+        public string GetStatistics()
         {
             return $"Op: {opaqueList.GetPerfStats()}, Tr:{transparentList.GetPerfStats()}";
         }

@@ -27,6 +27,6 @@
     <Message Text="Restoring dotnet tools" Importance="High" />
     <Exec Command="dotnet tool restore" />
   </Target>
-  <Import Project="..\..\..\..\..\..\College\3D Game Engine\2022_3DGED_GDEngine\2022_3DGED_GDEngine.projitems" Label="Shared" />
-  <Import Project="..\..\..\..\..\..\College\3D Game Engine\JigLibX\JigLibX.projitems" Label="Shared" />
+  <Import Project="..\2022_3DGED_GDEngine\2022_3DGED_GDEngine.projitems" Label="Shared" />
+  <Import Project="..\JigLibX\JigLibX.projitems" Label="Shared" />
 </Project>

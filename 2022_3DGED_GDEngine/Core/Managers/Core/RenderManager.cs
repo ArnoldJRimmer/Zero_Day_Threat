@@ -1,7 +1,6 @@
 ﻿using GD.Engine.Globals;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SharpDX.MediaFoundation;
 using System;
 
 namespace GD.Engine.Managers
@@ -9,7 +8,7 @@ namespace GD.Engine.Managers
     /// <summary>
     /// Renders the active scene
     /// </summary>
-    public class RenderManager : DrawableGameComponent
+    public class RenderManager : PausableDrawableGameComponent
     {
         #region Fields
 
@@ -34,15 +33,15 @@ namespace GD.Engine.Managers
 
         public override void Draw(GameTime gameTime)
         {
-            if (sceneRenderer == null)
-                throw new ArgumentNullException("SceneRenderer is null! Use RenderManager::SceneRenderer to set renderer for the scene in Main::InitializeEngine()");
+            if (StatusType != StatusType.Off)
+            {
+                if (sceneRenderer == null)
+                    throw new ArgumentNullException("SceneRenderer is null! Use RenderManager::SceneRenderer to set renderer for the scene in Main::InitializeEngine()");
 
-            //if (Application.CameraManager == null && Application.SceneManager == null)
-            //    return;
-
-            sceneRenderer.Draw(Application.GraphicsDevice,
-                Application.CameraManager.ActiveCamera,
-                Application.SceneManager.ActiveScene);
+                sceneRenderer.Draw(Application.GraphicsDevice,
+                    Application.CameraManager.ActiveCamera,
+                    Application.SceneManager.ActiveScene);
+            }
         }
     }
 

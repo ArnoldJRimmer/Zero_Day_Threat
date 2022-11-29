@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace GD.Engine.Utilities
 {
-    public class PerfUtility : DrawableGameComponent
+    public class PerfUtility : PausableDrawableGameComponent
     {
         #region Statics
 
@@ -66,40 +66,46 @@ namespace GD.Engine.Utilities
 
         public override void Update(GameTime gameTime)
         {
-            //accumulate time until next text update
-            totalTimeSinceLastFPSUpdate += gameTime.ElapsedGameTime.Milliseconds;
-
-            //count the frames
-            fpsCountSinceLastRefresh++;
-
-            //every 500ms send the 2x frame count to fpsCountToShow
-            if (totalTimeSinceLastFPSUpdate >= MAX_TIME_BETWEEN_FPS_UPDATES_IN_MS)
+            if (StatusType != StatusType.Off)
             {
-                //reset time until next count update
-                totalTimeSinceLastFPSUpdate = 0;
+                //accumulate time until next text update
+                totalTimeSinceLastFPSUpdate += gameTime.ElapsedGameTime.Milliseconds;
 
-                //store value to show in Draw()
-                fps = fpsCountSinceLastRefresh;
+                //count the frames
+                fpsCountSinceLastRefresh++;
 
-                //reset frame count
-                fpsCountSinceLastRefresh = 0;
+                //every 500ms send the 2x frame count to fpsCountToShow
+                if (totalTimeSinceLastFPSUpdate >= MAX_TIME_BETWEEN_FPS_UPDATES_IN_MS)
+                {
+                    //reset time until next count update
+                    totalTimeSinceLastFPSUpdate = 0;
+
+                    //store value to show in Draw()
+                    fps = fpsCountSinceLastRefresh;
+
+                    //reset frame count
+                    fpsCountSinceLastRefresh = 0;
+                }
             }
         }
 
         public override void Draw(GameTime gameTime)
         {
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null);
-
-            //draw all SpriteBatchInfo added to the list
-            for (int i = 0; i < infoList.Count; i++)
+            if (StatusType != StatusType.Off)
             {
-                if (infoList[i] is FPSInfo)
-                    infoList[i].Draw(fps.ToString(), textStartPosition + i * textOffset);
-                else
-                    infoList[i].Draw(textStartPosition + i * textOffset);
-            }
+                spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null);
 
-            spriteBatch.End();
+                //draw all SpriteBatchInfo added to the list
+                for (int i = 0; i < infoList.Count; i++)
+                {
+                    if (infoList[i] is FPSInfo)
+                        infoList[i].Draw(fps.ToString(), textStartPosition + i * textOffset);
+                    else
+                        infoList[i].Draw(textStartPosition + i * textOffset);
+                }
+
+                spriteBatch.End();
+            }
         }
 
         //OLD

@@ -1,10 +1,13 @@
 ﻿using GD.Engine.Managers;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace GD.Engine
 {
     public class ForwardSceneRenderer : SceneRenderer
     {
+        private List<Renderer> renderers;
+
         public ForwardSceneRenderer(GraphicsDevice graphiceDevice)
         {
             base.Initialize(graphiceDevice);
@@ -22,23 +25,27 @@ namespace GD.Engine
             SetGraphicsStates(true);
 
             //draw static opaque game objects
-            foreach (GameObject gameObject in scene.OpaqueList.StaticList)
-                gameObject.GetComponent<Renderer>().Draw(graphicsDevice, camera);
+            renderers = scene.OpaqueList.StaticList.Renderers;
+            foreach (Renderer renderer in renderers)
+                renderer.Draw(graphicsDevice, camera);
 
             //draw dynamic opaque game objects
-            foreach (GameObject gameObject in scene.OpaqueList.DynamicList)
-                gameObject.GetComponent<Renderer>().Draw(graphicsDevice, camera);
+            renderers = scene.OpaqueList.DynamicList.Renderers;
+            foreach (Renderer renderer in renderers)
+                renderer.Draw(graphicsDevice, camera);
 
             //set opaque
             SetGraphicsStates(false);
 
             //draw static transparent game objects
-            foreach (GameObject gameObject in scene.TransparentList.StaticList)
-                gameObject.GetComponent<Renderer>().Draw(graphicsDevice, camera);
+            renderers = scene.TransparentList.StaticList.Renderers;
+            foreach (Renderer renderer in renderers)
+                renderer.Draw(graphicsDevice, camera);
 
-            //draw dynamic opaque game objects
-            foreach (GameObject gameObject in scene.TransparentList.DynamicList)
-                gameObject.GetComponent<Renderer>().Draw(graphicsDevice, camera);
+            //draw dynamic transparent game objects
+            renderers = scene.TransparentList.DynamicList.Renderers;
+            foreach (Renderer renderer in renderers)
+                renderer.Draw(graphicsDevice, camera);
         }
     }
 }

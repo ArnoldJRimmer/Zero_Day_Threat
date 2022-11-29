@@ -1,26 +1,38 @@
 ﻿using GD.Engine;
 using GD.Engine.Parameters;
 using Microsoft.Xna.Framework;
+using System;
 
 namespace GD.App
 {
+    /// <summary>
+    /// Applies an action (Action) to a target game object
+    /// </summary>
+    /// <see cref="Main.InitializeCameras()"/>
     public class CurveBehaviour : Component
     {
-        private Curve3D translationCurve;
+        #region Fields
 
-        public CurveBehaviour(Curve3D translationCurve)
+        private Curve3D curve;
+        private Action<Curve3D, GameObject, GameTime> action;
+
+        #endregion Fields
+
+        #region Constructors
+
+        public CurveBehaviour(Curve3D curve, Action<Curve3D, GameObject, GameTime> action)
         {
-            this.translationCurve = translationCurve;
+            this.curve = curve;
+            this.action = action;
         }
+
+        #endregion Constructors
 
         public override void Update(GameTime gameTime)
         {
-            double time = gameTime.TotalGameTime.TotalMilliseconds;
-
-            transform.SetTranslation(translationCurve.Evaluate(time, 4));
+            action(curve, gameObject, gameTime);
+            //transform.SetTranslation(curve.Evaluate(time, 4));
             // transform.SetRotation(rotationCurve.Evaluate(time, 4));
-
-            base.Update(gameTime);
         }
     }
 }
