@@ -707,125 +707,6 @@ namespace GD.App
 
 
 
-            //#region Variables
-            //GameObject face_F1 = null;
-            //GDBasicEffect gdBasicEffect = new GDBasicEffect(unlitEffect);
-            //Mesh quadMesh = new QuadMesh(_graphics.GraphicsDevice);
-            //var cubeFbx = Content.Load<Model>("Assets/Models/cube");
-            //Engine.ModelMesh cubeMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, cubeFbx);
-            //var cubeTxt = Content.Load<Texture2D>("Assets/Textures/cube_DefaultMaterial_BaseColor");
-            //Texture2D faceTexture = Content.Load<Texture2D>("Assets/Textures/SkyBox/basicwall");
-            //#endregion Variables
-            //#region Old Code
-            //#region Front Faces
-            ////Front Face - Need 9
-            //face_F1 = new GameObject("Front", ObjectType.Static, RenderType.Opaque);
-            //face_F1.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), null, new Vector3(0, 1, 0));
-            //face_F1.AddComponent(new Renderer(gdBasicEffect, new Material(faceTexture, 1, Color.Orange), quadMesh));
-            //sceneManager.ActiveScene.Add(face_F1);
-            //#endregion Front Faces
-
-            //////Back Face - Need 9
-
-            ////#region Left Faces
-            //////Left Face - Need 9
-            ////GameObject face_L1 = null;
-            ////face_L1 = new GameObject("Left", ObjectType.Static, RenderType.Opaque);
-            ////face_L1.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, MathHelper.ToRadians(-90), 0), new Vector3(-0.15f, 1, -0.15f));
-            ////face_L1.AddComponent(new Renderer(gdBasicEffect, new Material(faceTexture, 1, Color.Blue), quadMesh));
-            ////sceneManager.ActiveScene.Add(face_L1);
-            ////#endregion Left Faces
-
-            ////#region Right Faces
-            //////Right Face - Need 9
-            ////GameObject face_R1 = null;
-            ////face_R1 = new GameObject("Right", ObjectType.Static, RenderType.Opaque);
-            ////face_R1.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, MathHelper.ToRadians(90), 0), new Vector3(0.15f, 1, -0.15f));
-            ////face_R1.AddComponent(new Renderer(gdBasicEffect, new Material(faceTexture, 1, Color.Green), quadMesh));
-            ////sceneManager.ActiveScene.Add(face_R1);
-            ////#endregion
-
-            ////#region Top Faces
-            //////Top Face
-            ////GameObject face_T1 = null;
-            ////face_T1 = new GameObject("Top", ObjectType.Static, RenderType.Opaque);
-            ////face_T1.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(MathHelper.ToRadians(-90), 0, 0), new Vector3(0, 1.15f, -0.15f));
-            ////face_T1.AddComponent(new Renderer(gdBasicEffect, new Material(faceTexture, 1, Color.Red), quadMesh));
-            ////sceneManager.ActiveScene.Add(face_T1);
-            ////#endregion Top Faces
-            ////Bottom Face
-            //#endregion Old Code
-
-
-
-            //Transform pathOne = new Transform(Vector3.Zero, new Vector3(MathHelper.ToRadians(90), 0, 0), Vector3.One);
-
-            //#region RotationCheck
-            ////Enters if Statement
-            //if (pathOne.rotation == face5.Transform.rotation)
-            //{
-            //    Console.WriteLine("Face 5 is apart of the Path");
-            //}
-            //else
-            //{
-            //    Console.WriteLine("Didn't enter if");
-            //}
-            //#endregion RotationCheck
-
-            //#region Old Code
-            //GameObject pathOne = new GameObject("PathOne"); 
-            //pathOne.Transform = new Transform(Vector3.Zero, new Vector3(MathHelper.ToRadians(90), 0, 0), Vector3.One);
-
-            //GameObject pathTwo = new GameObject("PathTwo");
-            //pathTwo.Transform = new Transform(Vector3.One, new Vector3(0, MathHelper.ToRadians(90), 0), Vector3.Zero);
-
-            //GameObject pathThree = new GameObject("PathThree");
-            //pathThree.Transform = new Transform(Vector3.UnitY, new Vector3(0, 0, 0), Vector3.Zero);
-
-            //GameObject pathFour = new GameObject("PathFour");
-            //pathFour.Transform = new Transform(new Vector3(2, 4, 3), new Vector3(0, MathHelper.ToRadians(-90), 0), Vector3.One);
-
-            //sceneManager.ActiveScene.Add(pathOne);
-            //sceneManager.ActiveScene.Add(pathTwo);
-            //sceneManager.ActiveScene.Add(pathThree);
-            //sceneManager.ActiveScene.Add(pathFour);
-            //Adds it to the scene 
-
-
-            //sceneManager.ActiveScene.Add(face1);
-            //sceneManager.ActiveScene.Add(face2);
-            //sceneManager.ActiveScene.Add(face3);
-            //sceneManager.ActiveScene.Add(face4);
-            //sceneManager.ActiveScene.Add(face5);
-            //sceneManager.ActiveScene.Add(face6);
-
-
-            //#region Basic Proto for cube Rot
-            //cube1 = myCubey.CubeyBoi("Cube 1", new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, 0), new Vector3(0, 1, 0),
-            // gdBasicEffect, faceTexture, cubeMesh, Color.Red, Keys.NumPad1);
-            //cube1.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(cubeTxt, 1), cubeMesh));
-
-            //GameObject cube2 = myCubey.CubeyBoi("Cube 2", new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, 0), new Vector3(0.3f, 1, 0),
-            // gdBasicEffect, faceTexture, cubeMesh, Color.Blue, Keys.NumPad2);
-
-            //GameObject cube3 = myCubey.CubeyBoi("Cube 3", new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, 0), new Vector3(0.6f, 1, 0),
-            //gdBasicEffect, faceTexture, cubeMesh, Color.Green, Keys.NumPad3);
-
-            //GameObject cube4 = myCubey.CubeyBoi("Cube 4", new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, 0), new Vector3(0.9f, 1, 0),
-            //gdBasicEffect, faceTexture, cubeMesh, Color.Yellow, Keys.NumPad4);
-
-            //GameObject cube5 = myCubey.CubeyBoi("Cube 5", new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, 0), new Vector3(1.2f, 1, 0),
-            //gdBasicEffect, faceTexture, cubeMesh, Color.Pink, Keys.NumPad5);
-
-
-            //sceneManager.ActiveScene.Add(cube1);
-            //sceneManager.ActiveScene.Add(cube2);
-            //sceneManager.ActiveScene.Add(cube3);
-            //sceneManager.ActiveScene.Add(cube4);
-            //sceneManager.ActiveScene.Add(cube5);
-            //#endregion
-
-
         }
         #endregion Zero Day Threat - The Cube
 
@@ -934,11 +815,11 @@ namespace GD.App
             GameObject quad = null;
             var gdBasicEffect = new GDBasicEffect(unlitEffect);
             var quadMesh = new QuadMesh(_graphics.GraphicsDevice);
+            var texture = Content.Load<Texture2D>("Assets/Textures/Skybox/basicwall");
 
             //skybox - back face
             quad = new GameObject("skybox back face");
             quad.Transform = new Transform(new Vector3(worldScale, worldScale, 1), null, new Vector3(0, 0, -halfWorldScale));
-            var texture = Content.Load<Texture2D>("Assets/Textures/Skybox/basicwall");
             quad.AddComponent(new Renderer(gdBasicEffect, new Material(texture, 1), quadMesh));
             sceneManager.ActiveScene.Add(quad);
 
@@ -972,7 +853,7 @@ namespace GD.App
 
             //ground
             quad = new GameObject("ground");
-            quad.Transform = new Transform(new Vector3(worldScale, worldScale, 1), new Vector3(MathHelper.ToRadians(-90), 0, 0), new Vector3(0, 0, 0));
+            quad.Transform = new Transform(new Vector3(worldScale, worldScale, 1), new Vector3(MathHelper.ToRadians(-90), 0, 0), new Vector3(0, -halfWorldScale, 0));
             texture = Content.Load<Texture2D>("Assets/Textures/Skybox/ground");
             quad.AddComponent(new Renderer(gdBasicEffect, new Material(texture, 1), quadMesh));
             sceneManager.ActiveScene.Add(quad);
