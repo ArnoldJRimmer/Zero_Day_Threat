@@ -17,7 +17,6 @@ namespace GD.Engine
         #region Fields
 
         protected Vector3 rotationAxis = Vector3.UnitY;
-        protected Vector3 rotation = Vector3.Zero;
         private float rotationSpeedInRadians;
         Keys cubeSelected;
 
@@ -49,16 +48,17 @@ namespace GD.Engine
         protected virtual void HandleKeyboardInput(GameTime gameTime)
         {
 
-            if (Input.Keys.IsPressed(cubeSelected,true))
+            if (Input.Keys.IsPressed(cubeSelected))
             {
                 //transform.rotation = transform.rotation + gameTime.ElapsedGameTime.Milliseconds * rotationSpeedInRadians * rotationAxis;
                 //Rotates 90 degrees on key press, no holding
-                transform.rotation += new Vector3(0, 0, MathHelper.PiOver2);
+
+                transform.Rotate(new Vector3(0, 0, MathHelper.PiOver2));
 
                 // If the cube rotation is 360 degrees it resets back to 0 degrees 
-                if (transform.rotation == new Vector3(0, 0, MathHelper.TwoPi))
+                if (transform.Rotation == new Vector3(0, 0, MathHelper.TwoPi))
                 {
-                    transform.rotation = new Vector3(0, 0, 0);
+                    transform.SetRotation(new Vector3(0, 0, 0));
                 }
 
             }
@@ -71,8 +71,6 @@ namespace GD.Engine
 
             Vector2 delta = Input.Mouse.Delta;
             var mouse = Mouse.GetState();
-
-
 
         }
 
