@@ -1,4 +1,5 @@
 ﻿using GD.Engine;
+using GD.Engine.Globals;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
