@@ -104,7 +104,7 @@ namespace GD.App
         public static readonly float PLAYER_STRAFE_SPEED = PLAYER_STRAFE_SPEED_MULTIPLIER * PLAYER_MOVE_SPEED;
 
         //can use either same X-Y rotation for camera controller or different
-        public static readonly float PLAYER_ROTATE_SPEED_SINGLE = 0.001f;
+        public static readonly float PLAYER_ROTATE_SPEED_SINGLE = 0.01f;
 
         //why bother? can you tilt your head at the same speed as you rotate it?
         public static readonly Vector2 PLAYER_ROTATE_SPEED_VECTOR2 = new Vector2(0.0004f, 0.0003f);
