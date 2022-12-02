@@ -92,22 +92,6 @@ namespace GD.Engine
             }
             //store current to be used for next update of smoothing
             oldDelta = newDelta;
-
-            if (delta.X < AppData.boundingScreen.X / 2 && delta.X > -AppData.boundingScreen.X / 2 && delta.Y < AppData.boundingScreen.Y / 2 && delta.Y > -AppData.boundingScreen.Y / 2)
-            {
-                //Q - where are X and Y reversed?
-                rotation.Y -= delta.X * rotationSpeed.X * gameTime.ElapsedGameTime.Milliseconds;
-                rotation.X -= delta.Y * rotationSpeed.Y * gameTime.ElapsedGameTime.Milliseconds;
-
-                //Need to work on the rotation of the y so that is stops at 180
-                //Also restrict the x so that it doesn't look all the way up
-                if (delta.Length() != 0)
-                {
-
-                }
-
-                transform.SetRotation(rotation);
-            }
         }
 
         #endregion Actions - Update, Input

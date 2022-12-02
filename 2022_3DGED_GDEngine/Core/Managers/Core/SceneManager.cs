@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GD.Engine.Events;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 
@@ -41,6 +42,33 @@ namespace GD.Engine.Managers
 
         #endregion Constructors
 
+        protected override void SubscribeToEvents()
+        {
+            //handle add/remove events
+            EventDispatcher.Subscribe(EventCategoryType.GameObject, HandleGameObjectEvents);
+
+            base.SubscribeToEvents();
+        }
+
+        protected void HandleGameObjectEvents(EventData eventData)
+        {
+            switch (eventData.EventActionType)
+            {
+                case EventActionType.OnRemoveObject: //TODO
+                    break;
+
+                case EventActionType.OnAddObject: //TODO
+                    break;
+
+                default:
+                    break;
+                    //add more cases for each method that we want to support with events
+            }
+
+            //call base method because we want to participate in the pause/play events
+            base.HandleEvent(eventData);
+        }
+
         #region Actions - Add, SetActiveScene
 
         public bool Add(string id, T scene)
@@ -70,7 +98,7 @@ namespace GD.Engine.Managers
 
         public override void Update(GameTime gameTime)
         {
-            if (StatusType != StatusType.Off)
+            if (IsUpdated)
                 activeScene.Update(gameTime);
         }
 

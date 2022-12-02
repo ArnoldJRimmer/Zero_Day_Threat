@@ -14,6 +14,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Core\Collections\ObjectList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Base\2D\Renderers\SpriteRenderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Base\2D\Scene2D\Scene2D.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Base\3D\Controllers\Camera\CollidableFirstPersonController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Base\CharacterCollider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Base\Collider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Base\Component.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Base\Transform.cs" />
@@ -43,9 +45,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Core\Graphics\3D\Meshes\Base\TexturedMesh.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Graphics\3D\Meshes\Base\WireframeMesh.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Graphics\3D\Meshes\Wireframe\XYZMesh.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Interfaces\IStoreable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Interfaces\IProvideStats.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Managers\Core\PhysicsManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Managers\Core\PickingManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Managers\Core\Render2DManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Managers\Core\UI\UserInterfaceManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Other\Data\Resolutions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Demo\TestUpdateableDrawableComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Demo\TestUpdateableOnlyComponent.cs" />

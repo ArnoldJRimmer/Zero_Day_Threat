@@ -1,6 +1,9 @@
 ﻿using GD.Engine.Globals;
+using JigLibX.Collision;
+using JigLibX.Geometry;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace GD.Engine.Inputs
 {
@@ -204,5 +207,124 @@ namespace GD.Engine.Inputs
         }
 
         #endregion Actions - Input & Visibility
+
+        #region Actions - Ray Picking
+
+        private float frac;
+        private CollisionSkin skin;
+
+        /// <summary>
+        /// Used when in 1st person collidable camera mode start distance allows us to start the ray outside the
+        /// collidable skin of the 1st person colliable camera object, otherwise the only thing we would ever collide
+        /// with would be ourselves!
+        /// </summary>
+        /// <param name="camera"></param>
+        /// <param name="cameraTransform"></param>
+        /// <param name="screenPosition"></param>
+        /// <param name="startDistance"></param>
+        /// <param name="endDistance"></param>
+        /// <param name="pos"></param>
+        /// <param name="normal"></param>
+        /// <returns></returns>
+        public GameObject GetPickedObject(Camera camera,
+            Transform cameraTransform,
+            Vector2 screenPosition,
+            float startDistance, float endDistance,
+            out Vector3 pos, out Vector3 normal)
+        {
+            Vector3 ray = GetMouseRayDirection(camera, screenPosition);
+            ImmovableSkinPredicate pred = new ImmovableSkinPredicate();
+
+            Application.PhysicsManager.PhysicsSystem.CollisionSystem.SegmentIntersect(out frac, out skin, out pos, out normal,
+                new Segment(cameraTransform.Translation + startDistance * Vector3.Normalize(ray), ray * endDistance), pred);
+
+            if (skin != null && skin.Owner != null)
+                return skin.Owner.Parent as GameObject;
+
+            return null;
+        }
+
+        public GameObject GetPickedObject(Camera camera, Transform cameraTransform, float distance, out Vector3 pos, out Vector3 normal)
+        {
+            return GetPickedObject(camera, cameraTransform, new Vector2(currentState.X, currentState.Y), 0, distance, out pos, out normal);
+        }
+
+        public GameObject GetPickedObject(Camera camera, Transform cameraTransform, float startDistance, float distance, out Vector3 pos, out Vector3 normal)
+        {
+            return GetPickedObject(camera, cameraTransform, new Vector2(currentState.X, currentState.Y), startDistance, distance, out pos, out normal);
+        }
+
+        public Vector3 GetMouseRayDirection(Camera camera)
+        {
+            return GetMouseRayDirection(camera, new Vector2(currentState.X, currentState.Y));
+        }
+
+        /// <summary>
+        /// Inner class used for ray picking
+        /// </summary>
+        internal class ImmovableSkinPredicate : CollisionSkinPredicate1
+        {
+            public override bool ConsiderSkin(CollisionSkin skin0)
+            {
+                return skin0.Owner != null ? true : false;
+            }
+        }
+
+        /// <summary>
+        /// Get a ray positioned at the mouse's location on the screen - used for picking
+        /// </summary>
+        /// <param name="camera"></param>
+        /// <returns></returns>
+        public Microsoft.Xna.Framework.Ray GetMouseRay(Camera camera)
+        {
+            //get the positions of the mouse in screen space
+            Vector3 near = new Vector3(currentState.X, currentState.Y, 0);
+
+            //convert from screen space to world space
+            near = camera.ViewPort.Unproject(near, camera.Projection, camera.View, Matrix.Identity);
+
+            return GetMouseRayFromNearPosition(camera, near);
+        }
+
+        /// <summary>
+        /// Get a ray from a user-defined near position in world space and the mouse pointer
+        /// </summary>
+        /// <param name="camera"></param>
+        /// <param name="near"></param>
+        /// <returns></returns>
+        public Microsoft.Xna.Framework.Ray GetMouseRayFromNearPosition(Camera camera, Vector3 near)
+        {
+            //get the positions of the mouse in screen space
+            Vector3 far = new Vector3(currentState.X, currentState.Y, 1);
+
+            //convert from screen space to world space
+            far = camera.ViewPort.Unproject(far, camera.Projection, camera.View, Matrix.Identity);
+
+            //generate a ray to use for intersection tests
+            return new Microsoft.Xna.Framework.Ray(near, Vector3.Normalize(far - near));
+        }
+
+        /// <summary>
+        /// Get a ray positioned at the screen position - used for picking when we have a centred reticule
+        /// </summary>
+        /// <param name="camera"></param>
+        /// <param name="screenPosition"></param>
+        /// <returns></returns>
+        public Vector3 GetMouseRayDirection(Camera camera, Vector2 screenPosition)
+        {
+            //get the positions of the mouse in screen space
+            Vector3 near = new Vector3(screenPosition.X, screenPosition.Y, 0);
+            //bug with mouse picking - thanks Paudric Smith
+            Vector3 far = new Vector3(screenPosition.X, screenPosition.Y, 1);
+
+            //convert from screen space to world space
+            near = camera.ViewPort.Unproject(near, camera.Projection, camera.View, Matrix.Identity);
+            far = camera.ViewPort.Unproject(far, camera.Projection, camera.View, Matrix.Identity);
+
+            //generate a ray to use for intersection tests
+            return Vector3.Normalize(far - near);
+        }
+
+        #endregion Actions - Ray Picking
     }
 }
