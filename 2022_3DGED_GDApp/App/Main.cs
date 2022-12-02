@@ -687,7 +687,11 @@ namespace GD.App
                     tempCube1.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
                     tempCube1.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad1));
                     var collisionMesh = new Collider(tempCube1);
-                    collisionMesh.AddPrimitive(CollisionUtility.GetTriangleMesh(panelFbxModel, tempCube1.Transform), new MaterialProperties(1, incrementY, increment));
+                    collisionMesh.AddPrimitive(
+                        new Box(tempCube1.Transform.Translation,
+                                tempCube1.Transform.Rotation,
+                                new Vector3(0.03f,0.03f,0.03f)),
+                                new MaterialProperties(0.8f, 0.8f, 0.7f));
                     collisionMesh.Enable(tempCube1, true, 1);
                     tempCube1.AddComponent(collisionMesh);
                     sceneManager.ActiveScene.Add(tempCube1);
