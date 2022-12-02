@@ -55,6 +55,8 @@ namespace GD.App
         private GameObject tempCube3;
         private GameObject tempCube4;
         private GameObject tempCube5;
+        private Transform[,] storeCubes = new Transform[5, 5];
+
 
 #if DEMO
         private event EventHandler OnChanged;
@@ -672,9 +674,7 @@ namespace GD.App
             var panelTexture = Content.Load<Texture2D>("Assets/Textures/cube_DefaultMaterial_BaseColor");
             var panelFbxModel = Content.Load<Model>("Assets/Models/cube");
             var panelMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, panelFbxModel);
-            
-
-
+          
             //Row 1
             for (int i = 0; i<5; i++)
             {
@@ -695,7 +695,10 @@ namespace GD.App
                     collisionMesh.Enable(tempCube1, true, 1);
                     tempCube1.AddComponent(collisionMesh);
                     sceneManager.ActiveScene.Add(tempCube1);
-                  }
+
+                    //Store the cubes
+                    storeCubes[i, j] = tempCube1.Transform;
+                }
             }
 
             #region Old Code
