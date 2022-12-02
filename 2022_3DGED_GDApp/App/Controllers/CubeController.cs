@@ -48,15 +48,15 @@ namespace GD.Engine
         protected virtual void HandleKeyboardInput(GameTime gameTime)
         {
 
-            if (Input.Keys.IsPressed(cubeSelected))
+            if (Input.Keys.WasJustPressed(cubeSelected))
             {
                 //transform.rotation = transform.rotation + gameTime.ElapsedGameTime.Milliseconds * rotationSpeedInRadians * rotationAxis;
                 //Rotates 90 degrees on key press, no holding
 
-                transform.Rotate(new Vector3(0, 0, MathHelper.PiOver2));
+                transform.Rotate(new Vector3(0, 0, 90));
 
                 // If the cube rotation is 360 degrees it resets back to 0 degrees 
-                if (transform.Rotation == new Vector3(0, 0, MathHelper.TwoPi))
+                if (transform.Rotation == new Vector3(0, 0,360))
                 {
                     transform.SetRotation(new Vector3(0, 0, 0));
                 }

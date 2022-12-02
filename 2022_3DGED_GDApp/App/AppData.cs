@@ -131,5 +131,6 @@ namespace GD.App
         #endregion GameObject names
         public static readonly double MAX_GAME_TIME_IN_MSECS = 2500; //180000
         public static Vector3 GRAVITY = new Vector3(0, -9.81f,0);
+        public static Vector3 CUBE_SCALE = new Vector3(0.015f, 0.015f, 0.015f);
     }
 }

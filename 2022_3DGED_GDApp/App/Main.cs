@@ -54,6 +54,7 @@ namespace GD.App
         private GameObject tempCube2;
         private GameObject tempCube3;
         private GameObject tempCube4;
+        private GameObject tempCube5;
 
 #if DEMO
         private event EventHandler OnChanged;
@@ -672,40 +673,55 @@ namespace GD.App
             var panelFbxModel = Content.Load<Model>("Assets/Models/cube");
             var panelMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, panelFbxModel);
 
+            //Row 1
+            for(int i = 0; i<5; i++)
+            {
+                float incrementY = 2 + (-0.04f * i);
+                 for (int j = 0; j < 5; j++)
+                  {
+                    float increment = -0.16f + (0.08f * j);
+                    tempCube1 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+                    tempCube1.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, incrementY, increment));
+                    tempCube1.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+                    tempCube1.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad1));
+                    sceneManager.ActiveScene.Add(tempCube1);
+                  }
+            }
 
-            tempCube1 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
-            tempCube1.Transform = new Transform(new Vector3(0.02f, 0.02f, 0.02f), new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, 2, 0.16f));
-            tempCube1.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
-            tempCube1.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad1));
+            #region Old Code
+            //tempCube2 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            //tempCube2.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(1, 2, 0.08f));
+            ////tempCube2.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            //tempCube2.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad2));
 
-            tempCube2 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
-            tempCube2.Transform = new Transform(new Vector3(0.02f, 0.02f, 0.02f), new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(1, 2, 0.08f));
-            tempCube2.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
-            tempCube2.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad2));
+            //tempCube3 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            //tempCube3.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, MathHelper.PiOver2), new Vector3(1, 2, 0));
+            ////tempCube3.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            //tempCube3.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad3));
 
-            tempCube3 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
-            tempCube3.Transform = new Transform(new Vector3(0.02f, 0.02f, 0.02f), new Vector3(0, 0, MathHelper.PiOver2), new Vector3(1, 2, 0));
-            tempCube3.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
-            tempCube3.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad3));
+            //tempCube4 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            //tempCube4.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, 2, -0.08f));
+            ////tempCube4.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            //tempCube4.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad4));
 
-            tempCube4 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
-            tempCube4.Transform = new Transform(new Vector3(0.02f, 0.02f, 0.02f), new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, 2, -0.08f));
-            tempCube4.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
-            tempCube4.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad4));
-
-            Cubey myCubey = new Cubey();
-            GameObject face1 = myCubey.CubeyBoi("Front", new Vector3(0.02f, 0.02f, 0.02f), new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, 2, 0.16f),
-                litEffect, panelTexture, panelMesh, Keys.NumPad1);
+            //tempCube5 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            //tempCube5.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, 2, -0.16f));
+            ////tempCube5.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            //tempCube5.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad1));
 
 
-
-            sceneManager.ActiveScene.Add(tempCube1);
-            sceneManager.ActiveScene.Add(tempCube2);
-            sceneManager.ActiveScene.Add(tempCube3);
-            sceneManager.ActiveScene.Add(tempCube4);
-            sceneManager.ActiveScene.Add(face1);
+            //Cubey myCubey = new Cubey();
+            //GameObject tempcube1 = myCubey.CubeyBoi("Front", new Vector3(0.02f, 0.02f, 0.02f), new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, 2, 0.16f),
+            //    litEffect, panelTexture, panelMesh, Keys.NumPad1);
 
 
+
+
+            //sceneManager.ActiveScene.Add(tempCube2);
+            //sceneManager.ActiveScene.Add(tempCube3);
+            //sceneManager.ActiveScene.Add(tempCube4);
+            //sceneManager.ActiveScene.Add(tempCube5);
+            #endregion
 
         }
         #endregion Zero Day Threat - The Cube
