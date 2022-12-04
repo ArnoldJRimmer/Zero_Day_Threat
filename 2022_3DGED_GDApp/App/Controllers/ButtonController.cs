@@ -3,9 +3,11 @@ using GD.Engine.Globals;
 using GD.Engine.Inputs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using SharpDX.MediaFoundation;
 using System;
 using System.ComponentModel;
 using System.Reflection;
+using System.Threading;
 using System.Transactions;
 
 namespace GD.Engine
@@ -16,14 +18,15 @@ namespace GD.Engine
     public class ButtonController : Component
     {
         #region Fields
-        private bool isPressed;
+        private bool isPressed = false;
+        private GameObject myGameObject;
         #endregion Fields
 
         #region Constructors
 
-        public ButtonController()
+        public ButtonController(GameObject gb)
         {
-            
+            this.myGameObject = gb;
         }
 
 
@@ -45,14 +48,26 @@ namespace GD.Engine
 
             if (mouse.X == 146 && mouse.Y == 437)
             {
-                Application.SoundManager.Play2D("startupline");
+                isPressed = true;
+                if(mouse.LeftButton == ButtonState.Pressed && isPressed == true)
+                {
+                    Application.SoundManager.Play2D("startupline");
+                    //Application.SoundManager.Pause("startupline");
+                    isPressed = false;
+                }
+
+                
             }
             
+            if(mouse.LeftButton == ButtonState.Released)
+            {
+                isPressed = false;
+                Application.SoundManager.Stop("startupLine");
+            }
 
             
 
-            System.Diagnostics.Debug.WriteLine(mouse);
-        }
+                    }
 
 
     }
