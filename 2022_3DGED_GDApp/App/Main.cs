@@ -405,7 +405,23 @@ namespace GD.App
             litEffect = new BasicEffect(_graphics.GraphicsDevice);
             litEffect.TextureEnabled = true;
             litEffect.LightingEnabled = true;
-            litEffect.EnableDefaultLighting();
+
+            litEffect.DirectionalLight0.Enabled = true;
+            litEffect.DirectionalLight0.DiffuseColor = new Vector3(1, 0.957f, 0.898f);
+            litEffect.DirectionalLight0.Direction = Vector3.Down;
+            litEffect.DirectionalLight0.SpecularColor = new Vector3(0.3f,0.3f,0.3f);
+
+
+            litEffect.DirectionalLight1.Enabled = true;
+            litEffect.DirectionalLight1.DiffuseColor = new Vector3(1, 0.957f, 0.898f);
+            litEffect.DirectionalLight1.Direction = Vector3.Left;
+            litEffect.DirectionalLight1.SpecularColor = new Vector3(0.3f, 0.3f, 0.3f);
+
+            litEffect.FogEnabled = true;
+            litEffect.FogColor = new Vector3(0.5f, 0.5f, 0.5f);
+            litEffect.FogStart = 15;
+            litEffect.FogEnd = 25;
+
         }
 
         private void InitializeCameras()
