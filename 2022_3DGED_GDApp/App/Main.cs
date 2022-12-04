@@ -236,7 +236,6 @@ namespace GD.App
                 SoundCategoryType.OnStartUp,
                 new Vector3(0.1f, 0.1f, 0.1f),
                 false));
-
             #endregion
             var soundEffect =
                 Content.Load<SoundEffect>("Assets/Audio/Diegetic/explode1");
@@ -563,6 +562,7 @@ namespace GD.App
             var buttonFbxModel = Content.Load<Model>("Assets/Models/button");
             var buttonMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, buttonFbxModel);
             buttonGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(buttonTexture, 1), buttonMesh));
+            buttonGameObject.AddComponent(new ButtonController());
             sceneManager.ActiveScene.Add(buttonGameObject);
         }
 
