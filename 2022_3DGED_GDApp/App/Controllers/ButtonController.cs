@@ -42,7 +42,8 @@ namespace GD.Engine
 
             Vector2 delta = Input.Mouse.Delta;
             var mouse = Mouse.GetState();
-            if (mouse.X == 146 && mouse.Y == 437 )
+
+            if (mouse.X == 146 && mouse.Y == 437)
             {
                 Application.SoundManager.Play2D("startupline");
             }
