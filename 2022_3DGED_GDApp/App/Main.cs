@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Media;
 using Application = GD.Engine.Globals.Application;
 using ButtonState = Microsoft.Xna.Framework.Input.ButtonState;
 using Cue = GD.Engine.Managers.Cue;
@@ -201,11 +202,14 @@ namespace GD.App
             //InitializePlayer();
 
             //Raise all the events that I want to happen at the start
-            //object[] parameters = { "epic_soundcue" };
-            //EventDispatcher.Raise(
-            //    new EventData(EventCategoryType.Player,
-            //    EventActionType.OnSpawnObject,
-            //    parameters));
+            object[] parameters = { "epic_soundcue" };
+            EventDispatcher.Raise(
+                new EventData(EventCategoryType.Player,
+                EventActionType.OnSpawnObject,
+                parameters));
+
+            //Application.SoundManager.Play2D("startupline");
+      
         }
 
         private void SetTitle(string title)
@@ -223,6 +227,17 @@ namespace GD.App
 
         private void LoadSounds()
         {
+
+            #region Console_Dialouge
+            SoundEffect startUpLine = Content.Load<SoundEffect>("Assets/Audio/Console_Dialouge/Start_Up");
+            soundManager.Add(new Cue(
+                "startupline",
+                startUpLine,
+                SoundCategoryType.OnStartUp,
+                new Vector3(0.1f, 0.1f, 0.1f),
+                false));
+
+            #endregion
             var soundEffect =
                 Content.Load<SoundEffect>("Assets/Audio/Diegetic/explode1");
 
@@ -1114,8 +1129,11 @@ namespace GD.App
                     EventActionType.OnWin,
                     parameters));
 
-                //    Application.SoundManager.Play2D("boom1");
+               
+                //Application.SoundManager.Play2D("boom1");
             }
+
+
 
             #region Demo - Camera switching
 
