@@ -411,11 +411,10 @@ namespace GD.App
             litEffect.DirectionalLight0.Direction = Vector3.Down;
             litEffect.DirectionalLight0.SpecularColor = new Vector3(0.3f,0.3f,0.3f);
 
-
             litEffect.DirectionalLight1.Enabled = true;
-            litEffect.DirectionalLight1.DiffuseColor = new Vector3(1, 0.957f, 0.898f);
+            litEffect.DirectionalLight1.DiffuseColor = new Vector3(.8f, 0.8f, 0.8f);
             litEffect.DirectionalLight1.Direction = Vector3.Left;
-            litEffect.DirectionalLight1.SpecularColor = new Vector3(0.3f, 0.3f, 0.3f);
+            litEffect.DirectionalLight1.SpecularColor = new Vector3(0.03f, 0.03f, 0.03f);
 
             litEffect.FogEnabled = true;
             litEffect.FogColor = new Vector3(0.5f, 0.5f, 0.5f);
