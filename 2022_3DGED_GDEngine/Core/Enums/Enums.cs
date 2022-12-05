@@ -36,6 +36,7 @@
         WinLose,
         Explosion,
         BackgroundMusic,
+        Ambience,
         Alarm
     }
 

@@ -352,6 +352,36 @@ namespace GD.App
                 SoundCategoryType.Alarm,
                 new Vector3(0.8f, 1, 0.8f),
                 false));
+
+            var computerFanEffect =
+                Content.Load<SoundEffect>("Assets/Audio/Diegetic/AmbientComputerFan");
+
+            soundManager.Add(new Cue(
+                "computerFan",
+                computerFanEffect,
+                SoundCategoryType.Ambience,
+                new Vector3(0.06f, 1, 0 ),
+                false));
+
+            var roomFanEffect =
+                Content.Load<SoundEffect>("Assets/Audio/Diegetic/AmbientSoundsRoom_Fan");
+
+            soundManager.Add(new Cue(
+                "roomFan",
+                roomFanEffect,
+                SoundCategoryType.Ambience,
+                new Vector3(0.05f, 1, 0),
+                false));
+
+            var electricBuzzEffect =
+                Content.Load<SoundEffect>("Assets/Audio/Diegetic/Ambient_ElectricBuzz");
+
+            soundManager.Add(new Cue(
+                "electricBuzz",
+                electricBuzzEffect,
+                SoundCategoryType.Ambience,
+                new Vector3(0.15f, 0.995f, 0),
+                false));
         }
 
         private void LoadTextures()
@@ -1186,6 +1216,33 @@ namespace GD.App
                 //    Application.SoundManager.Play2D("boom1");
             }
 
+            if(gameTime.TotalGameTime.Seconds >= 3.02 && gameTime.TotalGameTime.Seconds <= 5.3)
+            {
+                object[] parameters = { "roomFan" };
+                EventDispatcher.Raise(
+                    new EventData(EventCategoryType.Player,
+                    EventActionType.OnWin,
+                    parameters));
+            }
+
+            if (gameTime.TotalGameTime.Seconds >= 108 && gameTime.TotalGameTime.Seconds <= 112)
+            {
+                object[] parameters = { "electricBuzz" };
+                EventDispatcher.Raise(
+                    new EventData(EventCategoryType.Player,
+                    EventActionType.OnWin,
+                    parameters));
+            }
+
+            if (gameTime.TotalGameTime.Seconds >= 240 && gameTime.TotalGameTime.Seconds <= 242)
+            {
+                object[] parameters = { "computerFan" };
+                EventDispatcher.Raise(
+                    new EventData(EventCategoryType.Player,
+                    EventActionType.OnWin,
+                    parameters));
+            }
+
             #region Demo - Camera switching
 
             if (Input.Keys.IsPressed(Keys.F1))
@@ -1230,6 +1287,7 @@ namespace GD.App
 
         private void PathChecker()
         {
+            
             if (!temp.States.Contains(false) && temp.PathFormed == false)
             {
                 Application.SoundManager.Play2D("buttonClickExplosion");
@@ -1240,18 +1298,6 @@ namespace GD.App
                 Application.SoundManager.Pause("buttonClickExplosion");
                 temp.PathFormed = false;
             }
-            //for (int i = 0; i <= temp.Size-1; i++)
-            //{
-            //    if (cubes[i].Transform.rotation == temp.Pieces[i].rotation && temp.States[i] == false)
-            //    {
-            //        Application.SoundManager.Play2D("boom1");
-            //        temp.setState(true, i);
-            //    }
-            //    else if(cubes[i].Transform.rotation != temp.Pieces[i].rotation)
-            //    {
-            //        temp.setState(false, i);
-            //    }
-            //}
             if (tempCube1.Transform.rotation == temp.Pieces[0].rotation && temp.States[0] == false)
             {
                 Application.SoundManager.Play2D("openPhone");
