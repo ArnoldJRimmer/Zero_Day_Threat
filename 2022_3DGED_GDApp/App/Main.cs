@@ -34,6 +34,7 @@ namespace GD.App
         private SpriteBatch _spriteBatch;
         private BasicEffect unlitEffect;
         private BasicEffect litEffect;
+        private BasicEffect emmisiveEffect;
 
         private CameraManager cameraManager;
         private SceneManager<Scene> sceneManager;
@@ -368,7 +369,10 @@ namespace GD.App
             IntializeFloppyDiskModel();
             IntializeRadioModel();
             IntializeLampModel();
-            
+            IntializeBulbModel();
+
+
+
             InitializeCube();
 
         }
@@ -421,6 +425,11 @@ namespace GD.App
             litEffect.FogStart = 15;
             litEffect.FogEnd = 25;
 
+            emmisiveEffect = new BasicEffect(_graphics.GraphicsDevice);
+            emmisiveEffect.TextureEnabled = false;
+            emmisiveEffect.LightingEnabled = true;
+            emmisiveEffect.EmissiveColor = new Vector3(1, 0.957f, 0.898f);
+            ;
         }
 
         private void InitializeCameras()
@@ -654,6 +663,17 @@ namespace GD.App
             sceneManager.ActiveScene.Add(lampGameObject);
         }
 
+        private void IntializeBulbModel()
+        {
+            var bulbGameObject = new GameObject(AppData.BULB_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            bulbGameObject.Transform = new Transform(new Vector3(.0125f, .0125f, .0125f), null, null);
+            var bulbTexture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+            var bulbFbxModel = Content.Load<Model>("Assets/Models/bulb");
+            var bulbMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, bulbFbxModel);
+            bulbGameObject.AddComponent(new Renderer(new GDBasicEffect(emmisiveEffect), new Material(bulbTexture, 1), bulbMesh));
+            sceneManager.ActiveScene.Add(bulbGameObject);
+        }
+
         private void IntializeFloppyDiskModel()
         {
             var floppyDiskGameObject = new GameObject(AppData.FLOPPY_DISk_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
@@ -709,7 +729,7 @@ namespace GD.App
                                 new MaterialProperties(0.8f, 0.8f, 0.7f));
                     collisionMesh.Enable(tempCube1, true, 1);
                     tempCube1.AddComponent(collisionMesh);
-                    sceneManager.ActiveScene.Add(tempCube1);
+                    //sceneManager.ActiveScene.Add(tempCube1);
 
                     //Store the cubes
                     storeCubes[i, j] = tempCube1.Transform;
@@ -865,42 +885,42 @@ namespace GD.App
             quad = new GameObject("skybox back face");
             quad.Transform = new Transform(new Vector3(worldScale, worldScale, 1), null, new Vector3(0, 0, -halfWorldScale));
             quad.AddComponent(new Renderer(gdBasicEffect, new Material(texture, 1), quadMesh));
-            sceneManager.ActiveScene.Add(quad);
+            //sceneManager.ActiveScene.Add(quad);
 
             //skybox - left face
             quad = new GameObject("skybox left face");
             quad.Transform = new Transform(new Vector3(worldScale, worldScale, 1), new Vector3(0, MathHelper.ToRadians(90), 0), new Vector3(-halfWorldScale, 0, 0));
             texture = Content.Load<Texture2D>("Assets/Textures/Skybox/basicwall");
             quad.AddComponent(new Renderer(gdBasicEffect, new Material(texture, 1), quadMesh));
-            sceneManager.ActiveScene.Add(quad);
+            //sceneManager.ActiveScene.Add(quad);
 
             //skybox - right face
             quad = new GameObject("skybox right face");
             quad.Transform = new Transform(new Vector3(worldScale, worldScale, 1), new Vector3(0, MathHelper.ToRadians(-90), 0), new Vector3(halfWorldScale, 0, 0));
             texture = Content.Load<Texture2D>("Assets/Textures/Skybox/basicwall");
             quad.AddComponent(new Renderer(gdBasicEffect, new Material(texture, 1), quadMesh));
-            sceneManager.ActiveScene.Add(quad);
+            //sceneManager.ActiveScene.Add(quad);
 
             //skybox - top face
             quad = new GameObject("skybox top face");
             quad.Transform = new Transform(new Vector3(worldScale, worldScale, 1), new Vector3(MathHelper.ToRadians(90), MathHelper.ToRadians(-90), 0), new Vector3(0, halfWorldScale, 0));
             texture = Content.Load<Texture2D>("Assets/Textures/Skybox/basicwall");
             quad.AddComponent(new Renderer(gdBasicEffect, new Material(texture, 1), quadMesh));
-            sceneManager.ActiveScene.Add(quad);
+            //sceneManager.ActiveScene.Add(quad);
 
             //skybox - front face
             quad = new GameObject("skybox front face");
             quad.Transform = new Transform(new Vector3(worldScale, worldScale, 1), new Vector3(0, MathHelper.ToRadians(-180), 0), new Vector3(0, 0, halfWorldScale));
             texture = Content.Load<Texture2D>("Assets/Textures/Skybox/basicwall");
             quad.AddComponent(new Renderer(gdBasicEffect, new Material(texture, 1), quadMesh));
-            sceneManager.ActiveScene.Add(quad);
+            //sceneManager.ActiveScene.Add(quad);
 
             //ground
             quad = new GameObject("ground");
             quad.Transform = new Transform(new Vector3(worldScale, worldScale, 1), new Vector3(MathHelper.ToRadians(-90), 0, 0), new Vector3(0, -halfWorldScale, 0));
             texture = Content.Load<Texture2D>("Assets/Textures/Skybox/ground");
             quad.AddComponent(new Renderer(gdBasicEffect, new Material(texture, 1), quadMesh));
-            sceneManager.ActiveScene.Add(quad);
+            //sceneManager.ActiveScene.Add(quad);
         }
 
         #endregion Actions - Level Specific
