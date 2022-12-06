@@ -239,7 +239,7 @@ namespace GD.App
             soundManager.Add(new Cue(
                 "incorrectNumber",
                 incorrectNumberEffect,
-                SoundCategoryType.Alarm,
+                SoundCategoryType.SFX,
                 new Vector3(1, 1, 0),
                 false));
 
@@ -250,7 +250,7 @@ namespace GD.App
             soundManager.Add(new Cue(
                 "CardDrop",
                 cardDropEffect,
-                SoundCategoryType.Alarm,
+                SoundCategoryType.SFX,
                 new Vector3(1, 1, 0),
                 false));
 
@@ -261,7 +261,7 @@ namespace GD.App
             soundManager.Add(new Cue(
                 "buttonClickExplosion",
                 buttonClickExplosionEffect,
-                SoundCategoryType.Alarm,
+                SoundCategoryType.SFX,
                 new Vector3(0.6f, 1, 0),
                 false));
 
@@ -272,7 +272,7 @@ namespace GD.App
             soundManager.Add(new Cue(
                 "cardPickupOrSwipe",
                 cardPickupOrSwipeEffect,
-                SoundCategoryType.Alarm,
+                SoundCategoryType.SFX,
                 new Vector3(1, 1, 0),
                 false));
 
@@ -283,7 +283,7 @@ namespace GD.App
             soundManager.Add(new Cue(
                 "dialTwisting",
                 dialTwistingEffect,
-                SoundCategoryType.Alarm,
+                SoundCategoryType.SFX,
                 new Vector3(1, 1, 0),
                 false));
 
@@ -294,7 +294,7 @@ namespace GD.App
             soundManager.Add(new Cue(
                 "externalButtonPress",
                 externalButtonPressEffect,
-                SoundCategoryType.Alarm,
+                SoundCategoryType.SFX,
                 new Vector3(1, 1, 0),
                 false));
 
@@ -316,7 +316,7 @@ namespace GD.App
             soundManager.Add(new Cue(
                 "keyboardPressing",
                 keyboardPressingEffect,
-                SoundCategoryType.Alarm,
+                SoundCategoryType.SFX,
                 new Vector3(1, 1, 0),
                 false));
 
@@ -327,7 +327,7 @@ namespace GD.App
             soundManager.Add(new Cue(
                 "numPad",
                 numPadEffect,
-                SoundCategoryType.Alarm,
+                SoundCategoryType.SFX,
                 new Vector3(1, 1, 0),
                 false));
 
@@ -338,7 +338,7 @@ namespace GD.App
             soundManager.Add(new Cue(
                 "startUpBeep",
                 startUpBeepEffect,
-                SoundCategoryType.Alarm,
+                SoundCategoryType.SFX,
                 new Vector3(1, 1, 0),
                 false));
 
@@ -380,6 +380,66 @@ namespace GD.App
                 "electricBuzz",
                 electricBuzzEffect,
                 SoundCategoryType.Ambience,
+                new Vector3(0.15f, 0.995f, 0),
+                false));
+
+            var pathCheck1Effect =
+                Content.Load<SoundEffect>("Assets/Audio/Diegetic/PathCheck1");
+
+            soundManager.Add(new Cue(
+                "pathCheck1",
+                pathCheck1Effect,
+                SoundCategoryType.SFX,
+                new Vector3(0.15f, 0.995f, 0),
+                false));
+
+            var pathCheck2Effect =
+                Content.Load<SoundEffect>("Assets/Audio/Diegetic/PathCheck2");
+
+            soundManager.Add(new Cue(
+                "pathCheck2",
+                pathCheck2Effect,
+                SoundCategoryType.SFX,
+                new Vector3(0.15f, 0.995f, 0),
+                false));
+
+            var pathCheck3Effect =
+                Content.Load<SoundEffect>("Assets/Audio/Diegetic/PathCheck3");
+
+            soundManager.Add(new Cue(
+                "pathCheck3",
+                pathCheck3Effect,
+                SoundCategoryType.SFX,
+                new Vector3(0.15f, 0.995f, 0),
+                false));
+
+            var pathCheck4Effect =
+                Content.Load<SoundEffect>("Assets/Audio/Diegetic/PathCheck4");
+
+            soundManager.Add(new Cue(
+                "pathCheck4",
+                pathCheck4Effect,
+                SoundCategoryType.SFX,
+                new Vector3(0.15f, 0.995f, 0),
+                false));
+
+            var pathCheck5Effect =
+                Content.Load<SoundEffect>("Assets/Audio/Diegetic/PathCheck5");
+
+            soundManager.Add(new Cue(
+                "pathCheck5",
+                pathCheck5Effect,
+                SoundCategoryType.SFX,
+                new Vector3(0.15f, 0.995f, 0),
+                false));
+
+            var pathCheck6Effect =
+                Content.Load<SoundEffect>("Assets/Audio/Diegetic/PathCheck6");
+
+            soundManager.Add(new Cue(
+                "pathCheck6",
+                pathCheck6Effect,
+                SoundCategoryType.SFX,
                 new Vector3(0.15f, 0.995f, 0),
                 false));
         }

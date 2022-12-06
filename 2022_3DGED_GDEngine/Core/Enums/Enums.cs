@@ -37,6 +37,7 @@
         Explosion,
         BackgroundMusic,
         Ambience,
+        SFX,
         Alarm
     }
 
