@@ -29,6 +29,7 @@ using Keys = Microsoft.Xna.Framework.Input.Keys;
 using Material = GD.Engine.Material;
 using GD.Engine.Collections;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace GD.App
 {
@@ -93,7 +94,7 @@ namespace GD.App
             //var camera = Application.CameraManager.ActiveCamera.AudioListener;
             //var audioEmitter = //get tree, get emitterbehaviour, get audio emitter
 
-            //object[] parameters = {"sound name", audioListener, audioEmitter};
+            //object[] parameters = { "sound name", audioListener, audioEmitter};
 
             //EventDispatcher.Raise(new EventData(EventCategoryType.Sound,
             //    EventActionType.OnPlay3D, parameters));
@@ -118,11 +119,21 @@ namespace GD.App
                     System.Diagnostics.Debug.WriteLine(eventData.Parameters[2] as string);
                     break;
 
+                case EventActionType.OnPlay2D:
+                    Application.SoundManager.Play2D(eventData.Parameters[0] as string);
+                    break;
+
+                case EventActionType.OnPauseSound:
+                    Application.SoundManager.Stop(eventData.Parameters[0] as string);
+                    break;
+
+
                 default:
                     break;
             }
         }
 
+      
         private void DemoEvent()
         {
             OnChanged += HandleOnChanged;
@@ -204,6 +215,7 @@ namespace GD.App
             //    new EventData(EventCategoryType.Player,
             //    EventActionType.OnSpawnObject,
             //    parameters));
+            EventDispatcher.Subscribe(EventCategoryType.Sound, HandleEvent);
         }
 
         private void SetTitle(string title)
@@ -228,6 +240,17 @@ namespace GD.App
             soundManager.Add(new Cue(
                 "boom1",
                 soundEffect,
+                SoundCategoryType.Alarm,
+                new Vector3(1, 1, 0),
+                false));
+
+            var alarmEffect =
+               Content.Load<SoundEffect>("Assets/Audio/Diegetic/smokealarm1");
+
+            //add the new sound effect
+            soundManager.Add(new Cue(
+                "smokeAlarm",
+                alarmEffect,
                 SoundCategoryType.Alarm,
                 new Vector3(1, 1, 0),
                 false));
@@ -542,26 +565,36 @@ namespace GD.App
         {
             //Make each cube out of 6 different planes. Ideally have a class called Cubey.cs that makes the cube out of these six faces
             //Sample of what i would like to do
-            tempCube1 = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
-            tempCube1.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), Vector3.Zero, Vector3.One);
+
+            //tempCube1 = new GameObject(AppData.CUBE_NAME, ObjectType.Static, RenderType.Opaque);
+            //tempCube1.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), Vector3.Zero, Vector3.One);
+
+            tempCube1 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube1.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, -MathHelper.PiOver2*2), Vector3.One);
+
             var panelTexture = Content.Load<Texture2D>("Assets/Textures/cube_DefaultMaterial_BaseColor");
             var panelFbxModel = Content.Load<Model>("Assets/Models/cube");
             var panelMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, panelFbxModel);
             tempCube1.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
             tempCube1.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad1));
 
-            tempCube2 = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            tempCube2 = new GameObject(AppData.CUBE_NAME, ObjectType.Static, RenderType.Opaque);
             tempCube2.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(1, 1, 1.7f));
             tempCube2.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
             tempCube2.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad2));
 
-            tempCube3 = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+            tempCube3 = new GameObject(AppData.CUBE_NAME, ObjectType.Static, RenderType.Opaque);
             tempCube3.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(1, 1, 2.4f));
             tempCube3.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
             tempCube3.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad3));
 
-            tempCube4 = new GameObject(AppData.CONSOLE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
+
+            tempCube4 = new GameObject(AppData.CUBE_NAME, ObjectType.Static, RenderType.Opaque);
             tempCube4.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), Vector3.Zero, new Vector3(1, 1, 3.1f));
+
+            tempCube4 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube4.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, 1, 3.1f));
+
             tempCube4.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
             tempCube4.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad4));
 
@@ -718,10 +751,10 @@ namespace GD.App
 
             //Rotation Values shouldn't be changed
             temp = new Path("Temporary");
-            Transform one = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.PiOver2 * 2), Vector3.One);
-            Transform two = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new  Vector3(0, 0, MathHelper.PiOver2 * 2), new Vector3(1, 1, 1.7f));
-            Transform three = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.PiOver2 * 2), new Vector3(1, 1, 2.4f));
-            Transform four = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.PiOver2 * 2), new Vector3(1, 1, 3.1f));
+            Transform one = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), Vector3.One);
+            Transform two = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new  Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 1, 1.7f));
+            Transform three = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 1, 2.4f));
+            Transform four = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 1, 3.1f));
             temp.AddPiece(one);
             temp.AddPiece(two);
             temp.AddPiece(three);
@@ -1099,56 +1132,125 @@ namespace GD.App
 
         private void PathChecker()
         {
-            //for (int i = 0; i <= temp.Size-1; i++)
-            //{
-            //    if (cubes[i].Transform.rotation == temp.Pieces[i].rotation && temp.States[i] == false)
-            //    {
-            //        Application.SoundManager.Play2D("boom1");
-            //        temp.setState(true, i);
-            //    }
-            //    else if(cubes[i].Transform.rotation != temp.Pieces[i].rotation)
-            //    {
-            //        temp.setState(false, i);
-            //    }
-            //}
+            //Set up events for if the path is formed
+            object[] buttonClick = { "smokeAlarm", new AudioListener(), new AudioEmitter() };
+            EventData pathComplete = new EventData(
+                        EventCategoryType.Sound,
+                        EventActionType.OnPlay3D
+                        , buttonClick);
+
+            EventData pathInComplete = new EventData(
+                        EventCategoryType.Sound,
+                        EventActionType.OnPauseSound
+                        , buttonClick);
+            //EventDispatcher.EventHandlerDelegate del = new(pathComplete);
+
+            //EventDispatcher.Subscribe(EventCategoryType.Sound, del);
+
+            object[] boom = { "boom1", new AudioListener(), new AudioEmitter() };
+            EventData tileInPosition = new EventData(
+                        EventCategoryType.Sound,
+                        EventActionType.OnPlay3D
+                        , boom);
+
+            //object[] pathCheck1 = { "pathCheck1", new AudioListener(), new AudioEmitter() };
+            //EventData path1InPos = new EventData(
+            //            EventCategoryType.Sound,
+            //            EventActionType.OnPlay3D
+            //            , pathCheck1);
+
+            //object[] pathCheck2 = { "pathCheck2", new AudioListener(), new AudioEmitter() };
+            //EventData path2InPos = new EventData(
+            //            EventCategoryType.Sound,
+            //            EventActionType.OnPlay3D
+            //            , pathCheck2);
+
+            //object[] patchCheck3 = { "pathCheck3", new AudioListener(), new AudioEmitter() };
+            //EventData path3InPos = new EventData(
+            //            EventCategoryType.Sound,
+            //            EventActionType.OnPlay3D
+            //            , patchCheck3);
+
+            //object[] pathCheck4 = { "pathCheck4", new AudioListener(), new AudioEmitter() };
+            //EventData path4InPos = new EventData(
+            //            EventCategoryType.Sound,
+            //            EventActionType.OnPlay3D
+            //            , pathCheck4);
+
+            //object[] pathCheck5 = { "pathCheck5", new AudioListener(), new AudioEmitter() };
+            //EventData path5InPos = new EventData(
+            //            EventCategoryType.Sound,
+            //            EventActionType.OnPlay3D
+            //            , pathCheck5);
+
+            //object[] patchCheck6 = { "pathCheck6", new AudioListener(), new AudioEmitter() };
+            //EventData path6InPos = new EventData(
+            //            EventCategoryType.Sound,
+            //            EventActionType.OnPlay3D
+            //            , patchCheck6);
+
+            EventData tileOutOfPosition = new EventData(
+                        EventCategoryType.Sound,
+                        EventActionType.OnPause
+                        , boom);
+
+
+
+            // Check if all paths are formed
+            if (!temp.States.Contains(false) && temp.PathFormed == false)
+            {
+                EventDispatcher.Raise(pathComplete);
+                temp.PathFormed = true;
+            }
+            else if(temp.States.Contains(false) && temp.PathFormed == true)
+            {
+                EventDispatcher.Raise(pathInComplete);
+                temp.PathFormed = false;
+            }
+
             if (tempCube1.Transform.rotation == temp.Pieces[0].rotation && temp.States[0] == false)
             {
-                Application.SoundManager.Play2D("boom1");
+                EventDispatcher.Raise(tileInPosition);
                 temp.setState(true, 0);
-            }
-            else if (tempCube1.Transform.rotation != temp.Pieces[0].rotation)
-            {
-                temp.setState(false, 0);
             }
 
             else if (tempCube2.Transform.rotation == temp.Pieces[1].rotation && temp.States[1] == false)
             {
-                Application.SoundManager.Play2D("boom1");
+                EventDispatcher.Raise(tileInPosition);
                 temp.setState(true, 1);
+            }
+            
+            else if(tempCube3.Transform.rotation == temp.Pieces[2].rotation && temp.States[2] == false)
+            {
+                EventDispatcher.Raise(tileInPosition);
+                temp.setState(true, 2);
+            }
+            
+            else if(tempCube4.Transform.rotation == temp.Pieces[3].rotation && temp.States[3] == false)
+            {
+                EventDispatcher.Raise(tileInPosition);
+                temp.setState(true, 3);
+            }
+            else if (tempCube1.Transform.rotation != temp.Pieces[0].rotation)
+            {
+                EventDispatcher.Raise(tileOutOfPosition);
+                temp.setState(false, 0);
             }
             else if (tempCube2.Transform.rotation != temp.Pieces[1].rotation)
             {
+                EventDispatcher.Raise(tileOutOfPosition);
                 temp.setState(false, 1);
-            }
-            else if(tempCube3.Transform.rotation == temp.Pieces[2].rotation && temp.States[2] == false)
-            {
-                Application.SoundManager.Play2D("boom1");
-                temp.setState(true, 2);
             }
             else if (tempCube3.Transform.rotation != temp.Pieces[2].rotation)
             {
+                EventDispatcher.Raise(tileOutOfPosition);
                 temp.setState(false, 2);
-            }
-            else if(tempCube4.Transform.rotation == temp.Pieces[3].rotation && temp.States[3] == false)
-            {
-                Application.SoundManager.Play2D("boom1");
-                temp.setState(true, 3);
             }
             else if (tempCube4.Transform.rotation != temp.Pieces[3].rotation)
             {
+                EventDispatcher.Raise(tileOutOfPosition);
                 temp.setState(false, 3);
             }
-
         }
 
        
