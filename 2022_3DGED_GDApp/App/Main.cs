@@ -45,8 +45,10 @@ namespace GD.App
         private GameObject playerGameObject;
         private StateManager stateManager;
         private GameObject uiTextureGameObject;
-        private SpriteMaterial textSpriteMaterial;
-        private UITextureElement uiTextureElement;
+        /*
+         * private SpriteMaterial textSpriteMaterial; -----> now Renderer2D
+         * private UITextureElement uiTextureElement; -----> replaced or redundant 
+         */
         private SceneManager<Scene2D> uiManager;
         private Render2DManager uiRenderManager;
 

@@ -1,28 +1,57 @@
-﻿using GD.Engine.Globals;
+﻿using GD.Engine.Managers;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 
 namespace GD.Engine
 {
     public class Render2DManager : PausableDrawableGameComponent
     {
-        private readonly SpriteBatch spriteBatch;
+        #region Fields
 
-        public Render2DManager(Game game,
-            StatusType statusType, SpriteBatch spriteBatch)
-            : base(game, statusType)
+        private SpriteBatch spriteBatch;
+        private SceneManager<Scene2D> sceneManager;
+        private SamplerState samplerState;
+
+        #endregion Fields
+
+        #region Constructors
+
+        public Render2DManager(Game game, SpriteBatch spriteBatch,
+            SceneManager<Scene2D> sceneManager)
+     : base(game)
         {
             this.spriteBatch = spriteBatch;
+            this.sceneManager = sceneManager;
+
+            //used when drawing textures
+            samplerState = new SamplerState();
+            samplerState.Filter = TextureFilter.Linear;
         }
+
+        #endregion Constructors
+
+        #region Actions - Draw
 
         public override void Draw(GameTime gameTime)
         {
-            spriteBatch.Begin();
-            foreach (GameObject gameObject in Application.UISceneManager.ActiveScene.ObjectList)
+            if (IsDrawn)
             {
-                gameObject.GetComponent<SpriteRenderer>().Draw(spriteBatch);
+                spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.NonPremultiplied, samplerState, null, null, null, null);
+                foreach (GameObject gameObject in sceneManager.ActiveScene.ObjectList)
+                {
+                    List<Renderer2D> renderers = gameObject.GetComponents<Renderer2D>();
+                    if (renderers != null)
+                    {
+                        foreach (Renderer2D renderer in renderers)
+                            renderer.Draw(spriteBatch);
+                    }
+                }
+                spriteBatch.End();
             }
-            spriteBatch.End();
         }
+
+        #endregion Actions - Draw
     }
 }

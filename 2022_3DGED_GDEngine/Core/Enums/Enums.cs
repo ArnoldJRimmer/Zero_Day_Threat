@@ -62,7 +62,6 @@
         WinLose,
         Explosion,
         BackgroundMusic,
-        OnStartUp,
         Alarm
     }
 
