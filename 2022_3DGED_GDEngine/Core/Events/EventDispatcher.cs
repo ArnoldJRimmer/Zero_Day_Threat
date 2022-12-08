@@ -4,6 +4,13 @@ using System.Collections.Generic;
 
 namespace GD.Engine.Events
 {
+    public enum EventRepeatType : sbyte
+    {
+        Once,
+        OnceAfter,
+        Many
+    }
+
     /// <summary>
     /// Encapsulates the fields of an event within the game
     /// </summary>

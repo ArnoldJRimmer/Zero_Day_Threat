@@ -10,7 +10,8 @@ namespace GD.Engine
     {
         #region Fields
 
-        private StatusType statusType;
+        protected StatusType statusType;
+        protected bool isPausedOnPlay;
 
         #endregion Fields
 
@@ -35,6 +36,8 @@ namespace GD.Engine
                 statusType = value;
             }
         }
+
+        public bool IsPausedOnPlay { get => isPausedOnPlay; set => isPausedOnPlay = value; }
 
         #endregion Properties
 
@@ -71,10 +74,20 @@ namespace GD.Engine
         {
             if (eventData.EventCategoryType == EventCategoryType.Menu)
             {
-                if (eventData.EventActionType == EventActionType.OnPause)
-                    statusType = StatusType.Off;
-                else if (eventData.EventActionType == EventActionType.OnPlay)
-                    statusType = StatusType.Updated;
+                if (isPausedOnPlay)
+                {
+                    if (eventData.EventActionType == EventActionType.OnPause)
+                        statusType = StatusType.Updated;
+                    else if (eventData.EventActionType == EventActionType.OnPlay)
+                        statusType = StatusType.Off;
+                }
+                else
+                {
+                    if (eventData.EventActionType == EventActionType.OnPause)
+                        statusType = StatusType.Off;
+                    else if (eventData.EventActionType == EventActionType.OnPlay)
+                        statusType = StatusType.Updated;
+                }
             }
         }
 
@@ -89,6 +102,7 @@ namespace GD.Engine
         #region Fields
 
         protected StatusType statusType;
+        protected bool isPausedOnPlay;
 
         #endregion Fields
 
@@ -121,6 +135,8 @@ namespace GD.Engine
                 statusType = value;
             }
         }
+
+        public bool IsPausedOnPlay { get => isPausedOnPlay; set => isPausedOnPlay = value; }
 
         #endregion Properties
 
@@ -157,10 +173,20 @@ namespace GD.Engine
         {
             if (eventData.EventCategoryType == EventCategoryType.Menu)
             {
-                if (eventData.EventActionType == EventActionType.OnPause)
-                    statusType = StatusType.Off;
-                else if (eventData.EventActionType == EventActionType.OnPlay)
-                    statusType = StatusType.Drawn | StatusType.Updated;
+                if (isPausedOnPlay)
+                {
+                    if (eventData.EventActionType == EventActionType.OnPause)
+                        statusType = StatusType.Drawn | StatusType.Updated;
+                    else if (eventData.EventActionType == EventActionType.OnPlay)
+                        statusType = StatusType.Off;
+                }
+                else
+                {
+                    if (eventData.EventActionType == EventActionType.OnPause)
+                        statusType = StatusType.Off;
+                    else if (eventData.EventActionType == EventActionType.OnPlay)
+                        statusType = StatusType.Drawn | StatusType.Updated;
+                }
             }
         }
 
