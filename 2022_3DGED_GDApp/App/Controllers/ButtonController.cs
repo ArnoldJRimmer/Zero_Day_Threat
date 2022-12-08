@@ -1,4 +1,5 @@
 ﻿using GD.Engine;
+using GD.Engine.Events;
 using GD.Engine.Globals;
 using GD.Engine.Inputs;
 using Microsoft.Xna.Framework;
@@ -24,24 +25,22 @@ namespace GD.Engine
 
         #region Constructors
 
-        public ButtonController(GameObject gb)
+        public ButtonController()
         {
-            this.myGameObject = gb;
+           
         }
 
-
         #endregion Constructors
-
-
         public override void Update(GameTime gameTime)
         {
-
             HandleMouseInput(gameTime);
-
         }
 
         protected virtual void HandleMouseInput(GameTime gameTime)
         {
+            object[] onButton = { "startupline" };
+            EventData firstLine = new EventData(EventCategoryType.Sound, EventActionType.OnPlay2D,onButton);
+            onButton[1] = "checkingterminal";
 
             Vector2 delta = Input.Mouse.Delta;
             var mouse = Mouse.GetState();
@@ -51,12 +50,10 @@ namespace GD.Engine
                 isPressed = true;
                 if(mouse.LeftButton == ButtonState.Pressed && isPressed == true)
                 {
-                    Application.SoundManager.Play2D("startupline");
-                    //Application.SoundManager.Pause("startupline");
+                    EventDispatcher.Raise(firstLine);
                     isPressed = false;
                 }
 
-                
             }
             
             if(mouse.LeftButton == ButtonState.Released)
@@ -65,9 +62,13 @@ namespace GD.Engine
                 Application.SoundManager.Stop("startupLine");
             }
 
-            
 
-                    }
+        }
+
+        protected virtual void PlaySoundsInOrder()
+        {
+
+        }
 
 
     }

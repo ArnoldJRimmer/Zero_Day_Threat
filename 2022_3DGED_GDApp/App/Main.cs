@@ -121,6 +121,10 @@ namespace GD.App
                     System.Diagnostics.Debug.WriteLine(eventData.Parameters[2] as string);
                     break;
 
+                case EventActionType.OnPlay2D:
+                    Application.SoundManager.Play2D(eventData.Parameters[0] as string);
+                    break;
+
                 default:
                     break;
             }
@@ -209,7 +213,8 @@ namespace GD.App
                 parameters));
 
             //Application.SoundManager.Play2D("startupline");
-      
+
+            EventDispatcher.Subscribe(EventCategoryType.Sound, HandleEvent);
         }
 
         private void SetTitle(string title)
@@ -233,7 +238,15 @@ namespace GD.App
             soundManager.Add(new Cue(
                 "startupline",
                 startUpLine,
-                SoundCategoryType.OnStartUp,
+                SoundCategoryType.Alarm,
+                new Vector3(0.1f, 0.1f, 0.1f),
+                false));
+
+            SoundEffect checkingTerminal = Content.Load<SoundEffect>("Assets/Audio/Console_Dialouge/Terminal");
+            soundManager.Add(new Cue(
+                "checkingterminal",
+                startUpLine,
+                SoundCategoryType.Alarm,
                 new Vector3(0.1f, 0.1f, 0.1f),
                 false));
             #endregion
@@ -561,8 +574,11 @@ namespace GD.App
             var buttonTexture = Content.Load<Texture2D>("Assets/Textures/console/button_DefaultMaterial_Base_color");
             var buttonFbxModel = Content.Load<Model>("Assets/Models/button");
             var buttonMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, buttonFbxModel);
+            Render2D render2D = null;
             buttonGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(buttonTexture, 1), buttonMesh));
             buttonGameObject.AddComponent(new ButtonController());
+            var buttonCollider2D = new ButtonCollide2D(buttonGameObject,render2D);
+            buttonCollider2D.AddEvent
             sceneManager.ActiveScene.Add(buttonGameObject);
         }
 
