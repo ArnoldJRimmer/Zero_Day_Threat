@@ -19,6 +19,12 @@
 /processorParam:Quality=Best
 /build:Assets/Audio/Console_Dialouge/Start_Up.wav
 
+#begin Assets/Audio/Console_Dialouge/Terminal.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Audio/Console_Dialouge/Terminal.wav
+
 #begin Assets/Audio/Diegetic/Button_click_explosion.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

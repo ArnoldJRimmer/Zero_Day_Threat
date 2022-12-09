@@ -244,13 +244,13 @@ namespace GD.App
                 new Vector3(0.1f, 0.1f, 0.1f),
                 false));
 
-            SoundEffect checkingTerminal = Content.Load<SoundEffect>("Assets/Audio/Console_Dialouge/Terminal");
-            soundManager.Add(new Cue(
-                "checkingterminal",
-                startUpLine,
-                SoundCategoryType.Alarm,
-                new Vector3(0.1f, 0.1f, 0.1f),
-                false));
+            //SoundEffect checkingTerminal = Content.Load<SoundEffect>("Assets/Audio/Console_Dialouge/Terminal");
+            //soundManager.Add(new Cue(
+            //    "checkingterminal",
+            //    startUpLine,
+            //    SoundCategoryType.Alarm,
+            //    new Vector3(0.1f, 0.1f, 0.1f),
+            //    false));
             #endregion
             var soundEffect =
                 Content.Load<SoundEffect>("Assets/Audio/Diegetic/explode1");
@@ -576,11 +576,10 @@ namespace GD.App
             var buttonTexture = Content.Load<Texture2D>("Assets/Textures/console/button_DefaultMaterial_Base_color");
             var buttonFbxModel = Content.Load<Model>("Assets/Models/button");
             var buttonMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, buttonFbxModel);
-            Render2D render2D = null;
+            Renderer2D render2D = null;
             buttonGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(buttonTexture, 1), buttonMesh));
-            buttonGameObject.AddComponent(new ButtonController());
-            var buttonCollider2D = new ButtonCollide2D(buttonGameObject,render2D);
-            buttonCollider2D.AddEvent
+            //buttonGameObject.AddComponent(new ButtonController());
+            //var buttonCollider2D = new ButtonCollider2D(buttonGameObject,render2D);
             sceneManager.ActiveScene.Add(buttonGameObject);
         }
 
