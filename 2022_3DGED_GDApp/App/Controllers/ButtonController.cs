@@ -40,7 +40,7 @@ namespace GD.Engine
         {
             object[] onButton = { "startupline" };
             EventData firstLine = new EventData(EventCategoryType.Sound, EventActionType.OnPlay2D,onButton);
-            onButton[1] = "checkingterminal";
+            //onButton[1] = "checkingterminal";
 
             Vector2 delta = Input.Mouse.Delta;
             var mouse = Mouse.GetState();

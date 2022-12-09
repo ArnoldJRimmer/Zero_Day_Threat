@@ -397,6 +397,7 @@ namespace GD.App
             IntializeFloppyDiskModel();
             IntializeRadioModel();
             IntializeLampModel();
+            InitialiseButtonCollider();
             
             InitializeCube();
 
@@ -578,9 +579,32 @@ namespace GD.App
             var buttonMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, buttonFbxModel);
             Renderer2D render2D = null;
             buttonGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(buttonTexture, 1), buttonMesh));
-            //buttonGameObject.AddComponent(new ButtonController());
-            //var buttonCollider2D = new ButtonCollider2D(buttonGameObject,render2D);
+            buttonGameObject.AddComponent(new ButtonController());
+            //var buttonCollider = new Collider(buttonGameObject);
+            //buttonCollider.AddPrimitive(new Box(
+            //    buttonGameObject.Transform.Translation,
+            //    buttonGameObject.Transform.Rotation,
+            //    buttonGameObject.Transform.Scale),new MaterialProperties(0.8f,0.8f,0.7f));
+            //buttonCollider.transform.SetTranslation(new Vector3(-1,-1,-1));
+            //buttonGameObject.AddComponent(buttonCollider);
             sceneManager.ActiveScene.Add(buttonGameObject);
+        }
+
+        private void InitialiseButtonCollider()
+        {
+            var gameObject = new GameObject("Button collidable box", ObjectType.Dynamic, RenderType.Opaque);
+            gameObject.Transform = new Transform(Vector3.One, Vector3.Zero, Vector3.Zero);
+
+            //var collider = new ButtonCollider2D(gameObject,new Renderer2D(new TextureMaterial2D(Content.Load<Texture2D>("Assets/Textures/console/keyboard_base_colour"))))
+
+            Collider collider = new Collider(gameObject, true);
+            collider.AddPrimitive(new Box(gameObject.Transform.Translation, gameObject.Transform.Rotation, new Vector3(.2f,.2f,.2f)), new MaterialProperties(0.08f, 0.08f, 0.07f));
+
+            collider.transform.SetTranslation(new Vector3(0.87f,1.6f,.3f)); //change x axis 
+            collider.Enable(gameObject, true, 1);
+            gameObject.AddComponent(collider);
+
+            sceneManager.ActiveScene.Add(gameObject);
         }
 
         private void IntializeKeyboardModel()
