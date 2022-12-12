@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Net.WebSockets;
 using Application = GD.Engine.Globals.Application;
 using ButtonState = Microsoft.Xna.Framework.Input.ButtonState;
 using Cue = GD.Engine.Managers.Cue;
@@ -370,7 +371,9 @@ namespace GD.App
             IntializeRadioModel();
             IntializeLampModel();
             IntializeBulbModel();
-
+            InitialiseCeilingModels();
+            InitialiseBuildingModels();
+            InitialiseServerModels();
 
 
             InitializeCube();
@@ -421,9 +424,9 @@ namespace GD.App
             litEffect.DirectionalLight1.SpecularColor = new Vector3(0.03f, 0.03f, 0.03f);
 
             litEffect.FogEnabled = true;
-            litEffect.FogColor = new Vector3(0.5f, 0.5f, 0.5f);
-            litEffect.FogStart = 15;
-            litEffect.FogEnd = 25;
+            litEffect.FogColor = new Vector3(0.3f, 0.3f, 0.3f);
+            litEffect.FogStart = 10;
+            litEffect.FogEnd = 45;
 
             emmisiveEffect = new BasicEffect(_graphics.GraphicsDevice);
             emmisiveEffect.TextureEnabled = false;
@@ -533,7 +536,7 @@ namespace GD.App
         private void InitializeSatiliteModel()
         {
             var satiliteGameObject = new GameObject(AppData.SATILITE_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
-            satiliteGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            satiliteGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, new Vector3(-13f,0f,6));
             var satiliteTexture = Content.Load<Texture2D>("Assets/Textures/Satellite/satalite2_Material_BaseColor");
             var satiliteFbxModel = Content.Load<Model>("Assets/Models/satalite2");
             var satiliteMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, satiliteFbxModel);
@@ -666,7 +669,7 @@ namespace GD.App
         private void IntializeBulbModel()
         {
             var bulbGameObject = new GameObject(AppData.BULB_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
-            bulbGameObject.Transform = new Transform(new Vector3(.0125f, .0125f, .0125f), null, null);
+            bulbGameObject.Transform = new Transform(Vector3.One, null, Vector3.Zero);
             var bulbTexture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
             var bulbFbxModel = Content.Load<Model>("Assets/Models/bulb");
             var bulbMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, bulbFbxModel);
@@ -677,7 +680,7 @@ namespace GD.App
         private void IntializeFloppyDiskModel()
         {
             var floppyDiskGameObject = new GameObject(AppData.FLOPPY_DISk_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
-            floppyDiskGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, null);
+            floppyDiskGameObject.Transform = new Transform(new Vector3(1.5f, 1.5f, 1.5f), null, Vector3.Zero);
             var floppyDiskTexture = Content.Load<Texture2D>("Assets/Textures/console/floppydisk_Base_color");
             var floppyDiskFbxModel = Content.Load<Model>("Assets/Models/floppy-disk");
             var floppyDiskMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, floppyDiskFbxModel);
@@ -696,6 +699,181 @@ namespace GD.App
             var radarMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, radarFbxModel);
             radarGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(radarTexture, 1), radarMesh));
             sceneManager.ActiveScene.Add(radarGameObject);
+        }
+
+        private void InitialiseCeilingModels()
+        {
+            var gameObject = new GameObject("Ceiling Model 1", ObjectType.Static, RenderType.Opaque);
+            gameObject.Transform = new Transform(Vector3.One*10, Vector3.Zero, new Vector3(-10,5,0));
+            var texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+            var model = Content.Load<Model>("Assets/Models/ceiling-1");
+            var mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, model);
+            gameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(texture,1), mesh));
+            sceneManager.ActiveScene.Add(gameObject);
+
+            var gameObject2 = new GameObject("Ceiling Model 2", ObjectType.Static, RenderType.Opaque);
+            gameObject2.Transform = new Transform(Vector3.One * 10, Vector3.Zero, new Vector3(-10, 5, 0));
+            var pipeTexture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+            var pipeModel = Content.Load<Model>("Assets/Models/ceiling-2");
+            var pipeMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, pipeModel);
+            gameObject2.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(pipeTexture, 1), pipeMesh));
+            sceneManager.ActiveScene.Add(gameObject2);
+
+            var gameObject3 = new GameObject("Ceiling Model 3", ObjectType.Static, RenderType.Opaque);
+            gameObject3.Transform = new Transform(Vector3.One * 10, Vector3.Zero, new Vector3(-10, 5, 0));
+            var ventTexture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+            var ventModel = Content.Load<Model>("Assets/Models/ceiling-3");
+            var ventMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, ventModel);
+            gameObject3.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(ventTexture, 1), ventMesh));
+            sceneManager.ActiveScene.Add(gameObject3);
+
+            var gameObject4 = new GameObject("Ceiling Model 4", ObjectType.Static, RenderType.Opaque);
+            gameObject4.Transform = new Transform(Vector3.One * 10, Vector3.Zero, new Vector3(-10, 5, 0));
+            var wireTexture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+            var wireModel = Content.Load<Model>("Assets/Models/ceiling-4");
+            var wireMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, wireModel);
+            gameObject4.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(wireTexture, 1), wireMesh));
+            sceneManager.ActiveScene.Add(gameObject4);
+
+            var gameObject5 = new GameObject("Ceiling Model 5", ObjectType.Static, RenderType.Opaque);
+            gameObject5.Transform = new Transform(Vector3.One * 10, Vector3.Zero, new Vector3(-10, 5, 0));
+            var panelTexture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+            var panelModel = Content.Load<Model>("Assets/Models/ceiling-5");
+            var panelMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, panelModel);
+            gameObject5.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            sceneManager.ActiveScene.Add(gameObject5);
+        }
+
+        private void InitialiseBuildingModels()
+        {
+            var gameObject = new GameObject("Roof", ObjectType.Static, RenderType.Opaque);
+            gameObject.Transform = new Transform(Vector3.One * 10, Vector3.Zero, new Vector3(-10, 5, 0));
+            var texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+            var model = Content.Load<Model>("Assets/Models/roof");
+            var mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, model);
+            gameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(texture, 1), mesh));
+            sceneManager.ActiveScene.Add(gameObject);
+
+            var gameObject2 = new GameObject("Floor", ObjectType.Static, RenderType.Opaque);
+            gameObject2.Transform = new Transform(Vector3.One * 10, Vector3.Zero, new Vector3(-10,0,0));
+            var pipeTexture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+            var pipeModel = Content.Load<Model>("Assets/Models/floor");
+            var pipeMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, pipeModel);
+            gameObject2.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(pipeTexture, 1), pipeMesh));
+            sceneManager.ActiveScene.Add(gameObject2);
+
+            var gameObject3 = new GameObject("Right Wall", ObjectType.Static, RenderType.Opaque);
+            gameObject3.Transform = new Transform(Vector3.One * 10, Vector3.Zero, new Vector3(-10, 5, 0));
+            var ventTexture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+            var ventModel = Content.Load<Model>("Assets/Models/right-wall");
+            var ventMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, ventModel);
+            gameObject3.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(ventTexture, 1), ventMesh));
+            sceneManager.ActiveScene.Add(gameObject3);
+
+            var gameObject4 = new GameObject("Left Wall", ObjectType.Static, RenderType.Opaque);
+            gameObject4.Transform = new Transform(Vector3.One * 10, Vector3.Zero, new Vector3(-10, 5, 0));
+            var wireTexture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+            var wireModel = Content.Load<Model>("Assets/Models/left-wall");
+            var wireMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, wireModel);
+            gameObject4.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(wireTexture, 1), wireMesh));
+            sceneManager.ActiveScene.Add(gameObject4);
+
+            var gameObject5 = new GameObject("Front Wall", ObjectType.Static, RenderType.Opaque);
+            gameObject5.Transform = new Transform(Vector3.One * 10, Vector3.Zero, new Vector3(-10, 5, 0));
+            var panelTexture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+            var panelModel = Content.Load<Model>("Assets/Models/front-wall");
+            var panelMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, panelModel);
+            gameObject5.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            sceneManager.ActiveScene.Add(gameObject5);
+
+            var gameObject6 = new GameObject("Rear Wall", ObjectType.Static, RenderType.Opaque);
+            gameObject6.Transform = new Transform(Vector3.One * 10, Vector3.Zero, new Vector3(-10, 5, 0));
+            var rearWallTexture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+            var rearWallModel = Content.Load<Model>("Assets/Models/rear-wall");
+            var rearWallMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, rearWallModel);
+            gameObject6.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(rearWallTexture, 1), rearWallMesh));
+            sceneManager.ActiveScene.Add(gameObject6);
+        }
+
+        private void InitialiseServerModels()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                var gameObject = new GameObject("Server 1", ObjectType.Static, RenderType.Opaque);
+                gameObject.Transform = new Transform(Vector3.One * 1.5f, Vector3.Zero, Vector3.Zero + new Vector3(i*3,0,0));
+                var texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+                var model = Content.Load<Model>("Assets/Models/server-1");
+                var mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, model);
+                gameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(texture, 1), mesh));
+                sceneManager.ActiveScene.Add(gameObject);
+
+                var gameObject2 = new GameObject("Server 2", ObjectType.Static, RenderType.Opaque);
+                gameObject2.Transform = new Transform(Vector3.One * 1.5f, Vector3.Zero, Vector3.Zero + new Vector3(i*3, 0, 0));
+                texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+                model = Content.Load<Model>("Assets/Models/server-2");
+                mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, model);
+                gameObject2.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(texture, 1), mesh));
+                sceneManager.ActiveScene.Add(gameObject2);
+
+                for (int j = 0; j < 2; j++)
+                {
+                    gameObject = new GameObject("Server 1", ObjectType.Static, RenderType.Opaque);
+                    gameObject.Transform = new Transform(Vector3.One * 1.5f, Vector3.Zero, Vector3.Zero + new Vector3(i * 3, 0, j * 4));
+                    texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+                    model = Content.Load<Model>("Assets/Models/server-1");
+                    mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, model);
+                    gameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(texture, 1), mesh));
+                    sceneManager.ActiveScene.Add(gameObject);
+
+                    gameObject2 = new GameObject("Server 2", ObjectType.Static, RenderType.Opaque);
+                    gameObject2.Transform = new Transform(Vector3.One * 1.5f, Vector3.Zero, Vector3.Zero + new Vector3(i * 3, 0, j * 4));
+                    texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+                    model = Content.Load<Model>("Assets/Models/server-2");
+                    mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, model);
+                    gameObject2.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(texture, 1), mesh));
+                    sceneManager.ActiveScene.Add(gameObject2);
+                }
+
+            }
+
+            for (int i = 0; i < 8; i++)
+            {
+                var gameObject = new GameObject("Server 3", ObjectType.Static, RenderType.Opaque);
+                gameObject.Transform = new Transform(Vector3.One * 1.5f, Vector3.Zero, Vector3.Zero + new Vector3(i * 3, 0, 0));
+                var texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+                var model = Content.Load<Model>("Assets/Models/server-3");
+                var mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, model);
+                gameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(texture, 1), mesh));
+                sceneManager.ActiveScene.Add(gameObject);
+
+                var gameObject2 = new GameObject("Server 4", ObjectType.Static, RenderType.Opaque);
+                gameObject2.Transform = new Transform(Vector3.One * 1.5f, Vector3.Zero, Vector3.Zero + new Vector3(i * 3, 0, 0));
+                texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+                model = Content.Load<Model>("Assets/Models/server-4");
+                mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, model);
+                gameObject2.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(texture, 1), mesh));
+                sceneManager.ActiveScene.Add(gameObject2);
+
+                for (int j = 0; j < 2; j++)
+                {
+                    gameObject = new GameObject("Server 3", ObjectType.Static, RenderType.Opaque);
+                    gameObject.Transform = new Transform(Vector3.One * 1.5f, Vector3.Zero, Vector3.Zero + new Vector3(i * 3, 0, j * -4));
+                    texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+                    model = Content.Load<Model>("Assets/Models/server-3");
+                    mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, model);
+                    gameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(texture, 1), mesh));
+                    sceneManager.ActiveScene.Add(gameObject);
+
+                    gameObject2 = new GameObject("Server 4", ObjectType.Static, RenderType.Opaque);
+                    gameObject2.Transform = new Transform(Vector3.One * 1.5f, Vector3.Zero, Vector3.Zero + new Vector3(i * 3, 0, j * -4));
+                    texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+                    model = Content.Load<Model>("Assets/Models/server-4");
+                    mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, model);
+                    gameObject2.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(texture, 1), mesh));
+                    sceneManager.ActiveScene.Add(gameObject2);
+                }
+
+            }
         }
 
         #endregion Zero Day Threat - Models
