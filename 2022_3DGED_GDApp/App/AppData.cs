@@ -124,6 +124,6 @@ namespace GD.App
         public static readonly string CUBE_NAME = "Cube Model";
 
         #endregion GameObject names
-        public static readonly double MAX_GAME_TIME_IN_MSECS = 2500; //180000
+        public static readonly float MAX_GAME_TIME_IN_MSECS = 500000.00f; //180000
     }
 }

@@ -56,6 +56,7 @@ namespace GD.App
         private GameObject tempCube2;
         private GameObject tempCube3;
         private GameObject tempCube4;
+        private GameObject timeScreen;
 
 #if DEMO
         private event EventHandler OnChanged;
@@ -112,6 +113,7 @@ namespace GD.App
             switch (eventData.EventActionType)
             {
                 case EventActionType.OnWin:
+                    
                     System.Diagnostics.Debug.WriteLine(eventData.Parameters[0] as string);
                     break;
 
@@ -215,6 +217,7 @@ namespace GD.App
             //    new EventData(EventCategoryType.Player,
             //    EventActionType.OnSpawnObject,
             //    parameters));
+            EventDispatcher.Subscribe(EventCategoryType.Player, HandleEvent);
             EventDispatcher.Subscribe(EventCategoryType.Sound, HandleEvent);
         }
 
@@ -279,11 +282,12 @@ namespace GD.App
             IntializeFloppyDiskModel();
             IntializeRadioModel();
             IntializeLampModel();
-            
+            InitializeTimer();
             InitializeCube();
 
         }
 
+     
         private void InitializeCurves()
         {
             //load and add to dictionary
@@ -512,6 +516,37 @@ namespace GD.App
             sceneManager.ActiveScene.Add(screenLeftGameObject);
         }
 
+        private void InitializeTimer()
+        {
+            GameObject clock = null;
+            Material material = null;
+            Renderer renderer2D = null;
+            var panelFbxModel = Content.Load<Model>("Assets/Models/cube");
+            var panelMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, panelFbxModel);
+            var screenTexture = Content.Load<Texture2D>("Assets/Textures/blankImage");
+            timeScreen = new GameObject("timeScreen", ObjectType.Static, RenderType.Opaque);
+            timeScreen.Transform = new Transform(new Vector3(0.05f, 2.6f, 2.5f), new Vector3(0, 0.52f, 0), new Vector3(-15.5f, 5.2f, 9));
+            timeScreen.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(screenTexture, 1), panelMesh));
+
+
+            //Texture2D btnTexture = Content.Load<Texture2D>("Assets/Textures/Menu/Controls/AlarmScreen");
+            //Vector2 btnScale = new Vector2(0.8f, 0.8f);
+            //clock = new GameObject("Clock");
+            //clock.Transform = new Transform(
+            //new Vector3(btnScale, 1), //s
+            //new Vector3(0, 0.52f, 0), //r
+            //new Vector3(-15.5f, 5.2f, 9));
+
+            //material and renderer
+
+            //add renderer to draw the texture
+
+            //add renderer as a component
+
+            sceneManager.ActiveScene.Add(timeScreen);
+        }
+
+
         private void IntializeRadioModel()
         {
             var radioGameObject = new GameObject(AppData.RADIO_GAMEOBJECT_NAME, ObjectType.Static, RenderType.Opaque);
@@ -598,7 +633,7 @@ namespace GD.App
             tempCube4.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
             tempCube4.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad4));
 
-
+           
             sceneManager.ActiveScene.Add(tempCube1);
             sceneManager.ActiveScene.Add(tempCube2);
             sceneManager.ActiveScene.Add(tempCube3);
@@ -937,6 +972,7 @@ namespace GD.App
             Application.SceneManager = sceneManager;
             Application.SoundManager = soundManager;
             Application.PhysicsManager = physicsManager;
+            Application.StateManager = stateManager;
         }
 
         private void InitializeInput()
@@ -1053,7 +1089,7 @@ namespace GD.App
             perfUtility.infoList.Add(new ObjectInfo(_spriteBatch, spriteFont, "Objects:", Color.White, contentScale * Vector2.One));
             perfUtility.infoList.Add(new TextInfo(_spriteBatch, spriteFont, "Hints -----------------------------------", Color.Yellow, headingScale * Vector2.One));
             perfUtility.infoList.Add(new TextInfo(_spriteBatch, spriteFont, "Use mouse scroll wheel to change security camera FOV, F1-F4 for camera switch", Color.White, contentScale * Vector2.One));
-
+            perfUtility.infoList.Add(new TimeInfo(_spriteBatch, spriteFont, "Time: ", Color.White, contentScale * Vector2.One));
             //add to the component list otherwise it wont have its Update or Draw called!
             Components.Add(perfUtility);
         }
@@ -1194,12 +1230,14 @@ namespace GD.App
                         EventActionType.OnPause
                         , boom);
 
+            EventData win = new EventData(EventCategoryType.Player, EventActionType.OnWin);
 
 
             // Check if all paths are formed
             if (!temp.States.Contains(false) && temp.PathFormed == false)
             {
                 EventDispatcher.Raise(pathComplete);
+                //EventDispatcher.Raise(win);
                 temp.PathFormed = true;
             }
             else if(temp.States.Contains(false) && temp.PathFormed == true)

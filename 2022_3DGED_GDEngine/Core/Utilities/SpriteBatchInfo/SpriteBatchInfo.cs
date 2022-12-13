@@ -141,4 +141,16 @@ namespace GD.Engine.Utilities
             spriteBatch.DrawString(spriteFont, $"{label}{Application.SceneManager.ActiveScene.GetPerfStats()}", position, color, rotation, origin, scale, effects, layerDepth);
         }
     }
+
+    public class TimeInfo : SpriteBatchInfo
+    {
+        public TimeInfo(SpriteBatch spriteBatch, SpriteFont spriteFont, string label, Color color, Vector2 scale) : base(spriteBatch, spriteFont, label, color, scale)
+        {
+        }
+
+        public override void Draw(Vector2 position)
+        {
+            spriteBatch.DrawString(spriteFont, $"{label}{(int)Application.StateManager.RemainingTimeMs}", position, color, rotation, origin, scale, effects, layerDepth);
+        }
+    }
 }
