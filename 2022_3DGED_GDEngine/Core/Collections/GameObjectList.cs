@@ -16,23 +16,21 @@ namespace GD.Engine.Collections
         /// <summary>
         /// Stores any object which persists during game
         /// </summary>
-        private List<GameObject> staticList;
+        private ObjectList staticList;
 
         /// <summary>
         /// Stores any object which can be added/removed (e.g. pickup)
         /// </summary>
-        private List<GameObject> dynamicList;
-
-        //TODO - List<Renderers> for static and dynamic objects
+        private ObjectList dynamicList;
 
         #endregion Fields
 
         #region Properties
 
-        public List<GameObject> StaticList
+        public ObjectList StaticList
         { get { return staticList; } }
 
-        public List<GameObject> DynamicList
+        public ObjectList DynamicList
         { get { return dynamicList; } }
 
         #endregion Properties
@@ -41,8 +39,8 @@ namespace GD.Engine.Collections
 
         public GameObjectList()
         {
-            staticList = new List<GameObject>();
-            dynamicList = new List<GameObject>();
+            staticList = new ObjectList();
+            dynamicList = new ObjectList();
         }
 
         #endregion Constructors
@@ -110,13 +108,13 @@ namespace GD.Engine.Collections
 
         public void Size(out int sizeStaticList, out int sizeDynamicList)
         {
-            sizeStaticList = staticList.Count;
-            sizeDynamicList = dynamicList.Count;
+            sizeStaticList = staticList.Size();
+            sizeDynamicList = dynamicList.Size();
         }
 
         public int TotalSize()
         {
-            return staticList.Count + dynamicList.Count;
+            return staticList.Size() + dynamicList.Size();
         }
 
         public void Clear(ObjectType objectType)
@@ -133,22 +131,12 @@ namespace GD.Engine.Collections
 
         public virtual void Update(GameTime gameTime)
         {
-            foreach (GameObject gameObject in staticList)
+            foreach (GameObject gameObject in staticList.GameObjects)
                 gameObject.Update(gameTime);
 
-            foreach (GameObject gameObject in dynamicList)
+            foreach (GameObject gameObject in dynamicList.GameObjects)
                 gameObject.Update(gameTime);
         }
-
-        //public virtual void Draw(GameTime gameTime, Camera camera)
-        //{
-        //    //TODO - add inefficiency with GetComponent
-        //    foreach (GameObject gameObject in staticList)
-        //        gameObject.GetComponent<Renderer>().Draw(Application.GraphicsDevice, camera);
-
-        //    foreach (GameObject gameObject in dynamicList)
-        //        gameObject.GetComponent<Renderer>().Draw(Application.GraphicsDevice, camera);
-        //}
 
         #region DEBUG
 
@@ -156,7 +144,7 @@ namespace GD.Engine.Collections
 
         public string GetPerfStats()
         {
-            return $"[S:{staticList.Count},D:{dynamicList.Count}]";
+            return $"[S:{staticList.Size()},D:{dynamicList.Size()}]";
         }
 
 #endif

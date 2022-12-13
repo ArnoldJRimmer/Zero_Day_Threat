@@ -10,6 +10,7 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.1.303" />
@@ -28,4 +29,5 @@
     <Exec Command="dotnet tool restore" />
   </Target>
   <Import Project="..\2022_3DGED_GDEngine\2022_3DGED_GDEngine.projitems" Label="Shared" />
+  <Import Project="..\JigLibX\JigLibX.projitems" Label="Shared" />
 </Project>

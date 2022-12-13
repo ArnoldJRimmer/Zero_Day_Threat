@@ -65,6 +65,7 @@ namespace GD.App
 
         public static readonly float FIRST_PERSON_HALF_FOV
              = MathHelper.PiOver2 / 2.0f;
+        public static readonly float FIRST_PERSON_CAMERA_SMOOTH_FACTOR = 0.1f;
 
         #endregion Camera - First Person
 
@@ -103,7 +104,7 @@ namespace GD.App
         public static readonly float PLAYER_STRAFE_SPEED = PLAYER_STRAFE_SPEED_MULTIPLIER * PLAYER_MOVE_SPEED;
 
         //can use either same X-Y rotation for camera controller or different
-        public static readonly float PLAYER_ROTATE_SPEED_SINGLE = 0.001f;
+        public static readonly float PLAYER_ROTATE_SPEED_SINGLE = 0.01f;
 
         //why bother? can you tilt your head at the same speed as you rotate it?
         public static readonly Vector2 PLAYER_ROTATE_SPEED_VECTOR2 = new Vector2(0.0004f, 0.0003f);
@@ -126,8 +127,11 @@ namespace GD.App
         public static readonly string LAMP_GAMEOBJECT_NAME = "Lamp Model";
         public static readonly string RADAR_GAMEOBJECT_NAME = "Radar Model";
         public static readonly string CUBE_NAME = "Cube Model";
+        public static readonly string BULB_GAMEOBJECT_NAME = "Bulb Model";
 
         #endregion GameObject names
         public static readonly double MAX_GAME_TIME_IN_MSECS = 2500; //180000
+        public static Vector3 GRAVITY = new Vector3(0, -9.81f,0);
+        public static Vector3 CUBE_SCALE = new Vector3(0.015f, 0.015f, 0.015f);
     }
 }

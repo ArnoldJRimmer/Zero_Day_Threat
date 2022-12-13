@@ -8,6 +8,11 @@ using System;
 ///<seealso cref="https://www.tutorialsteacher.com/csharp/csharp-extension-method"/>
 public static class Vector3Extensions
 {
+    public static Vector2 To2D(this ref Vector3 target)
+    {
+        return new Vector2(target.X, target.Y);
+    }
+
     #region Set to a value in target
 
     public static void Set(this ref Vector3 target, float? x, float? y, float? z)

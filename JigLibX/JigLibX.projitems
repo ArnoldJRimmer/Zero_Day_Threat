@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>6efba8a9-a407-4029-bdd0-651d22a87386</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>JigLibX</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Collision\CollisionInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collision\CollisionSkin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collision\CollisionSystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collision\CollisionSystemBrute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collision\CollisionSystemGrid.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collision\CollisionSystemSAP.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collision\Detection\BoxBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collision\Detection\BoxHeightmap.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collision\Detection\BoxPlane.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collision\Detection\BoxStaticMesh.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collision\Detection\CapsuleBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collision\Detection\CapsuleCapsule.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collision\Detection\CapsuleHeightmap.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collision\Detection\CapsulePlane.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collision\Detection\CapsuleStaticMesh.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collision\Detection\DetectFunctor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collision\Detection\SphereBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collision\Detection\SphereCapsule.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collision\Detection\SphereHeightmap.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collision\Detection\SpherePlane.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collision\Detection\SphereSphere.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collision\Detection\SphereStaticMesh.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collision\Materials.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Geometry\Distance.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Geometry\IndexedTriangle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Geometry\Intersection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Geometry\Line.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Geometry\Octree.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Geometry\Overlap.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Geometry\Primitives\AABox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Geometry\Primitives\Box.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Geometry\Primitives\Capsule.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Geometry\Primitives\Heightmap.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Geometry\Primitives\Plane.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Geometry\Primitives\Primitive.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Geometry\Primitives\Sphere.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Geometry\Primitives\TriangleMesh.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Geometry\Rectangle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Geometry\Triangle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Math\JiggleMath.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Math\Transform.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Physics\Body.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Physics\Constraint.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Physics\ConstraintMaxDistance.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Physics\ConstraintPoint.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Physics\ConstraintVelocity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Physics\ConstraintWorldPoint.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Physics\Controller.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Physics\HingeJoint.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Physics\Joint.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Physics\PhysicsCollision.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Physics\PhysicsSystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\Array2D.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\BodyRenderExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\JiggleUnsafe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Vehicles\Car.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Vehicles\Chassis.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Vehicles\Wheel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Content\" />
+  </ItemGroup>
+  <ItemGroup>
+    <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
+    <None Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
+  </ItemGroup>
+</Project>

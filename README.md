@@ -1,6 +1,5 @@
 # Zero Day Threat
 
-<<<<<<<<< Temporary merge branch 1
 ## OverView Updates to engine ##
 
 ### Updates 2022_3DGED_GDApp
