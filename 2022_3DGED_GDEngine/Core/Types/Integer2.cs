@@ -1,9 +1,18 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace GD.Core.Types
 {
     public class Integer2 : ICloneable
     {
+        #region Fields
+
+        private int x, y;
+
+        #endregion Fields
+
+        #region Statics
+
         /// <summary>
         /// See expression bodied members
         /// </summary>
@@ -13,24 +22,35 @@ namespace GD.Core.Types
         public static Integer2 UnitY => new Integer2(0, 1);
         public static Integer2 One => new Integer2(1, 1);
         public static Integer2 Zero => new Integer2(0, 0);
-        //{
-        //    get
-        //    {
-        //        return new Integer2(0, 0);
-        //    }
-        //}
 
-        private int x, y;
+        #endregion Statics
+
+        #region Properties
+
         public int X { get => x; set => x = value; }
         public int Y { get => y; set => y = value; }
+
+        #endregion Properties
+
+        #region Constructors
 
         public Integer2(int x, int y)
         {
             this.x = x; this.y = y;
         }
 
-        //TODO - arithmetic operator (+, -, *, /)
+        public Integer2(Vector2 value)
+        {
+            value.Round();
+            x = (int)value.X;
+            y = (int)value.Y;
+        }
 
+        #endregion Constructors
+
+        #region Actions - Operators
+
+        //TODO - arithmetic operator (+, -, *, /)
         public static bool operator ==(Integer2 lhs, Integer2 rhs)
         {
             return lhs.x == rhs.X && lhs.y == rhs.Y;
@@ -40,6 +60,10 @@ namespace GD.Core.Types
         {
             return lhs.x != rhs.X || lhs.y != rhs.Y;
         }
+
+        #endregion Actions - Operators
+
+        #region Actions - Housekeeping
 
         public new string ToString()
         {
@@ -81,5 +105,7 @@ namespace GD.Core.Types
         {
             return HashCode.Combine(x, y);
         }
+
+        #endregion Actions - Housekeeping
     }
 }

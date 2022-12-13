@@ -5,8 +5,6 @@
 
 #endregion
 
-using BEPUphysics;
-using BEPUphysics.Entities.Prefabs;
 using GD.Core;
 using GD.Engine;
 using GD.Engine.Events;
@@ -15,20 +13,17 @@ using GD.Engine.Inputs;
 using GD.Engine.Managers;
 using GD.Engine.Parameters;
 using GD.Engine.Utilities;
+using JigLibX.Collision;
+using JigLibX.Geometry;
 using Microsoft.Xna.Framework;
-using System;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using Application = GD.Engine.Globals.Application;
-using Box = BEPUphysics.Entities.Prefabs.Box;
 using ButtonState = Microsoft.Xna.Framework.Input.ButtonState;
 using Cue = GD.Engine.Managers.Cue;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
-using Material = GD.Engine.Material;
-using GD.Engine.Collections;
-using System.Windows.Forms;
 
 namespace GD.App
 {
@@ -42,13 +37,18 @@ namespace GD.App
         private BasicEffect litEffect;
 
         private CameraManager cameraManager;
-        private SceneManager sceneManager;
+        private SceneManager<Scene> sceneManager;
         private SoundManager soundManager;
         private PhysicsManager physicsManager;
         private RenderManager renderManager;
         private EventDispatcher eventDispatcher;
         private GameObject playerGameObject;
         private StateManager stateManager;
+        private GameObject uiTextureGameObject;
+        private SpriteMaterial textSpriteMaterial;
+        private UITextureElement uiTextureElement;
+        private SceneManager<Scene2D> uiManager;
+        private Render2DManager uiRenderManager;
 
         private Path temp;
         private GameObject tempCube1;
@@ -442,7 +442,7 @@ namespace GD.App
 
             //NEW
             cameraGameObject.AddComponent(new FirstPersonController(AppData.FIRST_PERSON_MOVE_SPEED, AppData.FIRST_PERSON_STRAFE_SPEED,
-                AppData.PLAYER_ROTATE_SPEED_VECTOR2, true));
+                AppData.PLAYER_ROTATE_SPEED_SINGLE, AppData.FIRST_PERSON_CAMERA_SMOOTH_FACTOR));
 
             cameraManager.Add(cameraGameObject.Name, cameraGameObject);
 
@@ -470,11 +470,27 @@ namespace GD.App
 
         private void InitializeColliableGround(float worldScale)
         {
-            var collidableGround = new Box(BEPUutilities.Vector3.Zero, worldScale, 1, worldScale);
-            physicsManager.Space.Add(collidableGround);
-            physicsManager.Space.Add(new Box(new BEPUutilities.Vector3(0, 4, 0), 1, 1, 1, 1));
-            physicsManager.Space.Add(new Box(new BEPUutilities.Vector3(0, 8, 0), 1, 1, 1, 1));
-            physicsManager.Space.Add(new Box(new BEPUutilities.Vector3(0, 12, 0), 1, 1, 1, 1));
+            var gdBasicEffect = new GDBasicEffect(unlitEffect);
+            var quadMesh = new QuadMesh(_graphics.GraphicsDevice);
+
+            //ground
+            var ground = new GameObject("ground");
+            ground.Transform = new Transform(new Vector3(worldScale, worldScale, 1),
+                new Vector3(-90, 0, 0), new Vector3(0, 0, 0));
+            var texture = Content.Load<Texture2D>("Assets/Textures/Foliage/Ground/grass1");
+            ground.AddComponent(new Renderer(gdBasicEffect, new Material(texture, 1), quadMesh));
+
+            //add Collision Surface(s)
+            var collider = new Collider(ground);
+            collider.AddPrimitive(new JigLibX.Geometry.Box(
+                    ground.Transform.Translation,
+                    ground.Transform.Rotation,
+                    ground.Transform.Scale),
+                new MaterialProperties(0.8f, 0.8f, 0.7f));
+            collider.Enable(ground, true, 1);
+            ground.AddComponent(collider);
+
+            sceneManager.ActiveScene.Add(ground);
         }
         
         private void InitializeCollidableModel()
@@ -1091,7 +1107,7 @@ namespace GD.App
             Components.Add(cameraManager);
 
             //big kahuna nr 1! this adds support to store, switch and Update() scene contents
-            sceneManager = new SceneManager(this);
+            sceneManager = new SceneManager<Scene>(this);
             //add to Components otherwise no Update()
             Components.Add(sceneManager);
 
@@ -1105,7 +1121,7 @@ namespace GD.App
             //wait...SoundManager has no update? Yes, playing sounds is handled by an internal MonoGame thread - so we're off the hook!
 
             //add the physics manager update thread
-            physicsManager = new PhysicsManager(this);
+            physicsManager = new PhysicsManager(this,AppData.GRAVITY);
             Components.Add(physicsManager);
 
             //add state manager for inventory and countdown
@@ -1135,7 +1151,6 @@ namespace GD.App
             perfUtility.infoList.Add(new FPSInfo(_spriteBatch, spriteFont, "FPS:", Color.White, contentScale * Vector2.One));
             perfUtility.infoList.Add(new TextInfo(_spriteBatch, spriteFont, "Camera -----------------------------------", Color.Yellow, headingScale * Vector2.One));
             perfUtility.infoList.Add(new CameraNameInfo(_spriteBatch, spriteFont, "Name:", Color.White, contentScale * Vector2.One));
-            perfUtility.infoList.Add(new CameraPositionInfo(_spriteBatch, spriteFont, "Pos:", Color.White, contentScale * Vector2.One));
             perfUtility.infoList.Add(new CameraRotationInfo(_spriteBatch, spriteFont, "Rot:", Color.White, contentScale * Vector2.One));
             perfUtility.infoList.Add(new TextInfo(_spriteBatch, spriteFont, "Object -----------------------------------", Color.Yellow, headingScale * Vector2.One));
             perfUtility.infoList.Add(new ObjectInfo(_spriteBatch, spriteFont, "Objects:", Color.White, contentScale * Vector2.One));
@@ -1252,45 +1267,45 @@ namespace GD.App
             //        temp.setState(false, i);
             //    }
             //}
-            if (tempCube1.Transform.rotation == temp.Pieces[0].rotation && temp.States[0] == false)
+            if (tempCube1.Transform.Rotation == temp.Pieces[0].Rotation && temp.States[0] == false)
             {
                 Application.SoundManager.Play2D("openPhone");
                 temp.setState(true, 0);
             }
-            else if (tempCube1.Transform.rotation != temp.Pieces[0].rotation && temp.States[0] == true)
+            else if (tempCube1.Transform.Rotation != temp.Pieces[0].Rotation && temp.States[0] == true)
             {
                 temp.setState(false, 0);
             }
 
-            else if (tempCube2.Transform.rotation == temp.Pieces[1].rotation && temp.States[1] == false)
+            else if (tempCube2.Transform.Rotation == temp.Pieces[1].Rotation && temp.States[1] == false)
             {
                 Application.SoundManager.Play2D("openPhone");
                 temp.setState(true, 1);
             }
 
-            else if (tempCube2.Transform.rotation != temp.Pieces[1].rotation && temp.States[0] == true)
+            else if (tempCube2.Transform.Rotation != temp.Pieces[1].Rotation && temp.States[0] == true)
             {
                 temp.setState(false, 1);
             }
 
-            else if (tempCube3.Transform.rotation == temp.Pieces[2].rotation && temp.States[2] == false)
+            else if (tempCube3.Transform.Rotation == temp.Pieces[2].Rotation && temp.States[2] == false)
             {
                 Application.SoundManager.Play2D("openPhone");
                 temp.setState(true, 2);
             }
 
-            else if (tempCube3.Transform.rotation != temp.Pieces[2].rotation && temp.States[0] == true)
+            else if (tempCube3.Transform.Rotation != temp.Pieces[2].Rotation && temp.States[0] == true)
             {
                 temp.setState(false, 2);
             }
 
-            else if (tempCube4.Transform.rotation == temp.Pieces[3].rotation && temp.States[3] == false)
+            else if (tempCube4.Transform.Rotation == temp.Pieces[3].Rotation && temp.States[3] == false)
             {
                 Application.SoundManager.Play2D("openPhone");
                 temp.setState(true, 3);
             }
 
-            else if (tempCube4.Transform.rotation != temp.Pieces[3].rotation && temp.States[0] == true)
+            else if (tempCube4.Transform.Rotation != temp.Pieces[3].Rotation && temp.States[0] == true)
             {
                 temp.setState(false, 3);
             }
