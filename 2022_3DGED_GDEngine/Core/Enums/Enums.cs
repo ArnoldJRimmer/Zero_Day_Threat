@@ -64,6 +64,7 @@
         BackgroundMusic,
         Ambience,
         SFX,
+        Music,
         Alarm
     }
 

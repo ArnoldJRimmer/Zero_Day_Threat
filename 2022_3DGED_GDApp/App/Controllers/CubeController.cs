@@ -47,16 +47,20 @@ namespace GD.Engine
             {
                 //transform.rotation = transform.rotation + gameTime.ElapsedGameTime.Milliseconds * rotationSpeedInRadians * rotationAxis;
                 //Rotates 90 degrees on key press, no holding
+                if(transform.Rotation.Z > -4 && transform.Rotation.Z < 4) 
+                {
+                    transform.SetRotation(Vector3.Zero);
+                }
                 transform.Rotate(new Vector3(0, 0, 90));
 
                 // If the cube rotation is 360 degrees it resets back to 0 degrees 
                 if (transform.Rotation.Z > 360)
                 {
-                    transform.SetRotation(new Vector3(0, 0, 0));
+                    transform.SetRotation(Vector3.Zero);
                 }
                 else if (transform.Rotation.Z < -360)
                 {
-                    transform.SetRotation(new Vector3(0, 0, 0));
+                    transform.SetRotation(Vector3.Zero);
                 }
 
             }

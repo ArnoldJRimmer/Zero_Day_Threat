@@ -526,6 +526,16 @@ namespace GD.App
                 SoundCategoryType.SFX,
                 new Vector3(1, 0.995f, 0),
                 false));
+
+            var musicEffect =
+                Content.Load<SoundEffect>("Assets/Audio/music/Game-theme");
+
+            soundManager.Add(new Cue(
+                "music",
+                musicEffect,
+                SoundCategoryType.Music,
+                new Vector3(1, 0.995f, 0),
+                false));
         }
 
         private void LoadTextures()
@@ -1731,7 +1741,7 @@ namespace GD.App
 
             //update active camera
             //cameraManager.Update(gameTime);
-            
+
             //sceneManager.ActiveScene.Find(ObjectType.Dynamic, RenderType.Opaque, )
 #if DEMO
 
@@ -1743,42 +1753,48 @@ namespace GD.App
             //        EventActionType.OnWin,
             //        parameters));
 
-               
+
             //    //Application.SoundManager.Play2D("boom1");
             //}
 
-            //if(gameTime.TotalGameTime.Seconds >= 1 && gameTime.TotalGameTime.Seconds <= 3)
-            //{
-            //    AudioEmitter fan = new AudioEmitter();
-            //    fan.Position = new Vector3(10, 8, 4);
-            //    object[] parameters = { "roomFan", new AudioListener(), fan };
-            //    EventDispatcher.Raise(
-            //        new EventData(EventCategoryType.Sound,
-            //        EventActionType.OnPlay3D,
-            //        parameters));
-            //}
+            if (gameTime.TotalGameTime.Seconds >= 1 && gameTime.TotalGameTime.Seconds <= 3)
+            {
+                AudioEmitter fan = new AudioEmitter();
+                fan.Position = new Vector3(10, 8, 4);
+                object[] parameters = { "roomFan", new AudioListener(), fan };
+                EventDispatcher.Raise(
+                    new EventData(EventCategoryType.Sound,
+                    EventActionType.OnPlay3D,
+                    parameters));
 
-            //if (gameTime.TotalGameTime.Seconds >=48 && gameTime.TotalGameTime.Seconds <= 51)
-            //{
-            //    AudioEmitter electFan = new AudioEmitter();
-            //    electFan.Position = new Vector3(3, 3, 8);
-            //    object[] parameters = { "electricBuzz", new AudioListener(), electFan };
-            //    EventDispatcher.Raise(
-            //        new EventData(EventCategoryType.Sound,
-            //        EventActionType.OnPlay3D,
-            //        parameters));
-            //}
+                object[] music = { "music" };
+                EventDispatcher.Raise(new EventData
+                    (EventCategoryType.Sound,
+                    EventActionType.OnPlay2D, music));
+            }
+            
 
-            //if (gameTime.TotalGameTime.Seconds >= 200 && gameTime.TotalGameTime.Seconds <= 205)
-            //{
-            //    AudioEmitter computFan = new AudioEmitter();
-            //    computFan.Position = new Vector3(2, 0.5f, 3.5f);
-            //    object[] parameters = { "computerFan", new AudioListener(), computFan };
-            //    EventDispatcher.Raise(
-            //        new EventData(EventCategoryType.Sound,
-            //        EventActionType.OnPlay3D,
-            //        parameters));
-            //}
+            if (gameTime.TotalGameTime.Seconds >= 48 && gameTime.TotalGameTime.Seconds <= 51)
+            {
+                AudioEmitter electFan = new AudioEmitter();
+                electFan.Position = new Vector3(3, 3, 8);
+                object[] parameters = { "electricBuzz", new AudioListener(), electFan };
+                EventDispatcher.Raise(
+                    new EventData(EventCategoryType.Sound,
+                    EventActionType.OnPlay3D,
+                    parameters));
+            }
+
+            if (gameTime.TotalGameTime.Seconds >= 200 && gameTime.TotalGameTime.Seconds <= 205)
+            {
+                AudioEmitter computFan = new AudioEmitter();
+                computFan.Position = new Vector3(2, 0.5f, 3.5f);
+                object[] parameters = { "computerFan", new AudioListener(), computFan };
+                EventDispatcher.Raise(
+                    new EventData(EventCategoryType.Sound,
+                    EventActionType.OnPlay3D,
+                    parameters));
+            }
 
             #region Demo - Camera switching
 
