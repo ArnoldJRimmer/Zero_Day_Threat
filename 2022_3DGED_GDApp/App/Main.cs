@@ -730,15 +730,18 @@ namespace GD.App
             var panelTexture = Content.Load<Texture2D>("Assets/Textures/cube_DefaultMaterial_BaseColor");
             var panelFbxModel = Content.Load<Model>("Assets/Models/cube");
             var panelMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, panelFbxModel);
+            string nameOfcube = "";
           
             //Row 1
             for (int i = 0; i<5; i++)
             {
                 float incrementY = 2 + (-0.04f * i);
+                nameOfcube = "cube" + i.ToString();
                  for (int j = 0; j < 5; j++)
                   {
+                    System.Diagnostics.Debug.WriteLine(nameOfcube + j.ToString());
                     float increment = -0.16f + (0.08f * j);
-                    tempCube1 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+                    tempCube1 = new GameObject(nameOfcube + j.ToString(), ObjectType.Dynamic, RenderType.Opaque);
                     tempCube1.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, incrementY, increment));
                     tempCube1.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
                     tempCube1.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad1));
