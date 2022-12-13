@@ -48,6 +48,8 @@ namespace GD.Engine.Globals
         /// </summary>
         public static SoundManager SoundManager { get; set; }
 
+        public static StateManager StateManager { get; set; }
+
         /// <summary>
         /// Gets or sets the screen object that allows us to change resolution
         /// </summary>

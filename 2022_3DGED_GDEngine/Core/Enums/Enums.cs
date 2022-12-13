@@ -145,6 +145,7 @@
         OnPlay3D,
 
         OnPause,
+        OnPauseSound,
         OnResume,
         OnRestart,
         OnExit,

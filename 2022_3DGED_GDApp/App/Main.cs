@@ -25,6 +25,10 @@ using Application = GD.Engine.Globals.Application;
 using ButtonState = Microsoft.Xna.Framework.Input.ButtonState;
 using Cue = GD.Engine.Managers.Cue;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
+using Material = GD.Engine.Material;
+using GD.Engine.Collections;
+using System.Windows.Forms;
+using System.Linq;
 
 namespace GD.App
 {
@@ -59,6 +63,7 @@ namespace GD.App
         private GameObject tempCube4;
         private GameObject tempCube5;
         private Transform[,] storeCubes = new Transform[5, 5];
+        private GameObject timeScreen;
 
 
 #if DEMO
@@ -98,7 +103,7 @@ namespace GD.App
             //var camera = Application.CameraManager.ActiveCamera.AudioListener;
             //var audioEmitter = //get tree, get emitterbehaviour, get audio emitter
 
-            //object[] parameters = {"sound name", audioListener, audioEmitter};
+            //object[] parameters = { "sound name", audioListener, audioEmitter};
 
             //EventDispatcher.Raise(new EventData(EventCategoryType.Sound,
             //    EventActionType.OnPlay3D, parameters));
@@ -117,12 +122,22 @@ namespace GD.App
             switch (eventData.EventActionType)
             {
                 case EventActionType.OnWin:
+                    
                     System.Diagnostics.Debug.WriteLine(eventData.Parameters[0] as string);
                     break;
 
                 case EventActionType.OnLose:
                     System.Diagnostics.Debug.WriteLine(eventData.Parameters[2] as string);
                     break;
+
+                case EventActionType.OnPlay2D:
+                    Application.SoundManager.Play2D(eventData.Parameters[0] as string);
+                    break;
+
+                case EventActionType.OnPauseSound:
+                    Application.SoundManager.Stop(eventData.Parameters[0] as string);
+                    break;
+
 
                 case EventActionType.OnPlay3D:
                     Application.SoundManager.Play3D(eventData.Parameters[0] as string, eventData.Parameters[1] as AudioListener, eventData.Parameters[2] as AudioEmitter);
@@ -141,6 +156,7 @@ namespace GD.App
             }
         }
 
+      
         private void DemoEvent()
         {
             OnChanged += HandleOnChanged;
@@ -222,8 +238,8 @@ namespace GD.App
             //    new EventData(EventCategoryType.Player,
             //    EventActionType.OnSpawnObject,
             //    parameters));
-
-            
+            EventDispatcher.Subscribe(EventCategoryType.Player, HandleEvent);
+            EventDispatcher.Subscribe(EventCategoryType.Sound, HandleEvent);
         }
 
         private void SetTitle(string title)
@@ -493,10 +509,12 @@ namespace GD.App
             InitialiseServerModels();
 
 
+            InitializeTimer();
             InitializeCube();
 
         }
 
+     
         private void InitializeCurves()
         {
             //load and add to dictionary
@@ -760,6 +778,37 @@ namespace GD.App
             screenLeftGameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(screenLeftTexture, 1), screenLeftMesh));
             sceneManager.ActiveScene.Add(screenLeftGameObject);
         }
+
+        private void InitializeTimer()
+        {
+            GameObject clock = null;
+            Material material = null;
+            Renderer renderer2D = null;
+            var panelFbxModel = Content.Load<Model>("Assets/Models/cube");
+            var panelMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, panelFbxModel);
+            var screenTexture = Content.Load<Texture2D>("Assets/Textures/blankImage");
+            timeScreen = new GameObject("timeScreen", ObjectType.Static, RenderType.Opaque);
+            timeScreen.Transform = new Transform(new Vector3(0.05f, 2.6f, 2.5f), new Vector3(0, 0.52f, 0), new Vector3(-15.5f, 5.2f, 9));
+            timeScreen.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(screenTexture, 1), panelMesh));
+
+
+            //Texture2D btnTexture = Content.Load<Texture2D>("Assets/Textures/Menu/Controls/AlarmScreen");
+            //Vector2 btnScale = new Vector2(0.8f, 0.8f);
+            //clock = new GameObject("Clock");
+            //clock.Transform = new Transform(
+            //new Vector3(btnScale, 1), //s
+            //new Vector3(0, 0.52f, 0), //r
+            //new Vector3(-15.5f, 5.2f, 9));
+
+            //material and renderer
+
+            //add renderer to draw the texture
+
+            //add renderer as a component
+
+            sceneManager.ActiveScene.Add(timeScreen);
+        }
+
 
         private void IntializeRadioModel()
         {
@@ -1262,6 +1311,7 @@ namespace GD.App
             Application.SceneManager = sceneManager;
             Application.SoundManager = soundManager;
             Application.PhysicsManager = physicsManager;
+            Application.StateManager = stateManager;
         }
 
         private void InitializeInput()
@@ -1393,7 +1443,7 @@ namespace GD.App
             perfUtility.infoList.Add(new ObjectInfo(_spriteBatch, spriteFont, "Objects:", Color.White, contentScale * Vector2.One));
             perfUtility.infoList.Add(new TextInfo(_spriteBatch, spriteFont, "Hints -----------------------------------", Color.Yellow, headingScale * Vector2.One));
             perfUtility.infoList.Add(new TextInfo(_spriteBatch, spriteFont, "Use mouse scroll wheel to change security camera FOV, F1-F4 for camera switch", Color.White, contentScale * Vector2.One));
-
+            perfUtility.infoList.Add(new TimeInfo(_spriteBatch, spriteFont, "Time: ", Color.White, contentScale * Vector2.One));
             //add to the component list otherwise it wont have its Update or Draw called!
             // perfUtility.StatusType = StatusType.Drawn | StatusType.Updated;
             perfUtility.DrawOrder = 3;
@@ -1518,105 +1568,128 @@ namespace GD.App
 
         private void PathChecker()
         {
-            Object[] path1Param = { "pathCheck1",  new AudioListener(), new AudioEmitter() };
-            EventData path1G = new EventData(EventCategoryType.Sound, EventActionType.OnPlay3D, path1Param);
+            //Set up events for if the path is formed
+            object[] buttonClick = { "smokeAlarm", new AudioListener(), new AudioEmitter() };
+            EventData pathComplete = new EventData(
+                        EventCategoryType.Sound,
+                        EventActionType.OnPlay3D
+                        , buttonClick);
 
-            EventData path1B = new EventData(EventCategoryType.Sound, EventActionType.OnStopSound, path1Param);
+            EventData pathInComplete = new EventData(
+                        EventCategoryType.Sound,
+                        EventActionType.OnPauseSound
+                        , buttonClick);
+            //EventDispatcher.EventHandlerDelegate del = new(pathComplete);
 
-            Object[] path2Param = { "pathCheck2",  new AudioListener(), new AudioEmitter() };
-            EventData path2G = new EventData(EventCategoryType.Sound, EventActionType.OnPlay3D, path2Param);
+            //EventDispatcher.Subscribe(EventCategoryType.Sound, del);
 
-            EventData path2B = new EventData(EventCategoryType.Sound, EventActionType.OnStopSound, path2Param);
+            object[] boom = { "boom1", new AudioListener(), new AudioEmitter() };
+            EventData tileInPosition = new EventData(
+                        EventCategoryType.Sound,
+                        EventActionType.OnPlay3D
+                        , boom);
 
-            Object[] path3Param = { "pathCheck1",  new AudioListener(), new AudioEmitter() };
-            EventData path3G = new EventData(EventCategoryType.Sound, EventActionType.OnPlay3D, path1Param);
+            //object[] pathCheck1 = { "pathCheck1", new AudioListener(), new AudioEmitter() };
+            //EventData path1InPos = new EventData(
+            //            EventCategoryType.Sound,
+            //            EventActionType.OnPlay3D
+            //            , pathCheck1);
 
-            EventData path3B = new EventData(EventCategoryType.Sound, EventActionType.OnStopSound, path3Param);
+            //object[] pathCheck2 = { "pathCheck2", new AudioListener(), new AudioEmitter() };
+            //EventData path2InPos = new EventData(
+            //            EventCategoryType.Sound,
+            //            EventActionType.OnPlay3D
+            //            , pathCheck2);
 
-            Object[] path4Param = { "pathCheck4",  new AudioListener(), new AudioEmitter() };
-            EventData path4G = new EventData(EventCategoryType.Sound, EventActionType.OnPlay3D, path1Param);
+            //object[] patchCheck3 = { "pathCheck3", new AudioListener(), new AudioEmitter() };
+            //EventData path3InPos = new EventData(
+            //            EventCategoryType.Sound,
+            //            EventActionType.OnPlay3D
+            //            , patchCheck3);
 
-            EventData path4B = new EventData(EventCategoryType.Sound, EventActionType.OnStopSound, path4Param);
+            //object[] pathCheck4 = { "pathCheck4", new AudioListener(), new AudioEmitter() };
+            //EventData path4InPos = new EventData(
+            //            EventCategoryType.Sound,
+            //            EventActionType.OnPlay3D
+            //            , pathCheck4);
 
-            Object[] path5Param = { "pathCheck5", new AudioListener(), new AudioEmitter() };
-            EventData path5G = new EventData(EventCategoryType.Sound, EventActionType.OnPlay3D, path5Param);
+            //object[] pathCheck5 = { "pathCheck5", new AudioListener(), new AudioEmitter() };
+            //EventData path5InPos = new EventData(
+            //            EventCategoryType.Sound,
+            //            EventActionType.OnPlay3D
+            //            , pathCheck5);
 
-            EventData path5B = new EventData(EventCategoryType.Sound, EventActionType.OnStopSound, path5Param);
+            //object[] patchCheck6 = { "pathCheck6", new AudioListener(), new AudioEmitter() };
+            //EventData path6InPos = new EventData(
+            //            EventCategoryType.Sound,
+            //            EventActionType.OnPlay3D
+            //            , patchCheck6);
 
-            Object[] path6Param = { "pathCheck6",  new AudioListener(), new AudioEmitter() };
-            EventData path6G = new EventData(EventCategoryType.Sound, EventActionType.OnPlay3D, path6Param);
+            EventData tileOutOfPosition = new EventData(
+                        EventCategoryType.Sound,
+                        EventActionType.OnPause
+                        , boom);
 
-            EventData path6B = new EventData(EventCategoryType.Sound, EventActionType.OnPlay3D, path6Param);
+            EventData win = new EventData(EventCategoryType.Player, EventActionType.OnWin);
 
-            Object[] pathFormedParam = { "buttonClickExplosion", new AudioListener(),  new AudioEmitter() };
-            EventData pathFormedG = new EventData(EventCategoryType.Sound, EventActionType.OnPlay3D, pathFormedParam);
 
-            EventData pathFormedB = new EventData(EventCategoryType.Sound, EventActionType.OnStop, pathFormedParam);
-
+            // Check if all paths are formed
             if (!temp.States.Contains(false) && temp.PathFormed == false)
             {
-                EventDispatcher.Raise(pathFormedG);
-                //Application.SoundManager.Play2D("buttonClickExplosion");
-                temp.PathFormed= true;
+                EventDispatcher.Raise(pathComplete);
+                //EventDispatcher.Raise(win);
+                temp.PathFormed = true;
             }
-            if (temp.States.Contains(false) && temp.PathFormed == true)
+            else if(temp.States.Contains(false) && temp.PathFormed == true)
             {
-                EventDispatcher.Raise(pathFormedB);
-                //Application.SoundManager.Pause("buttonClickExplosion");
+                EventDispatcher.Raise(pathInComplete);
                 temp.PathFormed = false;
             }
 
             if (tempCube1.Transform.rotation == temp.Pieces[0].rotation && temp.States[0] == false)
             {
-                EventDispatcher.Raise(path1G);
-                //Application.SoundManager.Play2D("openPhone");
+                EventDispatcher.Raise(tileInPosition);
                 temp.setState(true, 0);
             }
-            if (tempCube2.Transform.rotation == temp.Pieces[1].rotation && temp.States[1] == false)
+
+            else if (tempCube2.Transform.rotation == temp.Pieces[1].rotation && temp.States[1] == false)
             {
-                EventDispatcher.Raise(path3G);
-                //Application.SoundManager.Play2D("openPhone");
+                EventDispatcher.Raise(tileInPosition);
                 temp.setState(true, 1);
             }
-            if (tempCube3.Transform.rotation == temp.Pieces[2].rotation && temp.States[2] == false)
+            
+            else if(tempCube3.Transform.rotation == temp.Pieces[2].rotation && temp.States[2] == false)
             {
-                EventDispatcher.Raise(path2G);
-                //Application.SoundManager.Play2D("openPhone");
+                EventDispatcher.Raise(tileInPosition);
                 temp.setState(true, 2);
             }
-
-            if (tempCube4.Transform.rotation == temp.Pieces[3].rotation && temp.States[3] == false)
+            
+            else if(tempCube4.Transform.rotation == temp.Pieces[3].rotation && temp.States[3] == false)
             {
-                EventDispatcher.Raise(path5G);
-                //Application.SoundManager.Play2D("openPhone");
+                EventDispatcher.Raise(tileInPosition);
                 temp.setState(true, 3);
+            }
+            else if (tempCube1.Transform.rotation != temp.Pieces[0].rotation)
+            {
+                EventDispatcher.Raise(tileOutOfPosition);
+                temp.setState(false, 0);
             }
 
             if (tempCube1.Transform.rotation != temp.Pieces[0].rotation && temp.States[0] == true)
             {
-                EventDispatcher.Raise(path1B);
-                temp.setState(false, 0);
-            }
-
-            if (tempCube2.Transform.rotation != temp.Pieces[1].rotation && temp.States[0] == true)
-            {
-                EventDispatcher.Raise(path3B);
+                EventDispatcher.Raise(tileOutOfPosition);
                 temp.setState(false, 1);
             }
-
-            if (tempCube3.Transform.rotation != temp.Pieces[2].rotation && temp.States[0] == true)
+            else if (tempCube3.Transform.rotation != temp.Pieces[2].rotation)
             {
-                EventDispatcher.Raise(path2B);
+                EventDispatcher.Raise(tileOutOfPosition);
                 temp.setState(false, 2);
             }
-
-            if (tempCube4.Transform.rotation != temp.Pieces[3].rotation && temp.States[0] == true)
+            else if (tempCube4.Transform.rotation != temp.Pieces[3].rotation)
             {
-                EventDispatcher.Raise(path5B);
+                EventDispatcher.Raise(tileOutOfPosition);
                 temp.setState(false, 3);
             }
-            
-
         }
 
 

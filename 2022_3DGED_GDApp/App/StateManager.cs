@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using SharpDX.DirectWrite;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace GD.App
 {
@@ -27,25 +29,33 @@ namespace GD.App
     /// </summary>
     public class StateManager : GameComponent
     {
-        private double maxTimeInMS;
-        private double totalElapsedTimeMS;
+        private float maxTimeInMS;
+        private float totalElapsedTimeMS;
+        private float remainingTimeMs;
         private List<InventoryItem> inventory;
 
-        public StateManager(Game game, double maxTimeInMS) : base(game)
+        public StateManager(Game game, float maxTimeInMS) : base(game)
         {
-            this.maxTimeInMS = maxTimeInMS;
-            totalElapsedTimeMS = 0;
-            inventory = new List<InventoryItem>();
-
+            this.MaxTimeInMS = maxTimeInMS;
+            TotalElapsedTimeMS = 0;
+            Inventory = new List<InventoryItem>();
+            remainingTimeMs = maxTimeInMS;
             //Register
         }
 
+        public float MaxTimeInMS { get => maxTimeInMS; set => maxTimeInMS = value; }
+        public float TotalElapsedTimeMS { get => totalElapsedTimeMS; set => totalElapsedTimeMS = value; }
+        public List<InventoryItem> Inventory { get => inventory; set => inventory = value; }
+        public float RemainingTimeMs { get => remainingTimeMs; set => remainingTimeMs = value; }
+
         public override void Update(GameTime gameTime)
         {
-            totalElapsedTimeMS += gameTime.ElapsedGameTime.Milliseconds;
+            TotalElapsedTimeMS += gameTime.ElapsedGameTime.Milliseconds;
 
-            if (totalElapsedTimeMS >= maxTimeInMS)
+            RemainingTimeMs -= gameTime.ElapsedGameTime.Milliseconds;
+            if (TotalElapsedTimeMS >= MaxTimeInMS || RemainingTimeMs <=0)
             {
+                CheckWinLose();
                 //object[] parameters = { "You win!", totalElapsedTimeMS, "win_soundcue" };
                 //EventDispatcher.Raise(
                 //    new EventData(EventCategoryType.Player,
@@ -67,6 +77,7 @@ namespace GD.App
 
         private bool CheckWinLose()
         {
+            
             return false;
             //check individual game items
         }
