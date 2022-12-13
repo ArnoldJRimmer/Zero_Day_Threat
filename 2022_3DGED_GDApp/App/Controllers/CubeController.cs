@@ -19,7 +19,6 @@ namespace GD.Engine
         protected Vector3 rotationAxis = Vector3.UnitY;
         private float rotationSpeedInRadians;
         Keys cubeSelected;
-
         #endregion Fields
 
         #region Constructors
@@ -42,7 +41,6 @@ namespace GD.Engine
             HandleKeyboardInput(gameTime);
             HandleMouseInput(gameTime);
 
-
         }
 
         protected virtual void HandleKeyboardInput(GameTime gameTime)
@@ -52,7 +50,6 @@ namespace GD.Engine
             {
                 //transform.rotation = transform.rotation + gameTime.ElapsedGameTime.Milliseconds * rotationSpeedInRadians * rotationAxis;
                 //Rotates 90 degrees on key press, no holding
-
                 transform.Rotate(new Vector3(0, 0, 90));
 
                 // If the cube rotation is 360 degrees it resets back to 0 degrees 
@@ -69,8 +66,10 @@ namespace GD.Engine
         protected virtual void HandleMouseInput(GameTime gameTime)
         {
 
-            Vector2 delta = Input.Mouse.Delta;
+            Vector2 delta = Input.Mouse.Delta; 
             var mouse = Mouse.GetState();
+
+           
 
         }
 

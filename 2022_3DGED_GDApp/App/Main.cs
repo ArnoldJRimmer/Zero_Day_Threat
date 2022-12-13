@@ -730,6 +730,9 @@ namespace GD.App
             var panelTexture = Content.Load<Texture2D>("Assets/Textures/cube_DefaultMaterial_BaseColor");
             var panelFbxModel = Content.Load<Model>("Assets/Models/cube");
             var panelMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, panelFbxModel);
+            var myRender = new Renderer2D(new TextureMaterial2D(panelTexture,Color.Aqua));
+            
+
             string nameOfcube = "";
           
             //Row 1
@@ -739,24 +742,28 @@ namespace GD.App
                 nameOfcube = "cube" + i.ToString();
                  for (int j = 0; j < 5; j++)
                   {
-                    System.Diagnostics.Debug.WriteLine(nameOfcube + j.ToString());
                     float increment = -0.16f + (0.08f * j);
                     tempCube1 = new GameObject(nameOfcube + j.ToString(), ObjectType.Dynamic, RenderType.Opaque);
                     tempCube1.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, incrementY, increment));
                     tempCube1.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
                     tempCube1.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad1));
-                    var collisionMesh = new Collider(tempCube1);
-                    collisionMesh.AddPrimitive(
-                        new Box(tempCube1.Transform.Translation,
-                                tempCube1.Transform.Rotation,
-                                new Vector3(0.03f,0.03f,0.03f)),
-                                new MaterialProperties(0.8f, 0.8f, 0.7f));
-                    collisionMesh.Enable(tempCube1, true, 1);
-                    tempCube1.AddComponent(collisionMesh);
+                    //Our button collision for when a mouse clicks on a cube
+                    var myrectangle = new ButtonCollider2D(tempCube1, myRender);
+                    myrectangle.AddEvent(MouseButton.Left, new EventData(EventCategoryType.Pickup, EventActionType.OnClick));
+                    tempCube1.AddComponent(myrectangle);
+                    ////////////////////////////////////////
+                    //var collisionMesh = new Collider(tempCube1);
+                    //collisionMesh.AddPrimitive(
+                    //    new Box(tempCube1.Transform.Translation,
+                    //            tempCube1.Transform.Rotation,
+                    //            new Vector3(0.03f,0.03f,0.03f)),
+                    //            new MaterialProperties(0.8f, 0.8f, 0.7f));
+                    //collisionMesh.Enable(tempCube1, true, 1);
+                    //tempCube1.AddComponent(collisionMesh);
                     sceneManager.ActiveScene.Add(tempCube1);
-
                     //Store the cubes
                     storeCubes[i, j] = tempCube1.Transform;
+                   
                 }
             }
 

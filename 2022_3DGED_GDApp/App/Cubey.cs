@@ -25,6 +25,7 @@ namespace GD.Engine
         //1: Be able to draw 6 faces and make one cube
         //2: What is a cube made of
         private GameObject face;
+        private bool active;
 
         public GameObject CubeyBoi(string objectname,Vector3 scale,Vector3 rot, Vector3 translation,BasicEffect effect,Texture2D texture, ModelMesh mesh, Keys key)
         {
@@ -32,7 +33,7 @@ namespace GD.Engine
             face = new GameObject(objectname, ObjectType.Dynamic, RenderType.Opaque);
             face.Transform = new Transform(scale,rot,translation);
             face.AddComponent(new Renderer(new GDBasicEffect(effect), new Material(texture,1),mesh));
-            face.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), key));
+            //face.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), key));
             return face;
         }
 
@@ -46,6 +47,11 @@ namespace GD.Engine
             //System.ArgumentNullException: 'The GraphicsDevice must not be null when creating new resources. (Parameter 'graphicsDevice')'
             //texture = Content.Load<Texture2D>("Assets/Textures/SkyBox/basicwall");
             face.AddComponent(new Renderer(effect, new Material(texture, 1, color), mesh));
+            return face;
+        }
+        public GameObject ubey(string objectname)
+        {
+            active = false;
             return face;
         }
 
