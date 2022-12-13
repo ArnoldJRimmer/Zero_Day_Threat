@@ -62,6 +62,8 @@
         WinLose,
         Explosion,
         BackgroundMusic,
+        Ambience,
+        SFX,
         Alarm
     }
 
@@ -147,6 +149,7 @@
         OnRestart,
         OnExit,
         OnStop,
+        OnStopSound,
         OnStopAll,
 
         OnVolumeDelta,

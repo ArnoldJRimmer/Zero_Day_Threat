@@ -109,6 +109,7 @@ namespace GD.App
         private void DemoStateManagerEvent()
         {
             EventDispatcher.Subscribe(EventCategoryType.Player, HandleEvent);
+            EventDispatcher.Subscribe(EventCategoryType.Sound, HandleEvent);
         }
 
         private void HandleEvent(EventData eventData)
@@ -121,6 +122,18 @@ namespace GD.App
 
                 case EventActionType.OnLose:
                     System.Diagnostics.Debug.WriteLine(eventData.Parameters[2] as string);
+                    break;
+
+                case EventActionType.OnPlay3D:
+                    Application.SoundManager.Play3D(eventData.Parameters[0] as string, eventData.Parameters[1] as AudioListener, eventData.Parameters[2] as AudioEmitter);
+                    break;
+
+                case EventActionType.OnStopSound:
+                    Application.SoundManager.Stop(eventData.Parameters[0] as string);
+                    break;
+
+                case EventActionType.OnPlay2D:
+                    Application.SoundManager.Play2D(eventData.Parameters[0] as string);
                     break;
 
                 default:
@@ -209,6 +222,8 @@ namespace GD.App
             //    new EventData(EventCategoryType.Player,
             //    EventActionType.OnSpawnObject,
             //    parameters));
+
+            
         }
 
         private void SetTitle(string title)
@@ -244,7 +259,7 @@ namespace GD.App
             soundManager.Add(new Cue(
                 "incorrectNumber",
                 incorrectNumberEffect,
-                SoundCategoryType.Alarm,
+                SoundCategoryType.SFX,
                 new Vector3(1, 1, 0),
                 false));
 
@@ -255,7 +270,7 @@ namespace GD.App
             soundManager.Add(new Cue(
                 "CardDrop",
                 cardDropEffect,
-                SoundCategoryType.Alarm,
+                SoundCategoryType.SFX,
                 new Vector3(1, 1, 0),
                 false));
 
@@ -266,7 +281,7 @@ namespace GD.App
             soundManager.Add(new Cue(
                 "buttonClickExplosion",
                 buttonClickExplosionEffect,
-                SoundCategoryType.Alarm,
+                SoundCategoryType.SFX,
                 new Vector3(0.6f, 1, 0),
                 false));
 
@@ -277,7 +292,7 @@ namespace GD.App
             soundManager.Add(new Cue(
                 "cardPickupOrSwipe",
                 cardPickupOrSwipeEffect,
-                SoundCategoryType.Alarm,
+                SoundCategoryType.SFX,
                 new Vector3(1, 1, 0),
                 false));
 
@@ -288,7 +303,7 @@ namespace GD.App
             soundManager.Add(new Cue(
                 "dialTwisting",
                 dialTwistingEffect,
-                SoundCategoryType.Alarm,
+                SoundCategoryType.SFX,
                 new Vector3(1, 1, 0),
                 false));
 
@@ -299,7 +314,7 @@ namespace GD.App
             soundManager.Add(new Cue(
                 "externalButtonPress",
                 externalButtonPressEffect,
-                SoundCategoryType.Alarm,
+                SoundCategoryType.SFX,
                 new Vector3(1, 1, 0),
                 false));
 
@@ -321,7 +336,7 @@ namespace GD.App
             soundManager.Add(new Cue(
                 "keyboardPressing",
                 keyboardPressingEffect,
-                SoundCategoryType.Alarm,
+                SoundCategoryType.SFX,
                 new Vector3(1, 1, 0),
                 false));
 
@@ -332,7 +347,7 @@ namespace GD.App
             soundManager.Add(new Cue(
                 "numPad",
                 numPadEffect,
-                SoundCategoryType.Alarm,
+                SoundCategoryType.SFX,
                 new Vector3(1, 1, 0),
                 false));
 
@@ -343,7 +358,7 @@ namespace GD.App
             soundManager.Add(new Cue(
                 "startUpBeep",
                 startUpBeepEffect,
-                SoundCategoryType.Alarm,
+                SoundCategoryType.SFX,
                 new Vector3(1, 1, 0),
                 false));
 
@@ -356,6 +371,96 @@ namespace GD.App
                 openPhoneEffect,
                 SoundCategoryType.Alarm,
                 new Vector3(0.8f, 1, 0.8f),
+                false));
+
+            var computerFanEffect =
+                Content.Load<SoundEffect>("Assets/Audio/Diegetic/AmbientComputerFan");
+
+            soundManager.Add(new Cue(
+                "computerFan",
+                computerFanEffect,
+                SoundCategoryType.Ambience,
+                new Vector3(0.16f, 1, 0 ),
+                false));
+
+            var roomFanEffect =
+                Content.Load<SoundEffect>("Assets/Audio/Diegetic/AmbientSoundsRoom_Fan");
+
+            soundManager.Add(new Cue(
+                "roomFan",
+                roomFanEffect,
+                SoundCategoryType.Ambience,
+                new Vector3(0.15f, 1, 0),
+                false));
+
+            var electricBuzzEffect =
+                Content.Load<SoundEffect>("Assets/Audio/Diegetic/Ambient_ElectricBuzz");
+
+            soundManager.Add(new Cue(
+                "electricBuzz",
+                electricBuzzEffect,
+                SoundCategoryType.Ambience,
+                new Vector3(0.15f, 0.995f, 0),
+                false));
+
+            var pathCheck1Effect =
+                Content.Load<SoundEffect>("Assets/Audio/Diegetic/PathCheck1");
+
+            soundManager.Add(new Cue(
+                "pathCheck1",
+                pathCheck1Effect,
+                SoundCategoryType.SFX,
+                new Vector3(1, 0.995f, 0),
+                false));
+
+            var pathCheck2Effect =
+                Content.Load<SoundEffect>("Assets/Audio/Diegetic/PathCheck2");
+
+            soundManager.Add(new Cue(
+                "pathCheck2",
+                pathCheck2Effect,
+                SoundCategoryType.SFX,
+                new Vector3(1, 0.995f, 0),
+                false));
+
+            var pathCheck3Effect =
+                Content.Load<SoundEffect>("Assets/Audio/Diegetic/PathCheck3");
+
+            soundManager.Add(new Cue(
+                "pathCheck3",
+                pathCheck3Effect,
+                SoundCategoryType.SFX,
+                new Vector3(1, 0.995f, 0),
+                false));
+
+            var pathCheck4Effect =
+                Content.Load<SoundEffect>("Assets/Audio/Diegetic/PathCheck4");
+
+            soundManager.Add(new Cue(
+                "pathCheck4",
+                pathCheck4Effect,
+                SoundCategoryType.SFX,
+                new Vector3(1, 0.995f, 0),
+                false));
+
+            var pathCheck5Effect =
+                Content.Load<SoundEffect>("Assets/Audio/Diegetic/PathCheck5");
+
+            soundManager.Add(new Cue(
+                "pathCheck5",
+                pathCheck5Effect,
+                SoundCategoryType.SFX,
+                new Vector3(1, 0.995f, 0),
+                false));
+
+            var pathCheck6Effect =
+                Content.Load<SoundEffect>("Assets/Audio/Diegetic/PathCheck6");
+
+            soundManager.Add(new Cue(
+                "pathCheck6",
+                pathCheck6Effect,
+                SoundCategoryType.SFX,
+                new Vector3(1, 0.995f, 0),
                 false));
         }
 
@@ -1059,7 +1164,7 @@ namespace GD.App
             //Adds it to the scene 
             #endregion Old Code
 
-        
+
         }
 
         private void InitializeSkyBoxAndGround(float worldScale)
@@ -1342,6 +1447,33 @@ namespace GD.App
                 //    Application.SoundManager.Play2D("boom1");
             }
 
+            if(gameTime.TotalGameTime.Seconds >= 3.02 && gameTime.TotalGameTime.Seconds <= 5.3)
+            {
+                object[] parameters = { "roomFan" };
+                EventDispatcher.Raise(
+                    new EventData(EventCategoryType.Sound,
+                    EventActionType.OnPlay2D,
+                    parameters));
+            }
+
+            if (gameTime.TotalGameTime.Seconds >= 108 && gameTime.TotalGameTime.Seconds <= 112)
+            {
+                object[] parameters = { "electricBuzz" };
+                EventDispatcher.Raise(
+                    new EventData(EventCategoryType.Sound,
+                    EventActionType.OnPlay2D,
+                    parameters));
+            }
+
+            if (gameTime.TotalGameTime.Seconds >= 240 && gameTime.TotalGameTime.Seconds <= 242)
+            {
+                object[] parameters = { "computerFan" };
+                EventDispatcher.Raise(
+                    new EventData(EventCategoryType.Sound,
+                    EventActionType.OnPlay2D,
+                    parameters));
+            }
+
             #region Demo - Camera switching
 
             if (Input.Keys.IsPressed(Keys.F1))
@@ -1386,71 +1518,104 @@ namespace GD.App
 
         private void PathChecker()
         {
+            Object[] path1Param = { "pathCheck1",  new AudioListener(), new AudioEmitter() };
+            EventData path1G = new EventData(EventCategoryType.Sound, EventActionType.OnPlay3D, path1Param);
+
+            EventData path1B = new EventData(EventCategoryType.Sound, EventActionType.OnStopSound, path1Param);
+
+            Object[] path2Param = { "pathCheck2",  new AudioListener(), new AudioEmitter() };
+            EventData path2G = new EventData(EventCategoryType.Sound, EventActionType.OnPlay3D, path2Param);
+
+            EventData path2B = new EventData(EventCategoryType.Sound, EventActionType.OnStopSound, path2Param);
+
+            Object[] path3Param = { "pathCheck1",  new AudioListener(), new AudioEmitter() };
+            EventData path3G = new EventData(EventCategoryType.Sound, EventActionType.OnPlay3D, path1Param);
+
+            EventData path3B = new EventData(EventCategoryType.Sound, EventActionType.OnStopSound, path3Param);
+
+            Object[] path4Param = { "pathCheck4",  new AudioListener(), new AudioEmitter() };
+            EventData path4G = new EventData(EventCategoryType.Sound, EventActionType.OnPlay3D, path1Param);
+
+            EventData path4B = new EventData(EventCategoryType.Sound, EventActionType.OnStopSound, path4Param);
+
+            Object[] path5Param = { "pathCheck5", new AudioListener(), new AudioEmitter() };
+            EventData path5G = new EventData(EventCategoryType.Sound, EventActionType.OnPlay3D, path5Param);
+
+            EventData path5B = new EventData(EventCategoryType.Sound, EventActionType.OnStopSound, path5Param);
+
+            Object[] path6Param = { "pathCheck6",  new AudioListener(), new AudioEmitter() };
+            EventData path6G = new EventData(EventCategoryType.Sound, EventActionType.OnPlay3D, path6Param);
+
+            EventData path6B = new EventData(EventCategoryType.Sound, EventActionType.OnPlay3D, path6Param);
+
+            Object[] pathFormedParam = { "buttonClickExplosion", new AudioListener(),  new AudioEmitter() };
+            EventData pathFormedG = new EventData(EventCategoryType.Sound, EventActionType.OnPlay3D, pathFormedParam);
+
+            EventData pathFormedB = new EventData(EventCategoryType.Sound, EventActionType.OnStop, pathFormedParam);
+
             if (!temp.States.Contains(false) && temp.PathFormed == false)
             {
-                Application.SoundManager.Play2D("buttonClickExplosion");
+                EventDispatcher.Raise(pathFormedG);
+                //Application.SoundManager.Play2D("buttonClickExplosion");
                 temp.PathFormed= true;
             }
-            else if(temp.States.Contains(false) && temp.PathFormed == true)
+            if (temp.States.Contains(false) && temp.PathFormed == true)
             {
-                Application.SoundManager.Pause("buttonClickExplosion");
+                EventDispatcher.Raise(pathFormedB);
+                //Application.SoundManager.Pause("buttonClickExplosion");
                 temp.PathFormed = false;
             }
-            //for (int i = 0; i <= temp.Size-1; i++)
-            //{
-            //    if (cubes[i].Transform.rotation == temp.Pieces[i].rotation && temp.States[i] == false)
-            //    {
-            //        Application.SoundManager.Play2D("boom1");
-            //        temp.setState(true, i);
-            //    }
-            //    else if(cubes[i].Transform.rotation != temp.Pieces[i].rotation)
-            //    {
-            //        temp.setState(false, i);
-            //    }
-            //}
-            if (tempCube1.Transform.Rotation == temp.Pieces[0].Rotation && temp.States[0] == false)
+
+            if (tempCube1.Transform.rotation == temp.Pieces[0].rotation && temp.States[0] == false)
             {
-                Application.SoundManager.Play2D("openPhone");
+                EventDispatcher.Raise(path1G);
+                //Application.SoundManager.Play2D("openPhone");
                 temp.setState(true, 0);
             }
-            else if (tempCube1.Transform.Rotation != temp.Pieces[0].Rotation && temp.States[0] == true)
+            if (tempCube2.Transform.rotation == temp.Pieces[1].rotation && temp.States[1] == false)
             {
-                temp.setState(false, 0);
-            }
-
-            else if (tempCube2.Transform.Rotation == temp.Pieces[1].Rotation && temp.States[1] == false)
-            {
-                Application.SoundManager.Play2D("openPhone");
+                EventDispatcher.Raise(path3G);
+                //Application.SoundManager.Play2D("openPhone");
                 temp.setState(true, 1);
             }
-
-            else if (tempCube2.Transform.Rotation != temp.Pieces[1].Rotation && temp.States[0] == true)
+            if (tempCube3.Transform.rotation == temp.Pieces[2].rotation && temp.States[2] == false)
             {
-                temp.setState(false, 1);
-            }
-
-            else if (tempCube3.Transform.Rotation == temp.Pieces[2].Rotation && temp.States[2] == false)
-            {
-                Application.SoundManager.Play2D("openPhone");
+                EventDispatcher.Raise(path2G);
+                //Application.SoundManager.Play2D("openPhone");
                 temp.setState(true, 2);
             }
 
-            else if (tempCube3.Transform.Rotation != temp.Pieces[2].Rotation && temp.States[0] == true)
+            if (tempCube4.Transform.rotation == temp.Pieces[3].rotation && temp.States[3] == false)
             {
-                temp.setState(false, 2);
-            }
-
-            else if (tempCube4.Transform.Rotation == temp.Pieces[3].Rotation && temp.States[3] == false)
-            {
-                Application.SoundManager.Play2D("openPhone");
+                EventDispatcher.Raise(path5G);
+                //Application.SoundManager.Play2D("openPhone");
                 temp.setState(true, 3);
             }
 
-            else if (tempCube4.Transform.Rotation != temp.Pieces[3].Rotation && temp.States[0] == true)
+            if (tempCube1.Transform.rotation != temp.Pieces[0].rotation && temp.States[0] == true)
             {
-                temp.setState(false, 3);
+                EventDispatcher.Raise(path1B);
+                temp.setState(false, 0);
             }
 
+            if (tempCube2.Transform.rotation != temp.Pieces[1].rotation && temp.States[0] == true)
+            {
+                EventDispatcher.Raise(path3B);
+                temp.setState(false, 1);
+            }
+
+            if (tempCube3.Transform.rotation != temp.Pieces[2].rotation && temp.States[0] == true)
+            {
+                EventDispatcher.Raise(path2B);
+                temp.setState(false, 2);
+            }
+
+            if (tempCube4.Transform.rotation != temp.Pieces[3].rotation && temp.States[0] == true)
+            {
+                EventDispatcher.Raise(path5B);
+                temp.setState(false, 3);
+            }
+            
 
         }
 

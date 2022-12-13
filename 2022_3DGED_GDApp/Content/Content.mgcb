@@ -13,6 +13,24 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Assets/Audio/Diegetic/Ambient_ElectricBuzz.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Audio/Diegetic/Ambient_ElectricBuzz.wav
+
+#begin Assets/Audio/Diegetic/AmbientComputerFan.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Audio/Diegetic/AmbientComputerFan.wav
+
+#begin Assets/Audio/Diegetic/AmbientSoundsRoom_Fan.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Audio/Diegetic/AmbientSoundsRoom_Fan.wav
+
 #begin Assets/Audio/Diegetic/Button_click_explosion.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -78,6 +96,42 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Assets/Audio/Diegetic/Open-phone.wav
+
+#begin Assets/Audio/Diegetic/PathCheck1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Audio/Diegetic/PathCheck1.wav
+
+#begin Assets/Audio/Diegetic/PathCheck2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Audio/Diegetic/PathCheck2.wav
+
+#begin Assets/Audio/Diegetic/PathCheck3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Audio/Diegetic/PathCheck3.wav
+
+#begin Assets/Audio/Diegetic/PathCheck4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Audio/Diegetic/PathCheck4.wav
+
+#begin Assets/Audio/Diegetic/PathCheck5.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Audio/Diegetic/PathCheck5.wav
+
+#begin Assets/Audio/Diegetic/PathCheck6.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Assets/Audio/Diegetic/PathCheck6.wav
 
 #begin Assets/Audio/Diegetic/smokealarm1.ogg
 /importer:OggImporter
@@ -400,7 +454,7 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:Assets/Models/floppy-disk.fbx
+/build:Assets/Models/cube.FBX
 
 #begin Assets/Models/front-wall.fbx
 /importer:FbxImporter
@@ -514,9 +568,9 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:Assets/Models/keyboard.fbx
+/build:Assets/Models/floppy-disk.fbx
 
-#begin Assets/Models/keypad.fbx
+#begin Assets/Models/keyboard.fbx
 /importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
@@ -533,9 +587,9 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:Assets/Models/keypad.fbx
+/build:Assets/Models/keyboard.fbx
 
-#begin Assets/Models/lamp.fbx
+#begin Assets/Models/keypad.fbx
 /importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
@@ -611,6 +665,25 @@
 /processorParam:TextureFormat=Compressed
 /build:Assets/Models/left-wall.fbx
 
+#begin Assets/Models/lamp.fbx
+/importer:FbxImporter
+/processor:ModelProcessor
+/processorParam:ColorKeyColor=0,0,0,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:DefaultEffect=BasicEffect
+/processorParam:GenerateMipmaps=True
+/processorParam:GenerateTangentFrames=False
+/processorParam:PremultiplyTextureAlpha=True
+/processorParam:PremultiplyVertexColors=True
+/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:RotationX=0
+/processorParam:RotationY=0
+/processorParam:RotationZ=0
+/processorParam:Scale=1
+/processorParam:SwapWindingOrder=False
+/processorParam:TextureFormat=Compressed
+/build:Assets/Models/lamp.fbx
+
 #begin Assets/Models/panel.fbx
 /importer:FbxImporter
 /processor:ModelProcessor
@@ -648,25 +721,6 @@
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:Assets/Models/radar-display.fbx
-
-#begin Assets/Models/radio.fbx
-/importer:FbxImporter
-/processor:ModelProcessor
-/processorParam:ColorKeyColor=0,0,0,0
-/processorParam:ColorKeyEnabled=True
-/processorParam:DefaultEffect=BasicEffect
-/processorParam:GenerateMipmaps=True
-/processorParam:GenerateTangentFrames=False
-/processorParam:PremultiplyTextureAlpha=True
-/processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
-/processorParam:RotationY=0
-/processorParam:RotationZ=0
-/processorParam:Scale=1
-/processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=Compressed
-/build:Assets/Models/radio.fbx
 
 #begin Assets/Models/rear-wall.fbx
 /importer:FbxImporter
