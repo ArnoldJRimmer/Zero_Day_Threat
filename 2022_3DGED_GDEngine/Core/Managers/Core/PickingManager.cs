@@ -67,7 +67,7 @@ namespace GD.Engine
             if (pickedObject != null && collisionPredicate(pickedObject))
             {
                 //TODO - here is where you decide what to do!
-                System.Diagnostics.Debug.WriteLine(pickedObject.GameObjectType);
+                // System.Diagnostics.Debug.WriteLine(pickedObject.GameObjectType);
 
                 //var behaviour = pickedObject.GetComponent<PickupBehaviour>();
 

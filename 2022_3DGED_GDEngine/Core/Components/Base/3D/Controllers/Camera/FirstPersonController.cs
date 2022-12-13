@@ -1,7 +1,6 @@
 ﻿using GD.Engine.Globals;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using GD.App;
 
 namespace GD.Engine
 {
@@ -93,22 +92,6 @@ namespace GD.Engine
             }
             //store current to be used for next update of smoothing
             oldDelta = newDelta;
-
-            //if (oldDelta.X < AppData.boundingScreen.X / 2 && oldDelta.X > -AppData.boundingScreen.X / 2 && oldDelta.Y < AppData.boundingScreen.Y / 2 && oldDelta.Y > -AppData.boundingScreen.Y / 2)
-            //{
-            //    //Q - where are X and Y reversed?
-            //    rotation.Y -= oldDelta.X * rotationSpeed.X * gameTime.ElapsedGameTime.Milliseconds;
-            //    rotation.X -= oldDelta.Y * rotationSpeed.Y * gameTime.ElapsedGameTime.Milliseconds;
-
-            //    //Need to work on the rotation of the y so that is stops at 180
-            //    //Also restrict the x so that it doesn't look all the way up
-            //    if (oldDelta.Length() != 0)
-            //    {
-
-            //    }
-
-            //    transform.SetRotation(rotation);
-            //}
         }
 
         #endregion Actions - Update, Input

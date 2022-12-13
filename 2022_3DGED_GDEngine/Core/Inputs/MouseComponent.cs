@@ -12,7 +12,7 @@ namespace GD.Engine.Inputs
     /// </summary>
     public enum MouseButton : sbyte
     {
-        Left, Middle, Right, Any
+        Left, Middle, Right, Any, Scroll, Hover
     }
 
     /// <summary>
