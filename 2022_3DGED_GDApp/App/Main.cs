@@ -6,6 +6,7 @@
 #endregion
 
 using GD.Engine;
+using GD.Engine.Collections;
 using GD.Engine.Events;
 using GD.Engine.Globals;
 using GD.Engine.Inputs;
@@ -58,6 +59,27 @@ namespace GD.App
         private GameObject tempCube3;
         private GameObject tempCube4;
         private GameObject tempCube5;
+        private GameObject tempCube6;
+        private GameObject tempCube7;
+        private GameObject tempCube8;
+        private GameObject tempCube9;
+        private GameObject tempCube10;
+        private GameObject tempCube11;
+        private GameObject tempCube12;
+        private GameObject tempCube13;
+        private GameObject tempCube14;
+        private GameObject tempCube15;
+        private GameObject tempCube16;
+        private GameObject tempCube17;
+        private GameObject tempCube18;
+        private GameObject tempCube19;
+        private GameObject tempCube20;
+        private GameObject tempCube21;
+        private GameObject tempCube22;
+        private GameObject tempCube23;
+        private GameObject tempCube24;
+        private GameObject tempCube25;
+
         private Transform[,] storeCubes = new Transform[5, 5];
 
 
@@ -468,7 +490,7 @@ namespace GD.App
             cameraManager.Add(cameraGameObject.Name, cameraGameObject);
 
             #endregion First Person
-
+           
             cameraManager.SetActiveCamera(AppData.FIRST_PERSON_CAMERA_NAME);
         }
 
@@ -726,80 +748,200 @@ namespace GD.App
         {
             //Make each cube out of 6 different planes. Ideally have a class called Cubey.cs that makes the cube out of these six faces
             //Sample of what i would like to do
-
             var panelTexture = Content.Load<Texture2D>("Assets/Textures/cube_DefaultMaterial_BaseColor");
             var panelFbxModel = Content.Load<Model>("Assets/Models/cube");
             var panelMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, panelFbxModel);
             var myRender = new Renderer2D(new TextureMaterial2D(panelTexture,Color.Aqua));
-            
 
-            string nameOfcube = "";
-          
-            //Row 1
-            for (int i = 0; i<5; i++)
-            {
-                float incrementY = 2 + (-0.04f * i);
-                nameOfcube = "cube" + i.ToString();
-                 for (int j = 0; j < 5; j++)
-                  {
-                    float increment = -0.16f + (0.08f * j);
-                    tempCube1 = new GameObject(nameOfcube + j.ToString(), ObjectType.Dynamic, RenderType.Opaque);
-                    tempCube1.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, incrementY, increment));
-                    tempCube1.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
-                    tempCube1.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad1));
-                    //Our button collision for when a mouse clicks on a cube
-                    var myrectangle = new ButtonCollider2D(tempCube1, myRender);
-                    myrectangle.AddEvent(MouseButton.Left, new EventData(EventCategoryType.Pickup, EventActionType.OnClick));
-                    tempCube1.AddComponent(myrectangle);
-                    ////////////////////////////////////////
-                    //var collisionMesh = new Collider(tempCube1);
-                    //collisionMesh.AddPrimitive(
-                    //    new Box(tempCube1.Transform.Translation,
-                    //            tempCube1.Transform.Rotation,
-                    //            new Vector3(0.03f,0.03f,0.03f)),
-                    //            new MaterialProperties(0.8f, 0.8f, 0.7f));
-                    //collisionMesh.Enable(tempCube1, true, 1);
-                    //tempCube1.AddComponent(collisionMesh);
-                    sceneManager.ActiveScene.Add(tempCube1);
-                    //Store the cubes
-                    storeCubes[i, j] = tempCube1.Transform;
-                   
-                }
-            }
 
-            #region Old Code
+            //string nameOfcube = "";
+
+            ////Row 1
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    float incrementY = 2 + (-0.04f * i);
+            //    nameOfcube = "cube" + i.ToString();
+            //    for (int j = 0; j < 5; j++)
+            //    {
+            //        float increment = -0.16f + (0.08f * j);
+            //        tempCube1 = new GameObject(nameOfcube + j.ToString(), ObjectType.Dynamic, RenderType.Opaque);
+            //        tempCube1.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, incrementY, increment));
+            //        tempCube1.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            //        //Our button collision for when a mouse clicks on a cube
+            //        var myrectangle = new ButtonCollider2D(tempCube1, myRender);
+            //        myrectangle.AddEvent(MouseButton.Left, new EventData(EventCategoryType.Pickup, EventActionType.OnClick));
+            //        tempCube1.AddComponent(myrectangle);
+            //        ////////////////////////////////////////
+            //        //var collisionMesh = new Collider(tempCube1);
+            //        //collisionMesh.AddPrimitive(
+            //        //    new Box(tempCube1.Transform.Translation,
+            //        //            tempCube1.Transform.Rotation,
+            //        //            new Vector3(0.03f,0.03f,0.03f)),
+            //        //            new MaterialProperties(0.8f, 0.8f, 0.7f));
+            //        //collisionMesh.Enable(tempCube1, true, 1);
+            //        //tempCube1.AddComponent(collisionMesh);
+            //        //Store the cubes
+            //        storeCubes[i, j] = tempCube1.Transform;
+            //        sceneManager.ActiveScene.Add(tempCube1);
+            //    }
+
+            //    tempCube1.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad1 + i));
+            //}
+
+
+            #region The Grid(Look risk to ones eyes)
+
+            tempCube1 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube1.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(1, 2, 0.16f));
+            tempCube1.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            tempCube1.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.A));
+
             tempCube2 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
             tempCube2.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(1, 2, 0.08f));
-            ////tempCube2.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
-            tempCube2.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad2));
+            tempCube2.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            tempCube2.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.S));
 
             tempCube3 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
             tempCube3.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, MathHelper.PiOver2), new Vector3(1, 2, 0));
-            //tempCube3.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
-            tempCube3.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad3));
+            tempCube3.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            tempCube3.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.D));
 
             tempCube4 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
             tempCube4.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, 2, -0.08f));
-            //tempCube4.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
-            tempCube4.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad4));
+            tempCube4.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            tempCube4.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.F));
 
             tempCube5 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
             tempCube5.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, 2, -0.16f));
-            //tempCube5.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
-            tempCube5.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad1));
+            tempCube5.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            tempCube5.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.G));
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+            tempCube6 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube6.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(1, 2.04f, 0.16f));
+            tempCube6.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            tempCube6.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.Q));
 
-            //Cubey myCubey = new Cubey();
-            //GameObject tempcube1 = myCubey.CubeyBoi("Front", new Vector3(0.02f, 0.02f, 0.02f), new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, 2, 0.16f),
-            //    litEffect, panelTexture, panelMesh, Keys.NumPad1);
+            tempCube7 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube7.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(1, 2.04f, 0.08f));
+            tempCube7.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            tempCube7.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.W));
 
+            tempCube8 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube8.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, MathHelper.PiOver2), new Vector3(1, 2.04f, 0));
+            tempCube8.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            tempCube8.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.E));
 
+            tempCube9 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube9.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, 2.04f, -0.08f));
+            tempCube9.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            tempCube9.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.R));
 
+            tempCube10 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube10.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, 2.04f, -0.16f));
+            tempCube10.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            tempCube10.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.T));
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            tempCube11 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube11.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(1, 1.96f, 0.16f));
+            tempCube11.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            tempCube11.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.Z));
 
+            tempCube12 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube12.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(1, 1.96f, 0.08f));
+            tempCube12.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            tempCube12.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.X));
+
+            tempCube13 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube13.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, MathHelper.PiOver2), new Vector3(1, 1.96f, 0));
+            tempCube13.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            tempCube13.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.C));
+
+            tempCube14 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube14.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, 1.96f, -0.08f));
+            tempCube14.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            tempCube14.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.V));
+
+            tempCube15 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube15.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, 1.96f, -0.16f));
+            tempCube15.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            tempCube15.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.B));
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////
+            tempCube16 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube16.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(1, 1.92f, 0.16f));
+            tempCube16.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            tempCube16.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad0));
+
+            tempCube17 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube17.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(1, 1.92f, 0.08f));
+            tempCube17.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            tempCube17.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad1));
+
+            tempCube18 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube18.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, MathHelper.PiOver2), new Vector3(1, 1.92f, 0));
+            tempCube18.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            tempCube18.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad2));
+
+            tempCube19 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube19.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, 1.92f, -0.08f));
+            tempCube19.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            tempCube19.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad3));
+
+            tempCube20 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube20.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, 1.92f, -0.16f));
+            tempCube20.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            tempCube20.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad4));
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            tempCube21 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube21.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(1, 1.87f, 0.16f));
+            tempCube21.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            tempCube21.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad5));
+
+            tempCube22 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube22.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(1, 1.87f, 0.08f));
+            tempCube22.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            tempCube22.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad6));
+
+            tempCube23 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube23.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, MathHelper.PiOver2), new Vector3(1, 1.87f, 0));
+            tempCube23.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            tempCube23.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad7));
+
+            tempCube24 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube24.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, 1.87f, -0.08f));
+            tempCube24.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            tempCube24.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad8));
+
+            tempCube25 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube25.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, 1.87f, -0.16f));
+            tempCube25.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            tempCube25.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad9));
+
+            sceneManager.ActiveScene.Add(tempCube1);
             sceneManager.ActiveScene.Add(tempCube2);
             sceneManager.ActiveScene.Add(tempCube3);
             sceneManager.ActiveScene.Add(tempCube4);
             sceneManager.ActiveScene.Add(tempCube5);
+            sceneManager.ActiveScene.Add(tempCube6);
+            sceneManager.ActiveScene.Add(tempCube7);
+            sceneManager.ActiveScene.Add(tempCube8);
+            sceneManager.ActiveScene.Add(tempCube9);
+            sceneManager.ActiveScene.Add(tempCube10);
+            sceneManager.ActiveScene.Add(tempCube11);
+            sceneManager.ActiveScene.Add(tempCube12);
+            sceneManager.ActiveScene.Add(tempCube13);
+            sceneManager.ActiveScene.Add(tempCube14);
+            sceneManager.ActiveScene.Add(tempCube15);
+            sceneManager.ActiveScene.Add(tempCube16);
+            sceneManager.ActiveScene.Add(tempCube17);
+            sceneManager.ActiveScene.Add(tempCube18);
+            sceneManager.ActiveScene.Add(tempCube19);
+            sceneManager.ActiveScene.Add(tempCube20);
+            sceneManager.ActiveScene.Add(tempCube21);
+            sceneManager.ActiveScene.Add(tempCube22);
+            sceneManager.ActiveScene.Add(tempCube23);
+            sceneManager.ActiveScene.Add(tempCube24);
+            sceneManager.ActiveScene.Add(tempCube25);
             #endregion
 
         }

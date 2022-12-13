@@ -31,10 +31,7 @@ namespace GD.Engine
             this.cubeSelected = key;
         }
 
-
         #endregion Constructors
-
-
         public override void Update(GameTime gameTime)
         {
 
@@ -59,7 +56,6 @@ namespace GD.Engine
                 }
 
             }
-
 
         }
 
