@@ -55,6 +55,8 @@ namespace GD.App
         private GameObject tempCube3;
         private GameObject tempCube4;
         private GameObject tempCube5;
+        private Transform[,] storeCubes = new Transform[5, 5];
+
 
 #if DEMO
         private event EventHandler OnChanged;
@@ -672,9 +674,9 @@ namespace GD.App
             var panelTexture = Content.Load<Texture2D>("Assets/Textures/cube_DefaultMaterial_BaseColor");
             var panelFbxModel = Content.Load<Model>("Assets/Models/cube");
             var panelMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, panelFbxModel);
-
+          
             //Row 1
-            for(int i = 0; i<5; i++)
+            for (int i = 0; i<5; i++)
             {
                 float incrementY = 2 + (-0.04f * i);
                  for (int j = 0; j < 5; j++)
@@ -684,30 +686,41 @@ namespace GD.App
                     tempCube1.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, incrementY, increment));
                     tempCube1.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
                     tempCube1.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad1));
+                    var collisionMesh = new Collider(tempCube1);
+                    collisionMesh.AddPrimitive(
+                        new Box(tempCube1.Transform.Translation,
+                                tempCube1.Transform.Rotation,
+                                new Vector3(0.03f,0.03f,0.03f)),
+                                new MaterialProperties(0.8f, 0.8f, 0.7f));
+                    collisionMesh.Enable(tempCube1, true, 1);
+                    tempCube1.AddComponent(collisionMesh);
                     sceneManager.ActiveScene.Add(tempCube1);
-                  }
+
+                    //Store the cubes
+                    storeCubes[i, j] = tempCube1.Transform;
+                }
             }
 
             #region Old Code
-            //tempCube2 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
-            //tempCube2.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(1, 2, 0.08f));
+            tempCube2 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube2.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(1, 2, 0.08f));
             ////tempCube2.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
-            //tempCube2.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad2));
+            tempCube2.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad2));
 
-            //tempCube3 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
-            //tempCube3.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, MathHelper.PiOver2), new Vector3(1, 2, 0));
-            ////tempCube3.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
-            //tempCube3.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad3));
+            tempCube3 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube3.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, MathHelper.PiOver2), new Vector3(1, 2, 0));
+            //tempCube3.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            tempCube3.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad3));
 
-            //tempCube4 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
-            //tempCube4.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, 2, -0.08f));
-            ////tempCube4.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
-            //tempCube4.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad4));
+            tempCube4 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube4.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, 2, -0.08f));
+            //tempCube4.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            tempCube4.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad4));
 
-            //tempCube5 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
-            //tempCube5.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, 2, -0.16f));
-            ////tempCube5.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
-            //tempCube5.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad1));
+            tempCube5 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube5.Transform = new Transform(AppData.CUBE_SCALE, new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, 2, -0.16f));
+            //tempCube5.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
+            tempCube5.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad1));
 
 
             //Cubey myCubey = new Cubey();
@@ -717,10 +730,10 @@ namespace GD.App
 
 
 
-            //sceneManager.ActiveScene.Add(tempCube2);
-            //sceneManager.ActiveScene.Add(tempCube3);
-            //sceneManager.ActiveScene.Add(tempCube4);
-            //sceneManager.ActiveScene.Add(tempCube5);
+            sceneManager.ActiveScene.Add(tempCube2);
+            sceneManager.ActiveScene.Add(tempCube3);
+            sceneManager.ActiveScene.Add(tempCube4);
+            sceneManager.ActiveScene.Add(tempCube5);
             #endregion
 
         }
@@ -1012,7 +1025,7 @@ namespace GD.App
             //TODO - add texture dictionary, soundeffect dictionary, model dictionary
         }
 
-        private void InitializeDebug()
+        private void InitializeDebug(bool showCollisionSkins = true)
         {
             //intialize the utility component
             var perfUtility = new PerfUtility(this, _spriteBatch,
@@ -1029,14 +1042,39 @@ namespace GD.App
             perfUtility.infoList.Add(new FPSInfo(_spriteBatch, spriteFont, "FPS:", Color.White, contentScale * Vector2.One));
             perfUtility.infoList.Add(new TextInfo(_spriteBatch, spriteFont, "Camera -----------------------------------", Color.Yellow, headingScale * Vector2.One));
             perfUtility.infoList.Add(new CameraNameInfo(_spriteBatch, spriteFont, "Name:", Color.White, contentScale * Vector2.One));
-            perfUtility.infoList.Add(new CameraRotationInfo(_spriteBatch, spriteFont, "Rot:", Color.White, contentScale * Vector2.One));
+
+            var infoFunction = (Transform transform) =>
+            {
+                return transform.Translation.GetNewRounded(1).ToString();
+            };
+
+            perfUtility.infoList.Add(new TransformInfo(_spriteBatch, spriteFont, "Pos:", Color.White, contentScale * Vector2.One,
+                ref Application.CameraManager.ActiveCamera.transform, infoFunction));
+
+            infoFunction = (Transform transform) =>
+            {
+                return transform.Rotation.GetNewRounded(1).ToString();
+            };
+
+            perfUtility.infoList.Add(new TransformInfo(_spriteBatch, spriteFont, "Rot:", Color.White, contentScale * Vector2.One,
+                ref Application.CameraManager.ActiveCamera.transform, infoFunction));
+
             perfUtility.infoList.Add(new TextInfo(_spriteBatch, spriteFont, "Object -----------------------------------", Color.Yellow, headingScale * Vector2.One));
             perfUtility.infoList.Add(new ObjectInfo(_spriteBatch, spriteFont, "Objects:", Color.White, contentScale * Vector2.One));
             perfUtility.infoList.Add(new TextInfo(_spriteBatch, spriteFont, "Hints -----------------------------------", Color.Yellow, headingScale * Vector2.One));
             perfUtility.infoList.Add(new TextInfo(_spriteBatch, spriteFont, "Use mouse scroll wheel to change security camera FOV, F1-F4 for camera switch", Color.White, contentScale * Vector2.One));
-            perfUtility.infoList.Add(new TextInfo(_spriteBatch, spriteFont, "Use the delete key to reset the level", Color.White, contentScale * Vector2.One));
+
             //add to the component list otherwise it wont have its Update or Draw called!
+            // perfUtility.StatusType = StatusType.Drawn | StatusType.Updated;
+            perfUtility.DrawOrder = 3;
             Components.Add(perfUtility);
+
+            if (showCollisionSkins)
+            {
+                var physicsDebugDrawer = new PhysicsDebugDrawer(this);
+                physicsDebugDrawer.DrawOrder = 4;
+                Components.Add(physicsDebugDrawer);
+            }
         }
 
         #endregion Actions - Engine Specific
