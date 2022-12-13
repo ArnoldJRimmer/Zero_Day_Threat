@@ -33,7 +33,7 @@ namespace GD.Engine.Managers
 
         public override void Draw(GameTime gameTime)
         {
-            if (StatusType != StatusType.Off)
+            if (IsDrawn)
             {
                 if (sceneRenderer == null)
                     throw new ArgumentNullException("SceneRenderer is null! Use RenderManager::SceneRenderer to set renderer for the scene in Main::InitializeEngine()");

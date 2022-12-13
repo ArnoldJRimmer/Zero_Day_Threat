@@ -62,7 +62,7 @@ namespace GD.Engine
 
         public bool Remove(Predicate<GameObject> predicate)
         {
-            return objectList.Remove(Find(predicate)); ;
+            return objectList.Remove(Find(predicate));
         }
 
         public List<GameObject> FindAll(Predicate<GameObject> predicate)

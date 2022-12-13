@@ -50,7 +50,11 @@ namespace GD.Engine
         {
             this.isHandlingCollision = isHandlingCollision;
             this.isTrigger = isTrigger;
+            Initialize(gameObject);
+        }
 
+        protected virtual void Initialize(GameObject gameObject)
+        {
             //cache the transform
             transform = gameObject.Transform;
             //instanciate a new body

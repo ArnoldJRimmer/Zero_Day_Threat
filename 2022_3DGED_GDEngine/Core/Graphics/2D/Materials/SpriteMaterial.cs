@@ -26,6 +26,7 @@ namespace GD.Engine
             get => layerDepth;
             set => layerDepth = value >= 0 && value <= 1 ? value : 0;
         }
+
         public Vector2 Origin { get => origin; set => origin = value; }
         public SpriteEffects SpriteEffects { get => spriteEffects; set => spriteEffects = value; }
         public Rectangle SourceRectangle { get => sourceRectangle; set => sourceRectangle = value; }
@@ -34,18 +35,14 @@ namespace GD.Engine
 
         #region Constructors
 
-        public SpriteMaterial(Texture2D diffuse, float alpha, Color color)
-        : this(diffuse, alpha, color,
-              0, Vector2.Zero, SpriteEffects.None,
-              new Rectangle(0, 0, diffuse.Width, diffuse.Height))
+        public SpriteMaterial(Texture2D diffuse, Color color)
+        : this(diffuse, color, 0, Vector2.Zero, SpriteEffects.None, new Rectangle(0, 0, diffuse.Width, diffuse.Height))
         {
         }
 
-        public SpriteMaterial(Texture2D diffuse, float alpha, Color color,
-            float layerDepth, Vector2 origin,
-            SpriteEffects spriteEffects,
-            Rectangle sourceRectangle)
-            : base(diffuse, alpha, color)
+        public SpriteMaterial(Texture2D diffuse, Color color, float layerDepth, Vector2 origin,
+            SpriteEffects spriteEffects, Rectangle sourceRectangle)
+            : base(diffuse, 1, color)
         {
             LayerDepth = layerDepth;
             Origin = origin;

@@ -20,6 +20,17 @@ namespace GD.Engine.Managers
 
         #region Properties
 
+        public Transform ActiveCameraTransform
+        {
+            get
+            {
+                if (activeGameObject == null)
+                    throw new NullReferenceException("ActiveCamera not set! Call SetActiveCamera()");
+
+                return activeGameObject.Transform;
+            }
+        }
+
         public string ActiveCameraName
         {
             get

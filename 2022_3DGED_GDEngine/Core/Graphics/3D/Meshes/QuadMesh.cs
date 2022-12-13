@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GD.Engine
 {
-    public class QuadMesh : Mesh
+    public class QuadMesh : TexturedMesh<VertexPositionNormalTexture>
     {
         public QuadMesh(GraphicsDevice graphicsDevice)
             : base(graphicsDevice)

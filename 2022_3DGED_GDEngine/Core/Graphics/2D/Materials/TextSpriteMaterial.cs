@@ -14,9 +14,8 @@ namespace GD.Engine
         public SpriteFont SpriteFont { get => spriteFont; set => spriteFont = value; }
         public StringBuilder StringBuilder { get => stringBuilder; set => stringBuilder = value; }
 
-        public TextSpriteMaterial(Texture2D diffuse, float alpha, Color color,
-            SpriteFont spriteFont, StringBuilder stringBuilder)
-            : base(diffuse, alpha, color)
+        public TextSpriteMaterial(Texture2D diffuse, Color color, SpriteFont spriteFont, StringBuilder stringBuilder)
+            : base(diffuse, color)
         {
             this.spriteFont = spriteFont;
             this.stringBuilder = stringBuilder;

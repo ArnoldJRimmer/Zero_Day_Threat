@@ -5,6 +5,7 @@
 
 #endregion
 
+using GD.Core;
 using GD.Engine;
 using GD.Engine.Events;
 using GD.Engine.Globals;
