@@ -147,10 +147,6 @@ namespace GD.App
                     Application.SoundManager.Stop(eventData.Parameters[0] as string);
                     break;
 
-                case EventActionType.OnPlay2D:
-                    Application.SoundManager.Play2D(eventData.Parameters[0] as string);
-                    break;
-
                 default:
                     break;
             }
@@ -1646,46 +1642,46 @@ namespace GD.App
                 temp.PathFormed = false;
             }
 
-            if (tempCube1.Transform.rotation == temp.Pieces[0].rotation && temp.States[0] == false)
+            if (tempCube1.Transform.Rotation == temp.Pieces[0].Rotation && temp.States[0] == false)
             {
                 EventDispatcher.Raise(tileInPosition);
                 temp.setState(true, 0);
             }
 
-            else if (tempCube2.Transform.rotation == temp.Pieces[1].rotation && temp.States[1] == false)
+            else if (tempCube2.Transform.Rotation == temp.Pieces[1].Rotation && temp.States[1] == false)
             {
                 EventDispatcher.Raise(tileInPosition);
                 temp.setState(true, 1);
             }
             
-            else if(tempCube3.Transform.rotation == temp.Pieces[2].rotation && temp.States[2] == false)
+            else if(tempCube3.Transform.Rotation == temp.Pieces[2].Rotation && temp.States[2] == false)
             {
                 EventDispatcher.Raise(tileInPosition);
                 temp.setState(true, 2);
             }
             
-            else if(tempCube4.Transform.rotation == temp.Pieces[3].rotation && temp.States[3] == false)
+            else if(tempCube4.Transform.Rotation == temp.Pieces[3].Rotation && temp.States[3] == false)
             {
                 EventDispatcher.Raise(tileInPosition);
                 temp.setState(true, 3);
             }
-            else if (tempCube1.Transform.rotation != temp.Pieces[0].rotation)
+            else if (tempCube1.Transform.Rotation != temp.Pieces[0].Rotation)
             {
                 EventDispatcher.Raise(tileOutOfPosition);
                 temp.setState(false, 0);
             }
 
-            if (tempCube1.Transform.rotation != temp.Pieces[0].rotation && temp.States[0] == true)
+            if (tempCube1.Transform.Rotation != temp.Pieces[0].Rotation && temp.States[0] == true)
             {
                 EventDispatcher.Raise(tileOutOfPosition);
                 temp.setState(false, 1);
             }
-            else if (tempCube3.Transform.rotation != temp.Pieces[2].rotation)
+            else if (tempCube3.Transform.Rotation != temp.Pieces[2].Rotation)
             {
                 EventDispatcher.Raise(tileOutOfPosition);
                 temp.setState(false, 2);
             }
-            else if (tempCube4.Transform.rotation != temp.Pieces[3].rotation)
+            else if (tempCube4.Transform.Rotation != temp.Pieces[3].Rotation)
             {
                 EventDispatcher.Raise(tileOutOfPosition);
                 temp.setState(false, 3);
