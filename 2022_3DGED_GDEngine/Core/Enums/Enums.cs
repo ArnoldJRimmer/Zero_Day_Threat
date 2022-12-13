@@ -123,6 +123,7 @@
         OnRestart,
         OnExit,
         OnStop,
+        OnStopSound,
         OnStopAll,
 
         OnVolumeDelta,

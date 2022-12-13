@@ -104,6 +104,7 @@ namespace GD.App
         private void DemoStateManagerEvent()
         {
             EventDispatcher.Subscribe(EventCategoryType.Player, HandleEvent);
+            EventDispatcher.Subscribe(EventCategoryType.Sound, HandleEvent);
         }
 
         private void HandleEvent(EventData eventData)
@@ -116,6 +117,18 @@ namespace GD.App
 
                 case EventActionType.OnLose:
                     System.Diagnostics.Debug.WriteLine(eventData.Parameters[2] as string);
+                    break;
+
+                case EventActionType.OnPlay3D:
+                    Application.SoundManager.Play3D(eventData.Parameters[0] as string, eventData.Parameters[1] as AudioListener, eventData.Parameters[2] as AudioEmitter);
+                    break;
+
+                case EventActionType.OnStopSound:
+                    Application.SoundManager.Stop(eventData.Parameters[0] as string);
+                    break;
+
+                case EventActionType.OnPlay2D:
+                    Application.SoundManager.Play2D(eventData.Parameters[0] as string);
                     break;
 
                 default:
@@ -204,6 +217,8 @@ namespace GD.App
             //    new EventData(EventCategoryType.Player,
             //    EventActionType.OnSpawnObject,
             //    parameters));
+
+            
         }
 
         private void SetTitle(string title)
@@ -360,7 +375,7 @@ namespace GD.App
                 "computerFan",
                 computerFanEffect,
                 SoundCategoryType.Ambience,
-                new Vector3(0.06f, 1, 0 ),
+                new Vector3(0.16f, 1, 0 ),
                 false));
 
             var roomFanEffect =
@@ -370,7 +385,7 @@ namespace GD.App
                 "roomFan",
                 roomFanEffect,
                 SoundCategoryType.Ambience,
-                new Vector3(0.05f, 1, 0),
+                new Vector3(0.15f, 1, 0),
                 false));
 
             var electricBuzzEffect =
@@ -390,7 +405,7 @@ namespace GD.App
                 "pathCheck1",
                 pathCheck1Effect,
                 SoundCategoryType.SFX,
-                new Vector3(0.15f, 0.995f, 0),
+                new Vector3(1, 0.995f, 0),
                 false));
 
             var pathCheck2Effect =
@@ -400,7 +415,7 @@ namespace GD.App
                 "pathCheck2",
                 pathCheck2Effect,
                 SoundCategoryType.SFX,
-                new Vector3(0.15f, 0.995f, 0),
+                new Vector3(1, 0.995f, 0),
                 false));
 
             var pathCheck3Effect =
@@ -410,7 +425,7 @@ namespace GD.App
                 "pathCheck3",
                 pathCheck3Effect,
                 SoundCategoryType.SFX,
-                new Vector3(0.15f, 0.995f, 0),
+                new Vector3(1, 0.995f, 0),
                 false));
 
             var pathCheck4Effect =
@@ -420,7 +435,7 @@ namespace GD.App
                 "pathCheck4",
                 pathCheck4Effect,
                 SoundCategoryType.SFX,
-                new Vector3(0.15f, 0.995f, 0),
+                new Vector3(1, 0.995f, 0),
                 false));
 
             var pathCheck5Effect =
@@ -430,7 +445,7 @@ namespace GD.App
                 "pathCheck5",
                 pathCheck5Effect,
                 SoundCategoryType.SFX,
-                new Vector3(0.15f, 0.995f, 0),
+                new Vector3(1, 0.995f, 0),
                 false));
 
             var pathCheck6Effect =
@@ -440,7 +455,7 @@ namespace GD.App
                 "pathCheck6",
                 pathCheck6Effect,
                 SoundCategoryType.SFX,
-                new Vector3(0.15f, 0.995f, 0),
+                new Vector3(1, 0.995f, 0),
                 false));
         }
 
@@ -754,25 +769,31 @@ namespace GD.App
             //Make each cube out of 6 different planes. Ideally have a class called Cubey.cs that makes the cube out of these six faces
             //Sample of what i would like to do
             tempCube1 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
-            tempCube1.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), Vector3.Zero, Vector3.One);
+            tempCube1.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, -MathHelper.PiOver2 * 2), Vector3.One);
+
             var panelTexture = Content.Load<Texture2D>("Assets/Textures/cube_DefaultMaterial_BaseColor");
             var panelFbxModel = Content.Load<Model>("Assets/Models/cube");
             var panelMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, panelFbxModel);
             tempCube1.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
             tempCube1.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad1));
 
-            tempCube2 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube2 = new GameObject(AppData.CUBE_NAME, ObjectType.Static, RenderType.Opaque);
             tempCube2.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(1, 1, 1.7f));
             tempCube2.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
             tempCube2.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad2));
 
-            tempCube3 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube3 = new GameObject(AppData.CUBE_NAME, ObjectType.Static, RenderType.Opaque);
             tempCube3.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, -MathHelper.PiOver2), new Vector3(1, 1, 2.4f));
             tempCube3.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
             tempCube3.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad3));
 
-            tempCube4 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+
+            tempCube4 = new GameObject(AppData.CUBE_NAME, ObjectType.Static, RenderType.Opaque);
             tempCube4.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), Vector3.Zero, new Vector3(1, 1, 3.1f));
+
+            tempCube4 = new GameObject(AppData.CUBE_NAME, ObjectType.Dynamic, RenderType.Opaque);
+            tempCube4.Transform = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, -MathHelper.PiOver2 * 2), new Vector3(1, 1, 3.1f));
+
             tempCube4.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
             tempCube4.AddComponent(new CubeController(new Vector3(1, 0, 0), MathHelper.ToRadians(1.1f), Keys.NumPad4));
 
@@ -929,10 +950,10 @@ namespace GD.App
 
             //Rotation Values shouldn't be changed
             temp = new Path("Temporary");
-            Transform one = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.PiOver2 * 2), Vector3.One);
-            Transform two = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new  Vector3(0, 0, MathHelper.PiOver2 * 2), new Vector3(1, 1, 1.7f));
-            Transform three = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.PiOver2 * 2), new Vector3(1, 1, 2.4f));
-            Transform four = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.PiOver2 * 2), new Vector3(1, 1, 3.1f));
+            Transform one = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), Vector3.One);
+            Transform two = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 1, 1.7f));
+            Transform three = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 1, 2.4f));
+            Transform four = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 1, 3.1f));
             temp.AddPiece(one);
             temp.AddPiece(two);
             temp.AddPiece(three);
@@ -1017,7 +1038,7 @@ namespace GD.App
             //Adds it to the scene 
             #endregion Old Code
 
-        
+
         }
 
         private void InitializeSkyBoxAndGround(float worldScale)
@@ -1280,8 +1301,8 @@ namespace GD.App
             {
                 object[] parameters = { "roomFan" };
                 EventDispatcher.Raise(
-                    new EventData(EventCategoryType.Player,
-                    EventActionType.OnWin,
+                    new EventData(EventCategoryType.Sound,
+                    EventActionType.OnPlay2D,
                     parameters));
             }
 
@@ -1289,8 +1310,8 @@ namespace GD.App
             {
                 object[] parameters = { "electricBuzz" };
                 EventDispatcher.Raise(
-                    new EventData(EventCategoryType.Player,
-                    EventActionType.OnWin,
+                    new EventData(EventCategoryType.Sound,
+                    EventActionType.OnPlay2D,
                     parameters));
             }
 
@@ -1298,8 +1319,8 @@ namespace GD.App
             {
                 object[] parameters = { "computerFan" };
                 EventDispatcher.Raise(
-                    new EventData(EventCategoryType.Player,
-                    EventActionType.OnWin,
+                    new EventData(EventCategoryType.Sound,
+                    EventActionType.OnPlay2D,
                     parameters));
             }
 
@@ -1347,60 +1368,104 @@ namespace GD.App
 
         private void PathChecker()
         {
-            
+            Object[] path1Param = { "pathCheck1",  new AudioListener(), new AudioEmitter() };
+            EventData path1G = new EventData(EventCategoryType.Sound, EventActionType.OnPlay3D, path1Param);
+
+            EventData path1B = new EventData(EventCategoryType.Sound, EventActionType.OnStopSound, path1Param);
+
+            Object[] path2Param = { "pathCheck2",  new AudioListener(), new AudioEmitter() };
+            EventData path2G = new EventData(EventCategoryType.Sound, EventActionType.OnPlay3D, path2Param);
+
+            EventData path2B = new EventData(EventCategoryType.Sound, EventActionType.OnStopSound, path2Param);
+
+            Object[] path3Param = { "pathCheck1",  new AudioListener(), new AudioEmitter() };
+            EventData path3G = new EventData(EventCategoryType.Sound, EventActionType.OnPlay3D, path1Param);
+
+            EventData path3B = new EventData(EventCategoryType.Sound, EventActionType.OnStopSound, path3Param);
+
+            Object[] path4Param = { "pathCheck4",  new AudioListener(), new AudioEmitter() };
+            EventData path4G = new EventData(EventCategoryType.Sound, EventActionType.OnPlay3D, path1Param);
+
+            EventData path4B = new EventData(EventCategoryType.Sound, EventActionType.OnStopSound, path4Param);
+
+            Object[] path5Param = { "pathCheck5", new AudioListener(), new AudioEmitter() };
+            EventData path5G = new EventData(EventCategoryType.Sound, EventActionType.OnPlay3D, path5Param);
+
+            EventData path5B = new EventData(EventCategoryType.Sound, EventActionType.OnStopSound, path5Param);
+
+            Object[] path6Param = { "pathCheck6",  new AudioListener(), new AudioEmitter() };
+            EventData path6G = new EventData(EventCategoryType.Sound, EventActionType.OnPlay3D, path6Param);
+
+            EventData path6B = new EventData(EventCategoryType.Sound, EventActionType.OnPlay3D, path6Param);
+
+            Object[] pathFormedParam = { "buttonClickExplosion", new AudioListener(),  new AudioEmitter() };
+            EventData pathFormedG = new EventData(EventCategoryType.Sound, EventActionType.OnPlay3D, pathFormedParam);
+
+            EventData pathFormedB = new EventData(EventCategoryType.Sound, EventActionType.OnStop, pathFormedParam);
+
             if (!temp.States.Contains(false) && temp.PathFormed == false)
             {
-                Application.SoundManager.Play2D("buttonClickExplosion");
+                EventDispatcher.Raise(pathFormedG);
+                //Application.SoundManager.Play2D("buttonClickExplosion");
                 temp.PathFormed= true;
             }
-            else if(temp.States.Contains(false) && temp.PathFormed == true)
+            if (temp.States.Contains(false) && temp.PathFormed == true)
             {
-                Application.SoundManager.Pause("buttonClickExplosion");
+                EventDispatcher.Raise(pathFormedB);
+                //Application.SoundManager.Pause("buttonClickExplosion");
                 temp.PathFormed = false;
             }
+
             if (tempCube1.Transform.rotation == temp.Pieces[0].rotation && temp.States[0] == false)
             {
-                Application.SoundManager.Play2D("openPhone");
+                EventDispatcher.Raise(path1G);
+                //Application.SoundManager.Play2D("openPhone");
                 temp.setState(true, 0);
             }
-            else if (tempCube1.Transform.rotation != temp.Pieces[0].rotation && temp.States[0] == true)
+            if (tempCube2.Transform.rotation == temp.Pieces[1].rotation && temp.States[1] == false)
             {
-                temp.setState(false, 0);
-            }
-
-            else if (tempCube2.Transform.rotation == temp.Pieces[1].rotation && temp.States[1] == false)
-            {
-                Application.SoundManager.Play2D("openPhone");
+                EventDispatcher.Raise(path3G);
+                //Application.SoundManager.Play2D("openPhone");
                 temp.setState(true, 1);
             }
-
-            else if (tempCube2.Transform.rotation != temp.Pieces[1].rotation && temp.States[0] == true)
+            if (tempCube3.Transform.rotation == temp.Pieces[2].rotation && temp.States[2] == false)
             {
-                temp.setState(false, 1);
-            }
-
-            else if (tempCube3.Transform.rotation == temp.Pieces[2].rotation && temp.States[2] == false)
-            {
-                Application.SoundManager.Play2D("openPhone");
+                EventDispatcher.Raise(path2G);
+                //Application.SoundManager.Play2D("openPhone");
                 temp.setState(true, 2);
             }
 
-            else if (tempCube3.Transform.rotation != temp.Pieces[2].rotation && temp.States[0] == true)
+            if (tempCube4.Transform.rotation == temp.Pieces[3].rotation && temp.States[3] == false)
             {
-                temp.setState(false, 2);
-            }
-
-            else if (tempCube4.Transform.rotation == temp.Pieces[3].rotation && temp.States[3] == false)
-            {
-                Application.SoundManager.Play2D("openPhone");
+                EventDispatcher.Raise(path5G);
+                //Application.SoundManager.Play2D("openPhone");
                 temp.setState(true, 3);
             }
 
-            else if (tempCube4.Transform.rotation != temp.Pieces[3].rotation && temp.States[0] == true)
+            if (tempCube1.Transform.rotation != temp.Pieces[0].rotation && temp.States[0] == true)
             {
-                temp.setState(false, 3);
+                EventDispatcher.Raise(path1B);
+                temp.setState(false, 0);
             }
 
+            if (tempCube2.Transform.rotation != temp.Pieces[1].rotation && temp.States[0] == true)
+            {
+                EventDispatcher.Raise(path3B);
+                temp.setState(false, 1);
+            }
+
+            if (tempCube3.Transform.rotation != temp.Pieces[2].rotation && temp.States[0] == true)
+            {
+                EventDispatcher.Raise(path2B);
+                temp.setState(false, 2);
+            }
+
+            if (tempCube4.Transform.rotation != temp.Pieces[3].rotation && temp.States[0] == true)
+            {
+                EventDispatcher.Raise(path5B);
+                temp.setState(false, 3);
+            }
+            
 
         }
 
