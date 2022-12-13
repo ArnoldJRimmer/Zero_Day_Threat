@@ -50,7 +50,11 @@ namespace GD.Engine
                 transform.Rotate(new Vector3(0, 0, 90));
 
                 // If the cube rotation is 360 degrees it resets back to 0 degrees 
-                if (transform.Rotation == new Vector3(0, 0,360))
+                if (transform.Rotation.Z > 360)
+                {
+                    transform.SetRotation(new Vector3(0, 0, 0));
+                }
+                else if (transform.Rotation.Z < -360)
                 {
                     transform.SetRotation(new Vector3(0, 0, 0));
                 }

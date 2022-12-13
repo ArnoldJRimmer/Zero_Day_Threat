@@ -262,7 +262,7 @@ namespace GD.App
 
             //Application.SoundManager.Play2D("startupline");
 
-            EventDispatcher.Subscribe(EventCategoryType.Sound, HandleEvent);
+           
             //object[] parameters = { "epic_soundcue" };
             //EventDispatcher.Raise(
             //    new EventData(EventCategoryType.Player,
@@ -444,7 +444,7 @@ namespace GD.App
                 "computerFan",
                 computerFanEffect,
                 SoundCategoryType.Ambience,
-                new Vector3(0.16f, 1, 0 ),
+                new Vector3(0.06f, 1, 0 ),
                 false));
 
             var roomFanEffect =
@@ -454,7 +454,7 @@ namespace GD.App
                 "roomFan",
                 roomFanEffect,
                 SoundCategoryType.Ambience,
-                new Vector3(0.15f, 1, 0),
+                new Vector3(0.06f, 1, 0),
                 false));
 
             var electricBuzzEffect =
@@ -464,7 +464,7 @@ namespace GD.App
                 "electricBuzz",
                 electricBuzzEffect,
                 SoundCategoryType.Ambience,
-                new Vector3(0.15f, 0.995f, 0),
+                new Vector3(0.01f, 1f, 0),
                 false));
 
             var pathCheck1Effect =
@@ -1331,14 +1331,57 @@ namespace GD.App
 
             //Rotation Values shouldn't be changed
             temp = new Path("Temporary");
-            Transform one = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), Vector3.One);
-            Transform two = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new  Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 1, 1.7f));
-            Transform three = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 1, 2.4f));
-            Transform four = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 1, 3.1f));
+            Transform one = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 2, 0.16f));
+            Transform two = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new  Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 2, 0.08f));
+            Transform three = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 2, 0));
+            Transform four = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 2, -0.08f));
+            Transform five = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 2, -0.16f));
+            Transform six = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 2.04f, 0.16f));
+            Transform seven = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 2.04f, 0.08f));
+            Transform eight = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 2.04f, 0));
+            Transform nine = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 2.04f, -0.08f));
+            Transform ten = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 2.04f, -0.16f));
+            Transform eleven = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 1.96f, 0.16f));
+            Transform twelve = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 1.96f, 0.08f));
+            Transform thirteen = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 1.96f, 0));
+            Transform fourteen = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 1.96f, -0.08f));
+            Transform fifteen = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 1.96f, -0.16f));
+            Transform sixteen = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 1.92f, 0.16f));
+            Transform seventeen = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 1.92f, 0.08f));
+            Transform eightteen = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 1.92f, 0));
+            Transform nineteen = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 1.92f, -0.08f));
+            Transform twenty = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 1.92f, -0.16f));
+            Transform twentyone = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 1.87f, 0.16f));
+            Transform twentytwo = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 1.87f, 0.08f));
+            Transform twentythree = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 1.87f, 0));
+            Transform twentyfour = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 1.87f, -0.08f));
+            Transform twentyfive = new Transform(new Vector3(0.3f, 0.3f, 0.3f), new Vector3(0, 0, MathHelper.ToRadians(0)), new Vector3(1, 1.87f, -0.16f));
             temp.AddPiece(one);
             temp.AddPiece(two);
             temp.AddPiece(three);
             temp.AddPiece(four);
+            temp.AddPiece(five);
+            temp.AddPiece(six);
+            temp.AddPiece(seven);
+            temp.AddPiece(eight);
+            temp.AddPiece(nine);
+            temp.AddPiece(ten);
+            temp.AddPiece(eleven);
+            temp.AddPiece(twelve);
+            temp.AddPiece(thirteen);
+            temp.AddPiece(fourteen);
+            temp.AddPiece(fifteen);
+            temp.AddPiece(sixteen);
+            temp.AddPiece(seventeen);
+            temp.AddPiece(eightteen);
+            temp.AddPiece(nineteen);
+            temp.AddPiece(twenty);
+            temp.AddPiece(twentyone);
+            temp.AddPiece(twentytwo);
+            temp.AddPiece(twentythree);
+            temp.AddPiece(twentyfour);
+            temp.AddPiece(twentyfive);
+
 
             // Since Path has a list of transforms, I went through the list creating GameObjects of the indiviual transforms. 
             // Then the GameObjects created in the for loop are added to the ActiveScene
@@ -1352,8 +1395,8 @@ namespace GD.App
 
                     temptile = new GameObject("TempTile" + i, ObjectType.Static, RenderType.Transparent);
                     temptile.Transform = temp.Pieces[i];
-                    var texture = Content.Load<Texture2D>("Assets/Textures/Skybox/basicwall");
-                    temptile.AddComponent(new Renderer(gdBasicEffect, new Material(texture, 1), quadMesh));
+                    //var texture = Content.Load<Texture2D>("Assets/Textures/Skybox/basicwall");
+                    //temptile.AddComponent(new Renderer(gdBasicEffect, new Material(texture, 1), quadMesh));
                     sceneManager.ActiveScene.Add(temptile);
 
                 }
@@ -1692,44 +1735,50 @@ namespace GD.App
             //sceneManager.ActiveScene.Find(ObjectType.Dynamic, RenderType.Opaque, )
 #if DEMO
 
-            if (Input.Keys.WasJustPressed(Keys.B))
-            {
-                object[] parameters = { "boom1" };
-                EventDispatcher.Raise(
-                    new EventData(EventCategoryType.Player,
-                    EventActionType.OnWin,
-                    parameters));
+            //if (Input.Keys.WasJustPressed(Keys.B))
+            //{
+            //    object[] parameters = { "boom1" };
+            //    EventDispatcher.Raise(
+            //        new EventData(EventCategoryType.Player,
+            //        EventActionType.OnWin,
+            //        parameters));
 
                
-                //Application.SoundManager.Play2D("boom1");
-            }
+            //    //Application.SoundManager.Play2D("boom1");
+            //}
 
-            if(gameTime.TotalGameTime.Seconds >= 3.02 && gameTime.TotalGameTime.Seconds <= 5.3)
-            {
-                object[] parameters = { "roomFan" };
-                EventDispatcher.Raise(
-                    new EventData(EventCategoryType.Sound,
-                    EventActionType.OnPlay2D,
-                    parameters));
-            }
+            //if(gameTime.TotalGameTime.Seconds >= 1 && gameTime.TotalGameTime.Seconds <= 3)
+            //{
+            //    AudioEmitter fan = new AudioEmitter();
+            //    fan.Position = new Vector3(10, 8, 4);
+            //    object[] parameters = { "roomFan", new AudioListener(), fan };
+            //    EventDispatcher.Raise(
+            //        new EventData(EventCategoryType.Sound,
+            //        EventActionType.OnPlay3D,
+            //        parameters));
+            //}
 
-            if (gameTime.TotalGameTime.Seconds >= 108 && gameTime.TotalGameTime.Seconds <= 112)
-            {
-                object[] parameters = { "electricBuzz" };
-                EventDispatcher.Raise(
-                    new EventData(EventCategoryType.Sound,
-                    EventActionType.OnPlay2D,
-                    parameters));
-            }
+            //if (gameTime.TotalGameTime.Seconds >=48 && gameTime.TotalGameTime.Seconds <= 51)
+            //{
+            //    AudioEmitter electFan = new AudioEmitter();
+            //    electFan.Position = new Vector3(3, 3, 8);
+            //    object[] parameters = { "electricBuzz", new AudioListener(), electFan };
+            //    EventDispatcher.Raise(
+            //        new EventData(EventCategoryType.Sound,
+            //        EventActionType.OnPlay3D,
+            //        parameters));
+            //}
 
-            if (gameTime.TotalGameTime.Seconds >= 240 && gameTime.TotalGameTime.Seconds <= 242)
-            {
-                object[] parameters = { "computerFan" };
-                EventDispatcher.Raise(
-                    new EventData(EventCategoryType.Sound,
-                    EventActionType.OnPlay2D,
-                    parameters));
-            }
+            //if (gameTime.TotalGameTime.Seconds >= 200 && gameTime.TotalGameTime.Seconds <= 205)
+            //{
+            //    AudioEmitter computFan = new AudioEmitter();
+            //    computFan.Position = new Vector3(2, 0.5f, 3.5f);
+            //    object[] parameters = { "computerFan", new AudioListener(), computFan };
+            //    EventDispatcher.Raise(
+            //        new EventData(EventCategoryType.Sound,
+            //        EventActionType.OnPlay3D,
+            //        parameters));
+            //}
 
             #region Demo - Camera switching
 
@@ -1775,8 +1824,10 @@ namespace GD.App
 
         private void PathChecker()
         {
+            AudioEmitter computer = new AudioEmitter();
+            computer.Position = new Vector3(1.5f, 1.5f, 0);
             //Set up events for if the path is formed
-            object[] buttonClick = { "smokeAlarm", new AudioListener(), new AudioEmitter() };
+            object[] buttonClick = { "buttonClickExplosion", new AudioListener(), computer };
             EventData pathComplete = new EventData(
                         EventCategoryType.Sound,
                         EventActionType.OnPlay3D
@@ -1790,7 +1841,7 @@ namespace GD.App
 
             //EventDispatcher.Subscribe(EventCategoryType.Sound, del);
 
-            object[] boom = { "boom1", new AudioListener(), new AudioEmitter() };
+            object[] boom = { "pathCheck1", new AudioListener(), computer };
             EventData tileInPosition = new EventData(
                         EventCategoryType.Sound,
                         EventActionType.OnPlay3D
@@ -1847,11 +1898,13 @@ namespace GD.App
                 //EventDispatcher.Raise(win);
                 temp.PathFormed = true;
             }
-            else if(temp.States.Contains(false) && temp.PathFormed == true)
+            if(temp.States.Contains(false) && temp.PathFormed == true)
             {
                 EventDispatcher.Raise(pathInComplete);
                 temp.PathFormed = false;
             }
+
+            #region CheckInPosition
 
             if (tempCube1.Transform.Rotation == temp.Pieces[0].Rotation && temp.States[0] == false)
             {
@@ -1859,44 +1912,280 @@ namespace GD.App
                 temp.setState(true, 0);
             }
 
-            else if (tempCube2.Transform.Rotation == temp.Pieces[1].Rotation && temp.States[1] == false)
+            if (tempCube2.Transform.Rotation == temp.Pieces[1].Rotation && temp.States[1] == false)
             {
                 EventDispatcher.Raise(tileInPosition);
                 temp.setState(true, 1);
             }
             
-            else if(tempCube3.Transform.Rotation == temp.Pieces[2].Rotation && temp.States[2] == false)
+            if(tempCube3.Transform.Rotation == temp.Pieces[2].Rotation && temp.States[2] == false)
             {
                 EventDispatcher.Raise(tileInPosition);
                 temp.setState(true, 2);
             }
             
-            else if(tempCube4.Transform.Rotation == temp.Pieces[3].Rotation && temp.States[3] == false)
+            if(tempCube4.Transform.Rotation == temp.Pieces[3].Rotation && temp.States[3] == false)
             {
                 EventDispatcher.Raise(tileInPosition);
                 temp.setState(true, 3);
             }
-            else if (tempCube1.Transform.Rotation != temp.Pieces[0].Rotation)
+
+            if (tempCube5.Transform.Rotation == temp.Pieces[4].Rotation && temp.States[4] == false)
             {
-                EventDispatcher.Raise(tileOutOfPosition);
-                temp.setState(false, 0);
+                EventDispatcher.Raise(tileInPosition);
+                temp.setState(true, 4);
             }
+
+            if (tempCube6.Transform.Rotation == temp.Pieces[5].Rotation && temp.States[5] == false)
+            {
+                EventDispatcher.Raise(tileInPosition);
+                temp.setState(true, 5);
+            }
+
+            if (tempCube7.Transform.Rotation == temp.Pieces[6].Rotation && temp.States[6] == false)
+            {
+                EventDispatcher.Raise(tileInPosition);
+                temp.setState(true, 6);
+            }
+
+            if (tempCube8.Transform.Rotation == temp.Pieces[7].Rotation && temp.States[7] == false)
+            {
+                EventDispatcher.Raise(tileInPosition);
+                temp.setState(true, 7);
+            }
+
+            if (tempCube9.Transform.Rotation == temp.Pieces[8].Rotation && temp.States[8] == false)
+            {
+                EventDispatcher.Raise(tileInPosition);
+                temp.setState(true, 8);
+            }
+
+            if (tempCube10.Transform.Rotation == temp.Pieces[9].Rotation && temp.States[9] == false)
+            {
+                EventDispatcher.Raise(tileInPosition);
+                temp.setState(true, 9);
+            }
+
+            if (tempCube11.Transform.Rotation == temp.Pieces[10].Rotation && temp.States[10] == false)
+            {
+                EventDispatcher.Raise(tileInPosition);
+                temp.setState(true, 10);
+            }
+
+            if (tempCube12.Transform.Rotation == temp.Pieces[11].Rotation && temp.States[11] == false)
+            {
+                EventDispatcher.Raise(tileInPosition);
+                temp.setState(true, 11);
+            }
+
+            if (tempCube13.Transform.Rotation == temp.Pieces[12].Rotation && temp.States[12] == false)
+            {
+                EventDispatcher.Raise(tileInPosition);
+                temp.setState(true, 12);
+            }
+
+            if (tempCube14.Transform.Rotation == temp.Pieces[13].Rotation && temp.States[13] == false)
+            {
+                EventDispatcher.Raise(tileInPosition);
+                temp.setState(true, 13);
+            }
+
+            if (tempCube15.Transform.Rotation == temp.Pieces[14].Rotation && temp.States[14] == false)
+            {
+                EventDispatcher.Raise(tileInPosition);
+                temp.setState(true, 14);
+            }
+
+            if (tempCube16.Transform.Rotation == temp.Pieces[15].Rotation && temp.States[15] == false)
+            {
+                EventDispatcher.Raise(tileInPosition);
+                temp.setState(true, 15);
+            }
+
+            if (tempCube17.Transform.Rotation == temp.Pieces[16].Rotation && temp.States[16] == false)
+            {
+                EventDispatcher.Raise(tileInPosition);
+                temp.setState(true, 16);
+            }
+
+            if (tempCube18.Transform.Rotation == temp.Pieces[17].Rotation && temp.States[17] == false)
+            {
+                EventDispatcher.Raise(tileInPosition);
+                temp.setState(true, 17);
+            }
+
+            if (tempCube19.Transform.Rotation == temp.Pieces[18].Rotation && temp.States[18] == false)
+            {
+                EventDispatcher.Raise(tileInPosition);
+                temp.setState(true, 18);
+            }
+
+            if (tempCube20.Transform.Rotation == temp.Pieces[19].Rotation && temp.States[19] == false)
+            {
+                EventDispatcher.Raise(tileInPosition);
+                temp.setState(true, 19);
+            }
+
+            if (tempCube21.Transform.Rotation == temp.Pieces[20].Rotation && temp.States[20] == false)
+            {
+                EventDispatcher.Raise(tileInPosition);
+                temp.setState(true, 20);
+            }
+
+            if (tempCube22.Transform.Rotation == temp.Pieces[21].Rotation && temp.States[21] == false)
+            {
+                EventDispatcher.Raise(tileInPosition);
+                temp.setState(true, 21);
+            }
+
+            if (tempCube23.Transform.Rotation == temp.Pieces[22].Rotation && temp.States[22] == false)
+            {
+                EventDispatcher.Raise(tileInPosition);
+                temp.setState(true, 22);
+            }
+
+            if (tempCube24.Transform.Rotation == temp.Pieces[23].Rotation && temp.States[23] == false)
+            {
+                EventDispatcher.Raise(tileInPosition);
+                temp.setState(true, 23);
+
+            }
+            if (tempCube24.Transform.Rotation == temp.Pieces[24].Rotation && temp.States[24] == false)
+            {
+                EventDispatcher.Raise(tileInPosition);
+                temp.setState(true, 24);
+            }
+            #endregion
+
+
+            #region Check out of position
 
             if (tempCube1.Transform.Rotation != temp.Pieces[0].Rotation && temp.States[0] == true)
             {
                 EventDispatcher.Raise(tileOutOfPosition);
                 temp.setState(false, 1);
             }
-            else if (tempCube3.Transform.Rotation != temp.Pieces[2].Rotation)
+            if (tempCube2.Transform.Rotation != temp.Pieces[1].Rotation && temp.States[1] == true)
             {
                 EventDispatcher.Raise(tileOutOfPosition);
                 temp.setState(false, 2);
             }
-            else if (tempCube4.Transform.Rotation != temp.Pieces[3].Rotation)
+            if (tempCube3.Transform.Rotation != temp.Pieces[2].Rotation && temp.States[2] == true)
             {
                 EventDispatcher.Raise(tileOutOfPosition);
                 temp.setState(false, 3);
             }
+            if (tempCube4.Transform.Rotation != temp.Pieces[3].Rotation && temp.States[3] == true)
+            {
+                EventDispatcher.Raise(tileOutOfPosition);
+                temp.setState(false, 4);
+            }
+
+            if (tempCube5.Transform.Rotation != temp.Pieces[4].Rotation && temp.States[4] == true)
+            {
+                EventDispatcher.Raise(tileOutOfPosition);
+                temp.setState(false, 5);
+            }
+            if (tempCube6.Transform.Rotation != temp.Pieces[5].Rotation && temp.States[5] == true)
+            {
+                EventDispatcher.Raise(tileOutOfPosition);
+                temp.setState(false, 6);
+            }
+            if (tempCube7.Transform.Rotation != temp.Pieces[6].Rotation && temp.States[6] == true)
+            {
+                EventDispatcher.Raise(tileOutOfPosition);
+                temp.setState(false, 7);
+            }
+            if (tempCube8.Transform.Rotation != temp.Pieces[7].Rotation && temp.States[7] == true)
+            {
+                EventDispatcher.Raise(tileOutOfPosition);
+                temp.setState(false, 8);
+            }
+
+            if (tempCube9.Transform.Rotation != temp.Pieces[8].Rotation && temp.States[8] == true)
+            {
+                EventDispatcher.Raise(tileOutOfPosition);
+                temp.setState(false, 9);
+            }
+            if (tempCube10.Transform.Rotation != temp.Pieces[9].Rotation && temp.States[9] == true)
+            {
+                EventDispatcher.Raise(tileOutOfPosition);
+                temp.setState(false, 10);
+            }
+            if (tempCube11.Transform.Rotation != temp.Pieces[10].Rotation && temp.States[10] == true)
+            {
+                EventDispatcher.Raise(tileOutOfPosition);
+                temp.setState(false, 11);
+            }
+            if (tempCube12.Transform.Rotation != temp.Pieces[11].Rotation && temp.States[11] == true)
+            {
+                EventDispatcher.Raise(tileOutOfPosition);
+                temp.setState(false, 12);
+            }
+
+            if (tempCube13.Transform.Rotation != temp.Pieces[12].Rotation && temp.States[12] == true)
+            {
+                EventDispatcher.Raise(tileOutOfPosition);
+                temp.setState(false, 13);
+            }
+            if (tempCube14.Transform.Rotation != temp.Pieces[14].Rotation && temp.States[14] == true)
+            {
+                EventDispatcher.Raise(tileOutOfPosition);
+                temp.setState(false, 15);
+            }
+            if (tempCube16.Transform.Rotation != temp.Pieces[15].Rotation && temp.States[15] == true)
+            {
+                EventDispatcher.Raise(tileOutOfPosition);
+                temp.setState(false, 16);
+            }
+            if (tempCube17.Transform.Rotation != temp.Pieces[16].Rotation && temp.States[16] == true)
+            {
+                EventDispatcher.Raise(tileOutOfPosition);
+                temp.setState(false, 17);
+            }
+
+            if (tempCube18.Transform.Rotation != temp.Pieces[17].Rotation && temp.States[17] == true)
+            {
+                EventDispatcher.Raise(tileOutOfPosition);
+                temp.setState(false, 18);
+            }
+            if (tempCube19.Transform.Rotation != temp.Pieces[18].Rotation && temp.States[18] == true)
+            {
+                EventDispatcher.Raise(tileOutOfPosition);
+                temp.setState(false, 19);
+            }
+            if (tempCube20.Transform.Rotation != temp.Pieces[19].Rotation && temp.States[19] == true)
+            {
+                EventDispatcher.Raise(tileOutOfPosition);
+                temp.setState(false, 20);
+            }
+            if (tempCube21.Transform.Rotation != temp.Pieces[20].Rotation && temp.States[20] == true)
+            {
+                EventDispatcher.Raise(tileOutOfPosition);
+                temp.setState(false, 21);
+            }
+            if (tempCube22.Transform.Rotation != temp.Pieces[21].Rotation && temp.States[21] == true)
+            {
+                EventDispatcher.Raise(tileOutOfPosition);
+                temp.setState(false, 22);
+            }
+
+            if (tempCube23.Transform.Rotation != temp.Pieces[22].Rotation && temp.States[22] == true)
+            {
+                EventDispatcher.Raise(tileOutOfPosition);
+                temp.setState(false, 23);
+            }
+            if (tempCube24.Transform.Rotation != temp.Pieces[23].Rotation && temp.States[23] == true)
+            {
+                EventDispatcher.Raise(tileOutOfPosition);
+                temp.setState(false, 24);
+            }
+            if (tempCube25.Transform.Rotation != temp.Pieces[24].Rotation && temp.States[24] == true)
+            {
+                EventDispatcher.Raise(tileOutOfPosition);
+                temp.setState(false, 25);
+            }
+            #endregion
         }
 
 
