@@ -864,7 +864,7 @@ namespace GD.App
             var panelMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, panelFbxModel);
             var screenTexture = Content.Load<Texture2D>("Assets/Textures/blankImage");
             timeScreen = new GameObject("timeScreen", ObjectType.Static, RenderType.Opaque);
-            timeScreen.Transform = new Transform(new Vector3(0.05f, 2.6f, 2.5f), new Vector3(0, 0.52f, 0), new Vector3(-15.5f, 5.2f, 9));
+            timeScreen.Transform = new Transform(new Vector3(0.05f, 2f, 2f), new Vector3(0, -30, 0), new Vector3(-17.5f, 5.2f, -10));
             timeScreen.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(screenTexture, 1), panelMesh));
 
 

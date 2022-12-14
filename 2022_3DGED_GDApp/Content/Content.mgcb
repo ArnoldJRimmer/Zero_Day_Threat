@@ -221,44 +221,6 @@
 /processorParam:TextureFormat=Compressed
 /build:Assets/Models/ceiling-1.fbx
 
-#begin Assets/Models/ceiling-1.fbx
-/importer:FbxImporter
-/processor:ModelProcessor
-/processorParam:ColorKeyColor=0,0,0,0
-/processorParam:ColorKeyEnabled=True
-/processorParam:DefaultEffect=BasicEffect
-/processorParam:GenerateMipmaps=True
-/processorParam:GenerateTangentFrames=False
-/processorParam:PremultiplyTextureAlpha=True
-/processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
-/processorParam:RotationY=0
-/processorParam:RotationZ=0
-/processorParam:Scale=1
-/processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=Compressed
-/build:Assets/Models/ceiling-1.fbx
-
-#begin Assets/Models/ceiling-2.fbx
-/importer:FbxImporter
-/processor:ModelProcessor
-/processorParam:ColorKeyColor=0,0,0,0
-/processorParam:ColorKeyEnabled=True
-/processorParam:DefaultEffect=BasicEffect
-/processorParam:GenerateMipmaps=True
-/processorParam:GenerateTangentFrames=False
-/processorParam:PremultiplyTextureAlpha=True
-/processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
-/processorParam:RotationY=0
-/processorParam:RotationZ=0
-/processorParam:Scale=1
-/processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=Compressed
-/build:Assets/Models/ceiling-2.fbx
-
 #begin Assets/Models/ceiling-2.fbx
 /importer:FbxImporter
 /processor:ModelProcessor
@@ -297,25 +259,6 @@
 /processorParam:TextureFormat=Compressed
 /build:Assets/Models/ceiling-3.fbx
 
-#begin Assets/Models/ceiling-3.fbx
-/importer:FbxImporter
-/processor:ModelProcessor
-/processorParam:ColorKeyColor=0,0,0,0
-/processorParam:ColorKeyEnabled=True
-/processorParam:DefaultEffect=BasicEffect
-/processorParam:GenerateMipmaps=True
-/processorParam:GenerateTangentFrames=False
-/processorParam:PremultiplyTextureAlpha=True
-/processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
-/processorParam:RotationY=0
-/processorParam:RotationZ=0
-/processorParam:Scale=1
-/processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=Compressed
-/build:Assets/Models/ceiling-3.fbx
-
 #begin Assets/Models/ceiling-4.fbx
 /importer:FbxImporter
 /processor:ModelProcessor
@@ -334,101 +277,6 @@
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:Assets/Models/ceiling-4.fbx
-
-#begin Assets/Models/ceiling-4.fbx
-/importer:FbxImporter
-/processor:ModelProcessor
-/processorParam:ColorKeyColor=0,0,0,0
-/processorParam:ColorKeyEnabled=True
-/processorParam:DefaultEffect=BasicEffect
-/processorParam:GenerateMipmaps=True
-/processorParam:GenerateTangentFrames=False
-/processorParam:PremultiplyTextureAlpha=True
-/processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
-/processorParam:RotationY=0
-/processorParam:RotationZ=0
-/processorParam:Scale=1
-/processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=Compressed
-/build:Assets/Models/ceiling-4.fbx
-
-#begin Assets/Models/ceiling-5.fbx
-/importer:FbxImporter
-/processor:ModelProcessor
-/processorParam:ColorKeyColor=0,0,0,0
-/processorParam:ColorKeyEnabled=True
-/processorParam:DefaultEffect=BasicEffect
-/processorParam:GenerateMipmaps=True
-/processorParam:GenerateTangentFrames=False
-/processorParam:PremultiplyTextureAlpha=True
-/processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
-/processorParam:RotationY=0
-/processorParam:RotationZ=0
-/processorParam:Scale=1
-/processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=Compressed
-/build:Assets/Models/ceiling-5.fbx
-
-#begin Assets/Models/ceiling-5.fbx
-/importer:FbxImporter
-/processor:ModelProcessor
-/processorParam:ColorKeyColor=0,0,0,0
-/processorParam:ColorKeyEnabled=True
-/processorParam:DefaultEffect=BasicEffect
-/processorParam:GenerateMipmaps=True
-/processorParam:GenerateTangentFrames=False
-/processorParam:PremultiplyTextureAlpha=True
-/processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
-/processorParam:RotationY=0
-/processorParam:RotationZ=0
-/processorParam:Scale=1
-/processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=Compressed
-/build:Assets/Models/ceiling-5.fbx
-
-#begin Assets/Models/ceiling-5.fbx
-/importer:FbxImporter
-/processor:ModelProcessor
-/processorParam:ColorKeyColor=0,0,0,0
-/processorParam:ColorKeyEnabled=True
-/processorParam:DefaultEffect=BasicEffect
-/processorParam:GenerateMipmaps=True
-/processorParam:GenerateTangentFrames=False
-/processorParam:PremultiplyTextureAlpha=True
-/processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
-/processorParam:RotationY=0
-/processorParam:RotationZ=0
-/processorParam:Scale=1
-/processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=Compressed
-/build:Assets/Models/ceiling-5.fbx
-
-#begin Assets/Models/ceiling-5.fbx
-/importer:FbxImporter
-/processor:ModelProcessor
-/processorParam:ColorKeyColor=0,0,0,0
-/processorParam:ColorKeyEnabled=True
-/processorParam:DefaultEffect=BasicEffect
-/processorParam:GenerateMipmaps=True
-/processorParam:GenerateTangentFrames=False
-/processorParam:PremultiplyTextureAlpha=True
-/processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
-/processorParam:RotationY=0
-/processorParam:RotationZ=0
-/processorParam:Scale=1
-/processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=Compressed
-/build:Assets/Models/ceiling-5.fbx
 
 #begin Assets/Models/ceiling-5.fbx
 /importer:FbxImporter
@@ -525,25 +373,6 @@
 /processorParam:TextureFormat=Compressed
 /build:Assets/Models/floor.fbx
 
-#begin Assets/Models/floor.fbx
-/importer:FbxImporter
-/processor:ModelProcessor
-/processorParam:ColorKeyColor=0,0,0,0
-/processorParam:ColorKeyEnabled=True
-/processorParam:DefaultEffect=BasicEffect
-/processorParam:GenerateMipmaps=True
-/processorParam:GenerateTangentFrames=False
-/processorParam:PremultiplyTextureAlpha=True
-/processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
-/processorParam:RotationY=0
-/processorParam:RotationZ=0
-/processorParam:Scale=1
-/processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=Compressed
-/build:Assets/Models/floor.fbx
-
 #begin Assets/Models/floppy-disk.fbx
 /importer:FbxImporter
 /processor:ModelProcessor
@@ -562,25 +391,6 @@
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:Assets/Models/floppy-disk.fbx
-
-#begin Assets/Models/front-wall.fbx
-/importer:FbxImporter
-/processor:ModelProcessor
-/processorParam:ColorKeyColor=0,0,0,0
-/processorParam:ColorKeyEnabled=True
-/processorParam:DefaultEffect=BasicEffect
-/processorParam:GenerateMipmaps=True
-/processorParam:GenerateTangentFrames=False
-/processorParam:PremultiplyTextureAlpha=True
-/processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
-/processorParam:RotationY=0
-/processorParam:RotationZ=0
-/processorParam:Scale=1
-/processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=Compressed
-/build:Assets/Models/front-wall.fbx
 
 #begin Assets/Models/front-wall.fbx
 /importer:FbxImporter
@@ -715,25 +525,6 @@
 /processorParam:TextureFormat=Compressed
 /build:Assets/Models/left-wall.fbx
 
-#begin Assets/Models/left-wall.fbx
-/importer:FbxImporter
-/processor:ModelProcessor
-/processorParam:ColorKeyColor=0,0,0,0
-/processorParam:ColorKeyEnabled=True
-/processorParam:DefaultEffect=BasicEffect
-/processorParam:GenerateMipmaps=True
-/processorParam:GenerateTangentFrames=False
-/processorParam:PremultiplyTextureAlpha=True
-/processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
-/processorParam:RotationY=0
-/processorParam:RotationZ=0
-/processorParam:Scale=1
-/processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=Compressed
-/build:Assets/Models/left-wall.fbx
-
 #begin Assets/Models/panel.fbx
 /importer:FbxImporter
 /processor:ModelProcessor
@@ -810,25 +601,6 @@
 /processorParam:TextureFormat=Compressed
 /build:Assets/Models/rear-wall.fbx
 
-#begin Assets/Models/rear-wall.fbx
-/importer:FbxImporter
-/processor:ModelProcessor
-/processorParam:ColorKeyColor=0,0,0,0
-/processorParam:ColorKeyEnabled=True
-/processorParam:DefaultEffect=BasicEffect
-/processorParam:GenerateMipmaps=True
-/processorParam:GenerateTangentFrames=False
-/processorParam:PremultiplyTextureAlpha=True
-/processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
-/processorParam:RotationY=0
-/processorParam:RotationZ=0
-/processorParam:Scale=1
-/processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=Compressed
-/build:Assets/Models/rear-wall.fbx
-
 #begin Assets/Models/right-wall.fbx
 /importer:FbxImporter
 /processor:ModelProcessor
@@ -847,44 +619,6 @@
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:Assets/Models/right-wall.fbx
-
-#begin Assets/Models/right-wall.fbx
-/importer:FbxImporter
-/processor:ModelProcessor
-/processorParam:ColorKeyColor=0,0,0,0
-/processorParam:ColorKeyEnabled=True
-/processorParam:DefaultEffect=BasicEffect
-/processorParam:GenerateMipmaps=True
-/processorParam:GenerateTangentFrames=False
-/processorParam:PremultiplyTextureAlpha=True
-/processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
-/processorParam:RotationY=0
-/processorParam:RotationZ=0
-/processorParam:Scale=1
-/processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=Compressed
-/build:Assets/Models/right-wall.fbx
-
-#begin Assets/Models/roof.fbx
-/importer:FbxImporter
-/processor:ModelProcessor
-/processorParam:ColorKeyColor=0,0,0,0
-/processorParam:ColorKeyEnabled=True
-/processorParam:DefaultEffect=BasicEffect
-/processorParam:GenerateMipmaps=True
-/processorParam:GenerateTangentFrames=False
-/processorParam:PremultiplyTextureAlpha=True
-/processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
-/processorParam:RotationY=0
-/processorParam:RotationZ=0
-/processorParam:Scale=1
-/processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=Compressed
-/build:Assets/Models/roof.fbx
 
 #begin Assets/Models/roof.fbx
 /importer:FbxImporter
@@ -1154,30 +888,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Assets/Textures/CeilingModels/ceiling-1.png
-
-#begin Assets/Textures/CeilingModels/ceiling-1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Assets/Textures/CeilingModels/ceiling-1.png
-
-#begin Assets/Textures/CeilingModels/ceiling-2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Assets/Textures/CeilingModels/ceiling-2.png
 
 #begin Assets/Textures/CeilingModels/ceiling-2.png
 /importer:TextureImporter
@@ -1550,6 +1260,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Assets/Textures/Props/tv.png
+
+#begin Assets/Textures/Radar/radar-display_DefaultMaterial_BaseColor.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Assets/Textures/Radar/radar-display_DefaultMaterial_BaseColor.png
 
 #begin Assets/Textures/Radar/radar-display_DefaultMaterial_BaseColor.png
 /importer:TextureImporter
