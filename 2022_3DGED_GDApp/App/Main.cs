@@ -458,7 +458,7 @@ namespace GD.App
             soundManager.Add(new Cue(
                 "computerFan",
                 computerFanEffect,
-                SoundCategoryType.SFX,
+                SoundCategoryType.Ambience,
                 new Vector3(0.01f, 1f, .5f ),
                 true));
 
@@ -468,7 +468,7 @@ namespace GD.App
             soundManager.Add(new Cue(
                 "roomFan",
                 roomFanEffect,
-                SoundCategoryType.SFX,
+                SoundCategoryType.Ambience,
                 new Vector3(.01f, 1, 0),
                 false));
 
@@ -478,7 +478,7 @@ namespace GD.App
             soundManager.Add(new Cue(
                 "electricBuzz",
                 electricBuzzEffect,
-                SoundCategoryType.SFX,
+                SoundCategoryType.Ambience,
                 new Vector3(0.01f, 0.5f, 0),
                 false));
             var pathCheck1Effect =
