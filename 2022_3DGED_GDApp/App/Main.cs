@@ -1855,6 +1855,10 @@ namespace GD.App
 
             #region Menu
 
+            menuManager = new SceneManager<Scene2D>(this);
+            menuManager.StatusType = StatusType.Updated;
+            menuManager.IsPausedOnPlay = true;
+            Components.Add(menuManager);
 
             var menuRenderManager = new Render2DManager(this, _spriteBatch, menuManager);
             menuRenderManager.StatusType = StatusType.Drawn;
