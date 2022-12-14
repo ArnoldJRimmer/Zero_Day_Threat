@@ -260,6 +260,21 @@ namespace GD.App
                 EventActionType.OnSpawnObject,
                 parameters));
 
+            EventDispatcher.Raise(
+                new EventData(EventCategoryType.Sound,
+                    EventActionType.OnPlay2D,
+                    new object[] { "roomFan" }));
+
+            EventDispatcher.Raise(
+                new EventData(EventCategoryType.Sound,
+                    EventActionType.OnPlay2D,
+                    new object[] { "computerFan" }));
+
+            EventDispatcher.Raise(
+                new EventData(EventCategoryType.Sound,
+                    EventActionType.OnPlay2D,
+                    new object[] { "electricBuzz" }));
+
             //Application.SoundManager.Play2D("startupline");
 
             EventDispatcher.Subscribe(EventCategoryType.Sound, HandleEvent);
@@ -439,13 +454,13 @@ namespace GD.App
 
             var computerFanEffect =
                 Content.Load<SoundEffect>("Assets/Audio/Diegetic/AmbientComputerFan");
-
+            
             soundManager.Add(new Cue(
                 "computerFan",
                 computerFanEffect,
-                SoundCategoryType.Ambience,
-                new Vector3(0.16f, 1, 0 ),
-                false));
+                SoundCategoryType.SFX,
+                new Vector3(0.01f, 1f, .5f ),
+                true));
 
             var roomFanEffect =
                 Content.Load<SoundEffect>("Assets/Audio/Diegetic/AmbientSoundsRoom_Fan");
@@ -453,8 +468,8 @@ namespace GD.App
             soundManager.Add(new Cue(
                 "roomFan",
                 roomFanEffect,
-                SoundCategoryType.Ambience,
-                new Vector3(0.15f, 1, 0),
+                SoundCategoryType.SFX,
+                new Vector3(.01f, 1, 0),
                 false));
 
             var electricBuzzEffect =
@@ -463,10 +478,9 @@ namespace GD.App
             soundManager.Add(new Cue(
                 "electricBuzz",
                 electricBuzzEffect,
-                SoundCategoryType.Ambience,
-                new Vector3(0.15f, 0.995f, 0),
+                SoundCategoryType.SFX,
+                new Vector3(0.01f, 0.5f, 0),
                 false));
-
             var pathCheck1Effect =
                 Content.Load<SoundEffect>("Assets/Audio/Diegetic/PathCheck1");
 
@@ -1692,44 +1706,32 @@ namespace GD.App
             //sceneManager.ActiveScene.Find(ObjectType.Dynamic, RenderType.Opaque, )
 #if DEMO
 
-            if (Input.Keys.WasJustPressed(Keys.B))
-            {
-                object[] parameters = { "boom1" };
-                EventDispatcher.Raise(
-                    new EventData(EventCategoryType.Player,
-                    EventActionType.OnWin,
-                    parameters));
+            //if(gameTime.TotalGameTime.Seconds >= 3.02 && gameTime.TotalGameTime.Seconds <= 5.3)
+            //{
+            //    object[] parameters = { "roomFan" };
+            //    EventDispatcher.Raise(
+            //        new EventData(EventCategoryType.Sound,
+            //        EventActionType.OnPlay2D,
+            //        new object[]{ "roomFan" }));
+            //}
 
-               
-                //Application.SoundManager.Play2D("boom1");
-            }
+            //if (gameTime.TotalGameTime.Seconds >= 108 && gameTime.TotalGameTime.Seconds <= 112)
+            //{
+            //    object[] parameters = { "electricBuzz" };
+            //    EventDispatcher.Raise(
+            //        new EventData(EventCategoryType.Sound,
+            //        EventActionType.OnPlay2D,
+            //        new object[] { "electricBuzz" }));
+            //}
 
-            if(gameTime.TotalGameTime.Seconds >= 3.02 && gameTime.TotalGameTime.Seconds <= 5.3)
-            {
-                object[] parameters = { "roomFan" };
-                EventDispatcher.Raise(
-                    new EventData(EventCategoryType.Sound,
-                    EventActionType.OnPlay2D,
-                    parameters));
-            }
-
-            if (gameTime.TotalGameTime.Seconds >= 108 && gameTime.TotalGameTime.Seconds <= 112)
-            {
-                object[] parameters = { "electricBuzz" };
-                EventDispatcher.Raise(
-                    new EventData(EventCategoryType.Sound,
-                    EventActionType.OnPlay2D,
-                    parameters));
-            }
-
-            if (gameTime.TotalGameTime.Seconds >= 240 && gameTime.TotalGameTime.Seconds <= 242)
-            {
-                object[] parameters = { "computerFan" };
-                EventDispatcher.Raise(
-                    new EventData(EventCategoryType.Sound,
-                    EventActionType.OnPlay2D,
-                    parameters));
-            }
+            //if (gameTime.TotalGameTime.Seconds >= 0 && gameTime.TotalGameTime.Seconds <= 242)
+            //{
+            //    object[] parameters = { "computerFan" };
+            //    EventDispatcher.Raise(
+            //        new EventData(EventCategoryType.Sound,
+            //        EventActionType.OnPlay2D,
+            //        new object[] { "computerFan" }));
+            //}
 
             #region Demo - Camera switching
 
