@@ -864,7 +864,7 @@ namespace GD.App
             var panelMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, panelFbxModel);
             var screenTexture = Content.Load<Texture2D>("Assets/Textures/blankImage");
             timeScreen = new GameObject("timeScreen", ObjectType.Static, RenderType.Opaque);
-            timeScreen.Transform = new Transform(new Vector3(0.05f, 2.6f, 2.5f), new Vector3(0, 0.52f, 0), new Vector3(-15.5f, 5.2f, 9));
+            timeScreen.Transform = new Transform(new Vector3(0.05f, 2f, 2f), new Vector3(0, -30, 0), new Vector3(-17.5f, 5.2f, -10));
             timeScreen.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(screenTexture, 1), panelMesh));
 
 
@@ -947,7 +947,7 @@ namespace GD.App
         {
             var gameObject = new GameObject("Ceiling Model 1", ObjectType.Static, RenderType.Opaque);
             gameObject.Transform = new Transform(Vector3.One*10, Vector3.Zero, new Vector3(-10,5,0));
-            var texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+            var texture = Content.Load<Texture2D>("Assets/Textures/CeilingModels/ceiling-1");
             var model = Content.Load<Model>("Assets/Models/ceiling-1");
             var mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, model);
             gameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(texture,1), mesh));
@@ -955,7 +955,7 @@ namespace GD.App
 
             var gameObject2 = new GameObject("Ceiling Model 2", ObjectType.Static, RenderType.Opaque);
             gameObject2.Transform = new Transform(Vector3.One * 10, Vector3.Zero, new Vector3(-10, 5, 0));
-            var pipeTexture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+            var pipeTexture = Content.Load<Texture2D>("Assets/Textures/CeilingModels/ceiling-2");
             var pipeModel = Content.Load<Model>("Assets/Models/ceiling-2");
             var pipeMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, pipeModel);
             gameObject2.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(pipeTexture, 1), pipeMesh));
@@ -963,7 +963,7 @@ namespace GD.App
 
             var gameObject3 = new GameObject("Ceiling Model 3", ObjectType.Static, RenderType.Opaque);
             gameObject3.Transform = new Transform(Vector3.One * 10, Vector3.Zero, new Vector3(-10, 5, 0));
-            var ventTexture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+            var ventTexture = Content.Load<Texture2D>("Assets/Textures/CeilingModels/ceiling-3");
             var ventModel = Content.Load<Model>("Assets/Models/ceiling-3");
             var ventMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, ventModel);
             gameObject3.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(ventTexture, 1), ventMesh));
@@ -971,7 +971,7 @@ namespace GD.App
 
             var gameObject4 = new GameObject("Ceiling Model 4", ObjectType.Static, RenderType.Opaque);
             gameObject4.Transform = new Transform(Vector3.One * 10, Vector3.Zero, new Vector3(-10, 5, 0));
-            var wireTexture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+            var wireTexture = Content.Load<Texture2D>("Assets/Textures/CeilingModels/ceiling-4");
             var wireModel = Content.Load<Model>("Assets/Models/ceiling-4");
             var wireMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, wireModel);
             gameObject4.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(wireTexture, 1), wireMesh));
@@ -979,7 +979,7 @@ namespace GD.App
 
             var gameObject5 = new GameObject("Ceiling Model 5", ObjectType.Static, RenderType.Opaque);
             gameObject5.Transform = new Transform(Vector3.One * 10, Vector3.Zero, new Vector3(-10, 5, 0));
-            var panelTexture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+            var panelTexture = Content.Load<Texture2D>("Assets/Textures/CeilingModels/ceiling-5");
             var panelModel = Content.Load<Model>("Assets/Models/ceiling-5");
             var panelMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, panelModel);
             gameObject5.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
@@ -990,7 +990,7 @@ namespace GD.App
         {
             var gameObject = new GameObject("Roof", ObjectType.Static, RenderType.Opaque);
             gameObject.Transform = new Transform(Vector3.One * 10, Vector3.Zero, new Vector3(-10, 5, 0));
-            var texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+            var texture = Content.Load<Texture2D>("Assets/Textures/Building/floor");
             var model = Content.Load<Model>("Assets/Models/roof");
             var mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, model);
             gameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(texture, 1), mesh));
@@ -998,7 +998,7 @@ namespace GD.App
 
             var gameObject2 = new GameObject("Floor", ObjectType.Static, RenderType.Opaque);
             gameObject2.Transform = new Transform(Vector3.One * 10, Vector3.Zero, new Vector3(-10,0,0));
-            var pipeTexture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+            var pipeTexture = Content.Load<Texture2D>("Assets/Textures/Building/floor");
             var pipeModel = Content.Load<Model>("Assets/Models/floor");
             var pipeMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, pipeModel);
             gameObject2.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(pipeTexture, 1), pipeMesh));
@@ -1006,7 +1006,7 @@ namespace GD.App
 
             var gameObject3 = new GameObject("Right Wall", ObjectType.Static, RenderType.Opaque);
             gameObject3.Transform = new Transform(Vector3.One * 10, Vector3.Zero, new Vector3(-10, 5, 0));
-            var ventTexture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+            var ventTexture = Content.Load<Texture2D>("Assets/Textures/Building/wall");
             var ventModel = Content.Load<Model>("Assets/Models/right-wall");
             var ventMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, ventModel);
             gameObject3.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(ventTexture, 1), ventMesh));
@@ -1014,7 +1014,7 @@ namespace GD.App
 
             var gameObject4 = new GameObject("Left Wall", ObjectType.Static, RenderType.Opaque);
             gameObject4.Transform = new Transform(Vector3.One * 10, Vector3.Zero, new Vector3(-10, 5, 0));
-            var wireTexture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+            var wireTexture = Content.Load<Texture2D>("Assets/Textures/Building/wall");
             var wireModel = Content.Load<Model>("Assets/Models/left-wall");
             var wireMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, wireModel);
             gameObject4.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(wireTexture, 1), wireMesh));
@@ -1022,7 +1022,7 @@ namespace GD.App
 
             var gameObject5 = new GameObject("Front Wall", ObjectType.Static, RenderType.Opaque);
             gameObject5.Transform = new Transform(Vector3.One * 10, Vector3.Zero, new Vector3(-10, 5, 0));
-            var panelTexture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+            var panelTexture = Content.Load<Texture2D>("Assets/Textures/Building/wall");
             var panelModel = Content.Load<Model>("Assets/Models/front-wall");
             var panelMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, panelModel);
             gameObject5.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(panelTexture, 1), panelMesh));
@@ -1030,7 +1030,7 @@ namespace GD.App
 
             var gameObject6 = new GameObject("Rear Wall", ObjectType.Static, RenderType.Opaque);
             gameObject6.Transform = new Transform(Vector3.One * 10, Vector3.Zero, new Vector3(-10, 5, 0));
-            var rearWallTexture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+            var rearWallTexture = Content.Load<Texture2D>("Assets/Textures/Building/wall");
             var rearWallModel = Content.Load<Model>("Assets/Models/rear-wall");
             var rearWallMesh = new Engine.ModelMesh(_graphics.GraphicsDevice, rearWallModel);
             gameObject6.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(rearWallTexture, 1), rearWallMesh));
@@ -1043,7 +1043,7 @@ namespace GD.App
             {
                 var gameObject = new GameObject("Server 1", ObjectType.Static, RenderType.Opaque);
                 gameObject.Transform = new Transform(Vector3.One * 1.5f, Vector3.Zero, Vector3.Zero + new Vector3(i*3,0,0));
-                var texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+                var texture = Content.Load<Texture2D>("Assets/Textures/Server/server-1_Base_color");
                 var model = Content.Load<Model>("Assets/Models/server-1");
                 var mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, model);
                 gameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(texture, 1), mesh));
@@ -1051,7 +1051,7 @@ namespace GD.App
 
                 var gameObject2 = new GameObject("Server 2", ObjectType.Static, RenderType.Opaque);
                 gameObject2.Transform = new Transform(Vector3.One * 1.5f, Vector3.Zero, Vector3.Zero + new Vector3(i*3, 0, 0));
-                texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+                texture = Content.Load<Texture2D>("Assets/Textures/Server/server-2_Base_color");
                 model = Content.Load<Model>("Assets/Models/server-2");
                 mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, model);
                 gameObject2.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(texture, 1), mesh));
@@ -1061,7 +1061,7 @@ namespace GD.App
                 {
                     gameObject = new GameObject("Server 1", ObjectType.Static, RenderType.Opaque);
                     gameObject.Transform = new Transform(Vector3.One * 1.5f, Vector3.Zero, Vector3.Zero + new Vector3(i * 3, 0, j * 4));
-                    texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+                    texture = Content.Load<Texture2D>("Assets/Textures/Server/server-1_Base_color");
                     model = Content.Load<Model>("Assets/Models/server-1");
                     mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, model);
                     gameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(texture, 1), mesh));
@@ -1069,7 +1069,7 @@ namespace GD.App
 
                     gameObject2 = new GameObject("Server 2", ObjectType.Static, RenderType.Opaque);
                     gameObject2.Transform = new Transform(Vector3.One * 1.5f, Vector3.Zero, Vector3.Zero + new Vector3(i * 3, 0, j * 4));
-                    texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+                    texture = Content.Load<Texture2D>("Assets/Textures/Server/server-2_Base_color");
                     model = Content.Load<Model>("Assets/Models/server-2");
                     mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, model);
                     gameObject2.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(texture, 1), mesh));
@@ -1082,7 +1082,7 @@ namespace GD.App
             {
                 var gameObject = new GameObject("Server 3", ObjectType.Static, RenderType.Opaque);
                 gameObject.Transform = new Transform(Vector3.One * 1.5f, Vector3.Zero, Vector3.Zero + new Vector3(i * 3, 0, 0));
-                var texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+                var texture = Content.Load<Texture2D>("Assets/Textures/Server/server-3_Base_color");
                 var model = Content.Load<Model>("Assets/Models/server-3");
                 var mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, model);
                 gameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(texture, 1), mesh));
@@ -1090,7 +1090,7 @@ namespace GD.App
 
                 var gameObject2 = new GameObject("Server 4", ObjectType.Static, RenderType.Opaque);
                 gameObject2.Transform = new Transform(Vector3.One * 1.5f, Vector3.Zero, Vector3.Zero + new Vector3(i * 3, 0, 0));
-                texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+                texture = Content.Load<Texture2D>("Assets/Textures/Server/server-4_Base_color");
                 model = Content.Load<Model>("Assets/Models/server-4");
                 mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, model);
                 gameObject2.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(texture, 1), mesh));
@@ -1100,7 +1100,7 @@ namespace GD.App
                 {
                     gameObject = new GameObject("Server 3", ObjectType.Static, RenderType.Opaque);
                     gameObject.Transform = new Transform(Vector3.One * 1.5f, Vector3.Zero, Vector3.Zero + new Vector3(i * 3, 0, j * -4));
-                    texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+                    texture = Content.Load<Texture2D>("Assets/Textures/Server/server-3_Base_color");
                     model = Content.Load<Model>("Assets/Models/server-3");
                     mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, model);
                     gameObject.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(texture, 1), mesh));
@@ -1108,7 +1108,7 @@ namespace GD.App
 
                     gameObject2 = new GameObject("Server 4", ObjectType.Static, RenderType.Opaque);
                     gameObject2.Transform = new Transform(Vector3.One * 1.5f, Vector3.Zero, Vector3.Zero + new Vector3(i * 3, 0, j * -4));
-                    texture = Content.Load<Texture2D>("Assets/Textures/Props/Crates/crate1");
+                    texture = Content.Load<Texture2D>("Assets/Textures/Server/server-4_Base_color");
                     model = Content.Load<Model>("Assets/Models/server-4");
                     mesh = new Engine.ModelMesh(_graphics.GraphicsDevice, model);
                     gameObject2.AddComponent(new Renderer(new GDBasicEffect(litEffect), new Material(texture, 1), mesh));
